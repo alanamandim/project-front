@@ -18,13 +18,11 @@ interface FormValues {
   user_email: string;
   user_name: string;
   saram: string;
-  user_type: string;
   password: string;
   confirm_password: string;
 }
 
 const RegisterForm = () => {
-  const [type, setType] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -49,13 +47,10 @@ const RegisterForm = () => {
     confirm_password: yup.string().required(errorRequired),
   });
 
-  const categories = ["Motorista", "Gestor", "Identificador", "Aprovador"];
-
   const initialValues: FormValues = {
     user_email: "",
     user_name: "",
     saram: "",
-    user_type: type,
     password: "",
     confirm_password: "",
   };
@@ -68,7 +63,6 @@ const RegisterForm = () => {
         user_email: values.user_email,
         user_name: values.user_name,
         saram: values.saram,
-        user_type: values.user_type,
         password: values.password,
       };
 
