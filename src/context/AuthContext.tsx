@@ -1,6 +1,5 @@
 //LOCAL ONDE OCORRE A COMUNICAÇÃO DAS APIS (REGISTRO, SENHA E QUALQUER OUTRA ROTA)
-
-// import api from "@/services/api";
+import api from "@/services/api";
 import { ReactNode, createContext, useState } from "react";
 // import { AxiosResponse } from "axios";
 // import jwt, { JwtPayload } from "jsonwebtoken";
@@ -36,7 +35,24 @@ interface IAuthProvider {
 //export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
-  // const [user, setUser] = useState<IUser>({});
+  const [user, setUser] = useState<IUser>({});
+  const registerUser = async (data: IUser) => {
+    try {
+      await api.post("/registraUsuario", data);
+      
+
+      // toastSuccess("Cadastramos você, agora faça o login!");
+      // setActualSectionHome("login");
+    } catch (err) {
+      console.log(err)
+      // if (axios.isAxiosError(err) && err.response) {
+      //   const error = err.response.data;
+
+      //   toastError(
+      //     error.includes("already") ? "Email já existe!" : "Dados inválidos!"
+      //   );
+      // }
+    } 
   return (
     console.log("OI")
     // <AuthContext.Provider
