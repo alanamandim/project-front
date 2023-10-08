@@ -1,6 +1,8 @@
 //LOCAL ONDE OCORRE A COMUNICAÇÃO DAS APIS (REGISTRO, SENHA E QUALQUER OUTRA ROTA)
-import api from "@/services/api";
 import { ReactNode, createContext, useState } from "react";
+import { toast } from "react-toastify";
+import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 // import { AxiosResponse } from "axios";
 // import jwt, { JwtPayload } from "jsonwebtoken";
 // import { destroyCookie, parseCookies, setCookie } from "nookies";
@@ -8,8 +10,20 @@ import { ReactNode, createContext, useState } from "react";
 // import { toast } from "react-toastify";
 
 interface IUser {
-  user_email: string;
-  user_name: string;
+  email: string;
+  name: string;
+  saram: string;
+  motorista: boolean;
+  gestor: boolean;
+  aprovador: boolean;
+  emissor: boolean;
+  password?: string;
+  confirm_password?: string;
+}
+
+interface IRegisterUser {
+  email: string;
+  name: string;
   saram: string;
   password: string;
   confirm_password?: string;
@@ -19,61 +33,71 @@ interface IAuthProvider {
   children: ReactNode;
 }
 
-// interface IAuthContext {
-//     user: IUser | null;
-//     signOut: () => Promise<void>;
-//     signOutResident: () => Promise<void>;
-//     currentBranch: ICurrentBranch | null;
-//     getCurrentBranch: () => Promise<void>;
-//     getProductPermissions: () => Promise<void>;
-//     userBranches: IBranch[] | null;
-//     getProfile: (userToken: string) => Promise<void>;
-//     decodedToken: JwtPayload | null;
-//     productDashboard: any;
-// }
+interface IAuthContext {
+    user: IUser;
+    //signOut: () => Promise<void>;
+    //signOutResident: () => Promise<void>;
+    registerUser: (data: IRegisterUser) => Promise<void>;
+    // currentBranch: ICurrentBranch | null;
+    //getCurrentBranch: () => Promise<void>;
+    //getProductPermissions: () => Promise<void>;
+    // userBranches: IBranch[] | null;
+    //getProfile: (userToken: string) => Promise<void>;
+    // decodedToken: JwtPayload | null;
+    // productDashboard: any;
+}
 
-//export const AuthContext = createContext({} as IAuthContext);
+export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
-  const [user, setUser] = useState<IUser>({});
-  const registerUser = async (data: IUser) => {
+  const [user, setUser] = useState<IUser>({
+    name: "Testando",
+    saram: "123123123123",
+    email: "testando#gmail.com",
+    motorista: false,
+    gestor: false,
+    aprovador: false,
+    emissor: false
+  }); {/* Esse usuário TESTANDO é para teste! */}
+  const navigate = useNavigate();
+
+
+  const registerUser = async (data: IRegisterUser) => {
     try {
       await api.post("/registraUsuario", data);
-      
+      toast.success(`Cadastramos você, agora faça o login!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      navigate("/", { replace: true });
 
-      // toastSuccess("Cadastramos você, agora faça o login!");
-      // setActualSectionHome("login");
     } catch (err) {
-      console.log(err)
-      // if (axios.isAxiosError(err) && err.response) {
-      //   const error = err.response.data;
-
-      //   toastError(
-      //     error.includes("already") ? "Email já existe!" : "Dados inválidos!"
-      //   );
-      // }
-    } 
+      toast.error(`Ops! Deu algo de errado!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+    }
+  }
   return (
-    console.log("OI")
-    // <AuthContext.Provider
-    //   value={
-    //     {
-    //         user,
-    //         getProductPermissions,
-    //         signOut,
-    //         userBranches,
-    //         currentBranch,
-    //         getCurrentBranch,
-    //         getProfile,
-    //         decodedToken,
-    //         signOutResident,
-    //         productDashboard,
-    //     }
-    //   }
-    // >
-    //   {children}
-    // </AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        user,
+        registerUser
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
-};
+}
 
 export default AuthProvider;

@@ -15,8 +15,8 @@ import {
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 interface FormValues {
-  user_email: string;
-  user_name: string;
+  email: string;
+  name: string;
   saram: string;
   password: string;
   confirm_password: string;
@@ -36,20 +36,20 @@ const RegisterForm = () => {
   const min2CharError = "Minimo 2 caracteres";
 
   const schemaUsers = yup.object({
-    user_email: yup
+    email: yup
       .string()
       .email()
       .min(3, min2CharError)
       .required(errorRequired),
-    user_name: yup.string().required(errorRequired),
+    name: yup.string().required(errorRequired),
     saram: yup.string().required(errorRequired),
     password: yup.string().required(errorRequired),
     confirm_password: yup.string().required(errorRequired),
   });
 
   const initialValues: FormValues = {
-    user_email: "",
-    user_name: "",
+    email: "",
+    name: "",
     saram: "",
     password: "",
     confirm_password: "",
@@ -60,13 +60,14 @@ const RegisterForm = () => {
     validationSchema: schemaUsers,
     onSubmit: (values) => {
       const newUserData = {
-        user_email: values.user_email,
-        user_name: values.user_name,
+        email: values.email,
+        name: values.name,
         saram: values.saram,
         password: values.password,
       };
 
       console.log(newUserData);
+      console.log("newUserData");
       formik.resetForm();
     },
   });
@@ -84,15 +85,15 @@ const RegisterForm = () => {
         justifyContent="center"
       >
         <Grid item mb={3}>
-          <FormLabel htmlFor="user_name">Nome de Guerra</FormLabel>
+          <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
           <TextField
-            id="user_name"
-            name="user_name"
+            id="name"
+            name="name"
             fullWidth
-            value={values.user_name}
+            value={values.name}
             onChange={handleChange}
-            error={touched.user_name && Boolean(errors.user_name)}
-            helperText={touched.user_name && errors.user_name}
+            error={touched.name && Boolean(errors.name)}
+            helperText={touched.name && errors.name}
           />
         </Grid>
         <Grid item mb={3}>
@@ -108,15 +109,15 @@ const RegisterForm = () => {
           />
         </Grid>
         <Grid item mb={3}>
-          <FormLabel htmlFor="user_email">Email</FormLabel>
+          <FormLabel htmlFor="email">Email</FormLabel>
           <TextField
-            id="user_email"
-            name="user_email"
+            id="email"
+            name="email"
             fullWidth
-            value={values.user_email}
+            value={values.email}
             onChange={handleChange}
-            error={touched.user_email && Boolean(errors.user_email)}
-            helperText={touched.user_email && errors.user_email}
+            error={touched.email && Boolean(errors.email)}
+            helperText={touched.email && errors.email}
           />
         </Grid>
         <Grid item mb={3}>
