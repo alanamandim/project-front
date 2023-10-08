@@ -10,7 +10,7 @@ const Sender = () => {
   return (
     <>
       {
-        user.gestor == true ? (
+        user.emissor == true ? (
             <Grid
               display="flex"
               flexDirection="column"
@@ -19,7 +19,7 @@ const Sender = () => {
               minHeight="80vh"
             >
               <Typography variant="h3" mt={3} mb={3} alignItems="center">
-                manager Page
+                Boss Page
               </Typography>
               {/* <RegisterForm /> */}
             </Grid>  

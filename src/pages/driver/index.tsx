@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import Grid from "@mui/material/Grid";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 const Driver = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -21,7 +23,22 @@ const Driver = () => {
               <Typography variant="h3" mt={3} mb={3} alignItems="center">
                 Driver Page
               </Typography>
-              {/* <RegisterForm /> */}
+              <Typography variant="h4" mt={3} alignItems="center">
+                Selecione a opção desejada:
+              </Typography>
+              <Grid display="flex" mt={3} flexDirection="column">
+                <Grid item mb={3}>
+                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver')}}>
+                    Reservar Veículo
+                  </Button>
+                </Grid>
+                <Grid item mb={3}>
+                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/manager')}}>
+                    Solicitar Veículo
+                  </Button>
+                </Grid>
+              </Grid>
+              
             </Grid>  
         ) : (
           <Navigate to="/" />

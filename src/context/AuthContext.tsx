@@ -54,10 +54,10 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     name: "Testando",
     saram: "123123123123",
     email: "testando#gmail.com",
-    motorista: false,
+    motorista: true,
     gestor: false,
     aprovador: false,
-    emissor: false
+    emissor: true
   }); {/* Esse usuário TESTANDO é para teste! */}
   const navigate = useNavigate();
 

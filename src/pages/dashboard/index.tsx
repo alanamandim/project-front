@@ -11,7 +11,7 @@ const Dashboard = () => {
   return (
     <>
       {
-        user.gestor == true ? (
+        user ? (
             <Grid
               display="flex"
               flexDirection="column"
@@ -26,23 +26,23 @@ const Dashboard = () => {
               </Typography> */}
               <Grid display="flex" mt={3} flexDirection="column">
                 <Grid item mb={3}>
-                  <Button variant="contained" size="large" type="button" onClick={() => { navigate('/driver')}}>
+                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver')}}>
                     Motorista
                   </Button>
                 </Grid>
                 <Grid item mb={3}>
-                  <Button variant="contained" size="large" type="button" onClick={() => { navigate('/manager')}}>
+                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/manager')}}>
                     Gestor
                   </Button>
                 </Grid>
                 <Grid item mb={3}>
-                  <Button variant="contained" size="large" type="button" onClick={() => { navigate('/approver')}}>
+                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/approver')}}>
                     Aprovador
                   </Button>
                 </Grid>
                 <Grid item mb={3}>
-                  <Button variant="contained" size="large" type="button" onClick={() => { navigate('/sender')}}>
-                    Emissor
+                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/sender')}}>
+                    Chefe
                   </Button>
                 </Grid>
               </Grid>
