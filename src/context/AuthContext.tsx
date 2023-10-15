@@ -19,6 +19,7 @@ interface IUser {
   emissor: boolean;
   password?: string;
   confirm_password?: string;
+  foto?: string;
 }
 
 interface IRegisterUser {
@@ -55,9 +56,10 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     saram: "123123123123",
     email: "testando#gmail.com",
     motorista: true,
-    gestor: false,
-    aprovador: false,
-    emissor: true
+    gestor: true,
+    aprovador: true,
+    emissor: true,
+    foto: "imagem"
   }); {/* Esse usuário TESTANDO é para teste! */}
   const navigate = useNavigate();
 
@@ -88,6 +90,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
         });
     }
   }
+  
   return (
     <AuthContext.Provider
       value={{
