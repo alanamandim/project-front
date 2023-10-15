@@ -21,9 +21,6 @@ const Dashboard = () => {
               <Typography variant="h3" mt={3} alignItems="center">
                 Dashboard
               </Typography>
-              {/* <Typography variant="caption" mt={2} alignItems="center">
-                {user}
-              </Typography> */}
               <Grid display="flex" mt={3} flexDirection="column">
                 <Grid item mb={3}>
                   <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver')}}>

@@ -4,6 +4,7 @@ import { Button, Typography } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 
+// no solicitar, aparecer apenas veículos disponíveis
 
 const Driver = () => {
   const { user } = useContext(AuthContext);
@@ -28,14 +29,19 @@ const Driver = () => {
               </Typography>
               <Grid display="flex" mt={3} flexDirection="column">
                 <Grid item mb={3}>
-                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver')}}>
+                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver/reservar-veiculo')}}>
                     Reservar Veículo
                   </Button>
                 </Grid>
                 <Grid item mb={3}>
-                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/manager')}}>
+                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver/solicitar-veiculo')}}>
                     Solicitar Veículo
-                  </Button>
+                  </Button> 
+                </Grid>
+                <Grid item mb={3}>
+                  <Button style={{width: '210px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/driver/solicitar-veiculo')}}>
+                    Fichas das Viaturas
+                  </Button> 
                 </Grid>
               </Grid>
               

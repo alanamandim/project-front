@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { AuthContext } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Sender = () => {
   const { user } = useContext(AuthContext);
@@ -10,7 +10,7 @@ const Sender = () => {
   return (
     <>
       {
-        user.emissor == true ? (
+        user.gestor == true ? (
             <Grid
               display="flex"
               flexDirection="column"
@@ -19,10 +19,10 @@ const Sender = () => {
               minHeight="80vh"
             >
               <Typography variant="h3" mt={3} mb={3} alignItems="center">
-                Boss Page
+                Sender Page
               </Typography>
               {/* <RegisterForm /> */}
-            </Grid>  
+            </Grid>
         ) : (
           <Navigate to="/" />
         )
