@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import ImageUploader from "../../components/ImageUploader";
 
 interface FormValues {
   email: string;
@@ -75,92 +76,95 @@ const RegisterForm = () => {
   const { values, touched, errors, handleChange } = formik;
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Grid
-        item
-        container
-        columnSpacing={2}
-        mt={2}
-        direction="column"
-        justifyContent="center"
-      >
-        <Grid item mb={3}>
-          <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
-          <TextField
-            id="name"
-            name="name"
-            fullWidth
-            value={values.name}
-            onChange={handleChange}
-            error={touched.name && Boolean(errors.name)}
-            helperText={touched.name && errors.name}
-          />
+    <>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid
+          item
+          container
+          columnSpacing={2}
+          mt={2}
+          direction="column"
+          justifyContent="center"
+        >
+          <Grid item mb={3}>
+            <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
+            <TextField
+              id="name"
+              name="name"
+              fullWidth
+              value={values.name}
+              onChange={handleChange}
+              error={touched.name && Boolean(errors.name)}
+              helperText={touched.name && errors.name}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="saram">SARAM</FormLabel>
+            <TextField
+              id="saram"
+              name="saram"
+              fullWidth
+              value={values.saram}
+              onChange={handleChange}
+              error={touched.saram && Boolean(errors.saram)}
+              helperText={touched.saram && errors.saram}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <TextField
+              id="email"
+              name="email"
+              fullWidth
+              value={values.email}
+              onChange={handleChange}
+              error={touched.email && Boolean(errors.email)}
+              helperText={touched.email && errors.email}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="password">Senha</FormLabel>
+            <OutlinedInput
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <IconEye /> : <IconEyeOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              id="text-confirm-password"
+              name="confirm_password"
+              value={password}
+              onChange={handlePassword}
+              fullWidth
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="confirm_password">Confirmar Senha</FormLabel>
+            <TextField
+              id="confirm_password"
+              name="confirm_password"
+              fullWidth
+              value={values.confirm_password}
+              onChange={handleChange}
+              error={touched.confirm_password && Boolean(errors.confirm_password)}
+              helperText={touched.confirm_password && errors.confirm_password}
+            />
+          </Grid>
+          <Grid item mb={3} alignItems="center">
+            <Button variant="contained" size="large" type="submit">
+              CADASTRAR
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="saram">SARAM</FormLabel>
-          <TextField
-            id="saram"
-            name="saram"
-            fullWidth
-            value={values.saram}
-            onChange={handleChange}
-            error={touched.saram && Boolean(errors.saram)}
-            helperText={touched.saram && errors.saram}
-          />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <TextField
-            id="email"
-            name="email"
-            fullWidth
-            value={values.email}
-            onChange={handleChange}
-            error={touched.email && Boolean(errors.email)}
-            helperText={touched.email && errors.email}
-          />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="password">Senha</FormLabel>
-          <OutlinedInput
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {showPassword ? <IconEye /> : <IconEyeOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            id="text-confirm-password"
-            name="confirm_password"
-            value={password}
-            onChange={handlePassword}
-            fullWidth
-          />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="confirm_password">Confirmar Senha</FormLabel>
-          <TextField
-            id="confirm_password"
-            name="confirm_password"
-            fullWidth
-            value={values.confirm_password}
-            onChange={handleChange}
-            error={touched.confirm_password && Boolean(errors.confirm_password)}
-            helperText={touched.confirm_password && errors.confirm_password}
-          />
-        </Grid>
-        <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" type="submit">
-            CADASTRAR
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+      <ImageUploader />
+    </>
   );
 };
 
