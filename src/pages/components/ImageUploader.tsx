@@ -39,10 +39,11 @@ function ImageUploader() {
       }
 
       const formData = new FormData();
-      formData.append('image', selectedFile);
+      formData.append('photo', selectedFile);
+      formData.append('id', '6783452');
       
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
-      fetch(`http://localhost:8000/upload`, {
+      fetch(`http://localhost:8080/upload`, {
         method: 'POST',
         body: formData,
       })
