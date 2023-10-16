@@ -1,10 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
-import * as yup from "yup";
-import { useFormik } from "formik";
+import { useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
+import { IRegisterUser } from '../../../context/AuthContext'
 
 import {
-  Autocomplete,
   Button,
   Grid,
   IconButton,
@@ -14,68 +12,69 @@ import {
 } from "@mui/material";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
-interface FormValues {
-  email: string;
-  name: string;
-  saram: string;
-  password: string;
-  confirm_password: string;
-}
-
 const RegisterForm = () => {
   const [password, setPassword] = useState<string>("");
+  const [checkPassword, setCheckPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  };
+  const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [saram, setSaram] = useState<string>("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const errorRequired = "Campo obrigatório";
-  const min2CharError = "Minimo 2 caracteres";
+  function collectDataFromForm() {
+    const inputElementName = document.getElementById("name") as HTMLInputElement | null;
+    if (inputElementName !== null) {
+      const formName = inputElementName.value;
+      setName(formName);
+    }
 
-  const schemaUsers = yup.object({
-    email: yup
-      .string()
-      .email()
-      .min(3, min2CharError)
-      .required(errorRequired),
-    name: yup.string().required(errorRequired),
-    saram: yup.string().required(errorRequired),
-    password: yup.string().required(errorRequired),
-    confirm_password: yup.string().required(errorRequired),
-  });
+    const inputElementEmail = document.getElementById("email") as HTMLInputElement | null;
+    if (inputElementEmail !== null) {
+      const formEmail = inputElementEmail.value;
+      setEmail(formEmail);
+    }
 
-  const initialValues: FormValues = {
-    email: "",
-    name: "",
-    saram: "",
-    password: "",
-    confirm_password: "",
-  };
+    const inputElementSaram = document.getElementById("saram") as HTMLInputElement | null;
+    if (inputElementSaram !== null) {
+      const formSaram = inputElementSaram.value;
+      setSaram(formSaram);
+    }
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: schemaUsers,
-    onSubmit: (values) => {
-      const newUserData = {
-        email: values.email,
-        name: values.name,
-        saram: values.saram,
-        password: values.password,
+    const inputElementPassword = document.getElementById("password") as HTMLInputElement | null;
+    if (inputElementPassword !== null) {
+      const formPassword = inputElementPassword.value;
+      setPassword(formPassword);
+    }
+
+    const inputElementCheckPassword = document.getElementById("check-password") as HTMLInputElement | null;
+    if (inputElementCheckPassword !== null) {
+      const formCheckPassword = inputElementCheckPassword.value;
+      setCheckPassword(formCheckPassword);
+    }
+  }
+
+  function getValuesFromForm() {
+    if (password !== checkPassword) {
+      alert("Senhas não conferem");
+    } else {
+      const newUserData: IRegisterUser = {
+        email: email,
+        name: name,
+        saram: saram,
+        password: password,
       };
 
-      console.log(newUserData);
-      console.log("newUserData");
-      formik.resetForm();
-    },
-  });
+      console.log('newUserData', newUserData);
 
-  const { values, touched, errors, handleChange } = formik;
+      // Redirect after success!
+      window.location.href = '/'
+    }
+  }
+
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={(e) => e.preventDefault()} onChange={() => collectDataFromForm()} >
       <Grid
         item
         container
@@ -90,10 +89,7 @@ const RegisterForm = () => {
             id="name"
             name="name"
             fullWidth
-            value={values.name}
-            onChange={handleChange}
-            error={touched.name && Boolean(errors.name)}
-            helperText={touched.name && errors.name}
+            value={name}
           />
         </Grid>
         <Grid item mb={3}>
@@ -102,10 +98,7 @@ const RegisterForm = () => {
             id="saram"
             name="saram"
             fullWidth
-            value={values.saram}
-            onChange={handleChange}
-            error={touched.saram && Boolean(errors.saram)}
-            helperText={touched.saram && errors.saram}
+            value={saram}
           />
         </Grid>
         <Grid item mb={3}>
@@ -114,10 +107,7 @@ const RegisterForm = () => {
             id="email"
             name="email"
             fullWidth
-            value={values.email}
-            onChange={handleChange}
-            error={touched.email && Boolean(errors.email)}
-            helperText={touched.email && errors.email}
+            value={email}
           />
         </Grid>
         <Grid item mb={3}>
@@ -135,27 +125,23 @@ const RegisterForm = () => {
                 </IconButton>
               </InputAdornment>
             }
-            id="text-confirm-password"
-            name="confirm_password"
+            id="password"
+            name="password"
             value={password}
-            onChange={handlePassword}
             fullWidth
           />
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="confirm_password">Confirmar Senha</FormLabel>
           <TextField
-            id="confirm_password"
-            name="confirm_password"
+            id="check-password"
+            name="check-password"
             fullWidth
-            value={values.confirm_password}
-            onChange={handleChange}
-            error={touched.confirm_password && Boolean(errors.confirm_password)}
-            helperText={touched.confirm_password && errors.confirm_password}
+            value={checkPassword}
           />
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" type="submit">
+          <Button variant="contained" size="large" type="submit" onClick={getValuesFromForm}>
             CADASTRAR
           </Button>
         </Grid>
