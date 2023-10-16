@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
+//https://img.ibxk.com.br/2017/07/13/13160112901226.jpg?ims=328x
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -25,9 +26,18 @@ function ImageUploader() {
   };
 
   const handleUpload = () => {
-    console.log(selectedFile)
+
     if (selectedFile) {
       // Aqui você pode enviar o arquivo para o back-end usando uma solicitação POST.
+
+      const allowedExtensions = ['.jpg', '.jpeg']; // , '.jpeg'
+      const fileExtension = selectedFile.name.slice(((selectedFile.name.lastIndexOf(".") - 1) >>> 0) + 2);
+
+      if (!allowedExtensions.includes(`.${fileExtension}`)) {
+        alert('Por favor, selecione um arquivo JPG válido.');
+        return;
+      }
+
       const formData = new FormData();
       formData.append('image', selectedFile);
       
