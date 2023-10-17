@@ -75,8 +75,9 @@ const RegisterForm = () => {
 
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} onChange={() => collectDataFromForm()} >
-      <Grid
+    <>
+      <form onSubmit={(e) => e.preventDefault()} onChange={() => collectDataFromForm()} >
+        <Grid
         item
         container
         columnSpacing={2}
@@ -93,61 +94,64 @@ const RegisterForm = () => {
             value={name}
           />
         </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="saram">SARAM</FormLabel>
-          <TextField
-            id="saram"
-            name="saram"
-            fullWidth
-            value={saram}
-          />
+          <Grid item mb={3}>
+            <FormLabel htmlFor="saram">SARAM</FormLabel>
+            <TextField
+              id="saram"
+              name="saram"
+              fullWidth
+              value={saram}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <TextField
+              id="email"
+              name="email"
+              fullWidth
+              value={email}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="password">Senha</FormLabel>
+            <OutlinedInput
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <IconEye /> : <IconEyeOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              id="password"
+              name="password"
+              value={password}
+              fullWidth
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="confirm_password">Confirmar Senha</FormLabel>
+            <TextField
+              id="check-password"
+              name="check-password"
+              fullWidth
+              value={checkPassword}
+            />
+          </Grid>
+          <Grid item mb={3} alignItems="center">
+            <Button variant="contained" size="large" type="submit" onClick={getValuesFromForm}>
+              CADASTRAR
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <TextField
-            id="email"
-            name="email"
-            fullWidth
-            value={email}
-          />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="password">Senha</FormLabel>
-          <OutlinedInput
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {showPassword ? <IconEye /> : <IconEyeOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-            id="password"
-            name="password"
-            value={password}
-            fullWidth
-          />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="confirm_password">Confirmar Senha</FormLabel>
-          <TextField
-            id="check-password"
-            name="check-password"
-            fullWidth
-            value={checkPassword}
-          />
-        </Grid>
-        <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" type="submit" onClick={getValuesFromForm}>
-            CADASTRAR
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+      <ImageUploader />
+    </>
+
   );
 };
 
