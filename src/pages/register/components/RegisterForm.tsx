@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import ImageUploader from "../../components/ImageUploader";
 
 const RegisterForm = () => {
   const [password, setPassword] = useState<string>("");
