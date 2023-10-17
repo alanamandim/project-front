@@ -16,6 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import sleep from "../../utils/Sleep";
+import api from "../../services/api";
 
 interface FormValues {
   email: string;
@@ -46,14 +47,14 @@ const LoginForm = () => {
     }
   }
 
-  function submitLogin() {
+  async function submitLogin() {
     const newUserData: FormValues = {
       email: email,
       password: password,
     };
 
     // Automatic Request from Database
-    // await api.post("/registraUsuario", newUserData);
+    await api.post("/registraUsuario", newUserData);
 
     // Manual request
     // FIXME: Remove it when sync with database

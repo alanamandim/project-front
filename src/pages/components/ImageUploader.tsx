@@ -17,7 +17,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function ImageUploader() {
+function ImageUploader(id: any) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +40,8 @@ function ImageUploader() {
 
       const formData = new FormData();
       formData.append('photo', selectedFile);
-      formData.append('id', '6783452');
+      formData.append('id', id);
+      // formData.append('id', '6783452');
       
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/upload`, {

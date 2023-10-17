@@ -68,7 +68,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
   const registerUser = async (data: IRegisterUser) => {
     try {
-      // await api.post("/registraUsuario", data);
+      await api.post("/registraUsuario", data);
       setUser({
         name: data.name,
         saram: data.saram,

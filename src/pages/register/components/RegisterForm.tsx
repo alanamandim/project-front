@@ -119,8 +119,8 @@ const RegisterForm = () => {
           justifyContent="center"
         >
           <Grid item mb={3}>
-            <FormLabel htmlFor="name">Foto</FormLabel>
-            <ImageUploader />
+            <FormLabel htmlFor="name">Foto (Envie uma foto se for motorista e se enviou o formulário abaixo!)</FormLabel>
+            <ImageUploader id={saram} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
