@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
-import { IRegisterUser } from '../../../context/AuthContext'
+import { AuthContext, IRegisterUser } from '../../../context/AuthContext'
 
 import {
   Button,
@@ -10,8 +10,11 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
+
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import ImageUploader from "../../components/ImageUploader";
+import { toast } from "react-toastify";
+import sleep from "../../../utils/Sleep";
 
 const RegisterForm = () => {
   const [password, setPassword] = useState<string>("");
@@ -20,6 +23,7 @@ const RegisterForm = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
+  const userContext = useContext(AuthContext)
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -56,9 +60,8 @@ const RegisterForm = () => {
   }
 
   function getValuesFromForm() {
-    if (password !== checkPassword) {
-      alert("Senhas não conferem");
-    } else {
+    if (password === checkPassword) {
+      // FIXME: Change it when syncing with the database
       const newUserData: IRegisterUser = {
         email: email,
         name: name,
@@ -66,34 +69,68 @@ const RegisterForm = () => {
         password: password,
       };
 
-      console.log('newUserData', newUserData);
+      // await api.post("/registerUser", newUserData);
+      userContext.registerUser({
+        name: newUserData.name,
+        email: newUserData.email,
+        password: newUserData.password,
+        saram: newUserData.saram,
+        photo: '',
+      });
 
-      // Redirect after success!
-      window.location.href = '/'
+      toast.success(`You're registered, now please log in!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      const TimeSleep = async () => {
+        await sleep(2000);
+        window.location.href = '/'
+      };
+
+      TimeSleep();
+    } else {
+      toast.error(`Oops! The passwords do not match!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
-
 
   return (
     <>
       <form onSubmit={(e) => e.preventDefault()} onChange={() => collectDataFromForm()} >
         <Grid
-        item
-        container
-        columnSpacing={2}
-        mt={2}
-        direction="column"
-        justifyContent="center"
-      >
-        <Grid item mb={3}>
-          <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
-          <TextField
-            id="name"
-            name="name"
-            fullWidth
-            value={name}
-          />
-        </Grid>
+          item
+          container
+          columnSpacing={2}
+          mt={2}
+          direction="column"
+          justifyContent="center"
+        >
+          <Grid item mb={3}>
+            <FormLabel htmlFor="name">Foto</FormLabel>
+            <ImageUploader />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
+            <TextField
+              id="name"
+              name="name"
+              fullWidth
+              value={name}
+            />
+          </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="saram">SARAM</FormLabel>
             <TextField
@@ -149,7 +186,6 @@ const RegisterForm = () => {
           </Grid>
         </Grid>
       </form>
-      <ImageUploader />
     </>
 
   );

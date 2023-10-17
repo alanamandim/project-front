@@ -19,7 +19,7 @@ interface IUser {
   emissor: boolean;
   password?: string;
   confirm_password?: string;
-  foto?: string;
+  photo?: string;
 }
 
 export interface IRegisterUser {
@@ -28,6 +28,7 @@ export interface IRegisterUser {
   saram: string;
   password: string;
   confirm_password?: string;
+  photo?: string;
 }
 
 interface IAuthProvider {
@@ -55,18 +56,56 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     name: "Testando",
     saram: "123123123123",
     email: "testando#gmail.com",
+    password: "XXXXXX",
     motorista: true,
     gestor: true,
     aprovador: true,
     emissor: true,
-    foto: "imagem"
+    photo: "imagem"
   }); {/* Esse usuário TESTANDO é para teste! */ }
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   const registerUser = async (data: IRegisterUser) => {
     try {
-      await api.post("/registraUsuario", data);
+      // await api.post("/registraUsuario", data);
+      setUser({
+        name: data.name,
+        saram: data.saram,
+        email: data.email,
+        motorista: true,
+        gestor: true,
+        aprovador: true,
+        emissor: true,
+        photo: "imagem"
+      });
+
+
+      // Checking if user.name has registered by RegisterForm
+      // FIXME: Remove it when sync with database
+      if (user.email === "testando#gmail.com" && user.password === "XXXXXX") {
+        toast.error(`Ops! Deu algo de errado!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        toast.success(`Cadastramos você, agora faça o login!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        navigate("/", { replace: true });
+      }
+
       toast.success(`Cadastramos você, agora faça o login!`, {
         position: "top-right",
         autoClose: 4000,
