@@ -54,7 +54,7 @@ const LoginForm = () => {
     };
 
     // Automatic Request from Database
-    await api.post("/registraUsuario", newUserData);
+    await api.post("/loginUsuario", newUserData);
 
     // Manual request
     // FIXME: Remove it when sync with database
