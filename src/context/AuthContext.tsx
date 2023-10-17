@@ -22,7 +22,7 @@ interface IUser {
   foto?: string;
 }
 
-interface IRegisterUser {
+export interface IRegisterUser {
   email: string;
   name: string;
   saram: string;
@@ -35,17 +35,17 @@ interface IAuthProvider {
 }
 
 interface IAuthContext {
-    user: IUser;
-    //signOut: () => Promise<void>;
-    //signOutResident: () => Promise<void>;
-    registerUser: (data: IRegisterUser) => Promise<void>;
-    // currentBranch: ICurrentBranch | null;
-    //getCurrentBranch: () => Promise<void>;
-    //getProductPermissions: () => Promise<void>;
-    // userBranches: IBranch[] | null;
-    //getProfile: (userToken: string) => Promise<void>;
-    // decodedToken: JwtPayload | null;
-    // productDashboard: any;
+  user: IUser;
+  //signOut: () => Promise<void>;
+  //signOutResident: () => Promise<void>;
+  registerUser: (data: IRegisterUser) => Promise<void>;
+  // currentBranch: ICurrentBranch | null;
+  //getCurrentBranch: () => Promise<void>;
+  //getProductPermissions: () => Promise<void>;
+  // userBranches: IBranch[] | null;
+  //getProfile: (userToken: string) => Promise<void>;
+  // decodedToken: JwtPayload | null;
+  // productDashboard: any;
 }
 
 export const AuthContext = createContext({} as IAuthContext);
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     aprovador: true,
     emissor: true,
     foto: "imagem"
-  }); {/* Esse usuário TESTANDO é para teste! */}
+  }); {/* Esse usuário TESTANDO é para teste! */ }
   const navigate = useNavigate();
 
 
@@ -68,29 +68,29 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     try {
       await api.post("/registraUsuario", data);
       toast.success(`Cadastramos você, agora faça o login!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       navigate("/", { replace: true });
 
     } catch (err) {
       toast.error(`Ops! Deu algo de errado!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
-  
+
   return (
     <AuthContext.Provider
       value={{
