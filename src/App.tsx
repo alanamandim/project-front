@@ -15,6 +15,7 @@ import Request from "./pages/driver/solicitarVeiculo";
 import ListarVeiculos from "./pages/approver/listarVeiculos";
 import CardsList from "./pages/approver/listarSolicitacoesVeiculos";
 import ReturnSheets from "./pages/approver/fichaRetorno";
+import ReservasVeiculoForm from "./pages/driver/reservasVeiculo";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/driver" element={<Driver />} />
         <Route path="/driver/reservar-veiculo" element={<Reserve />} />
+        <Route path="/driver/reservas-veiculo" element={<ReservasVeiculoForm />} />
         <Route path="/driver/solicitar-veiculo" element={<Request />} />
         <Route path="/approver" element={<Approver />} />
         <Route path="/approver/solicitar-veiculos" element={<CardsList />} />
