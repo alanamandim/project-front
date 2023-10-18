@@ -10,29 +10,6 @@ const ListarVeiculos = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      {
-        user.aprovador == true ? (
-          <Grid
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="80vh"
-          >
-            <Typography variant="h3" mt={3} mb={3} alignItems="center">
-              List all Cars
-            </Typography>
-            <Typography variant="h4" mt={3} alignItems="center">
-              Todos os veículos disponíveis
-            </Typography>
-            <AllCards />
-          </Grid>
-        ) : (
-          <Navigate to="/" />
-        )
-      }
-=======
       {user.aprovador == true ? (
         <Grid
           display="flex"
@@ -52,7 +29,6 @@ const ListarVeiculos = () => {
       ) : (
         <Navigate to="/" />
       )}
->>>>>>> af94a40ff1ce4e5bd7b4709448bd72b2c079f6a8
     </>
   );
 };
