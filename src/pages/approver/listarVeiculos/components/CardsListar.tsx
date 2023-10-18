@@ -1,15 +1,50 @@
-import * as React from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 
 const AllCars = () => {
+  // FIXME: Delete this if request works
+  const data = [{
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  }, {
+    "placa": "QJBHDS",
+    "modelo": "Doblo",
+    "status": "Disponível"
+  },]
+
+  // FIXME: Do a request (axios or fetch) here and call him data
+
   return (
     <List
       sx={{
         width: '100%',
-        maxWidth: 360,
+        maxWidth: 440,
         bgcolor: 'background.paper',
         position: 'relative',
         overflow: 'auto',
@@ -18,15 +53,11 @@ const AllCars = () => {
       }}
       subheader={<li />}
     >
-      {[0, 1, 2, 3, 4].map((sectionId) => (
-        <li key={`section-${sectionId}`}>
+      {data.map((item) => (
+        <li key={item.placa}>
           <ul>
-            <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
-            {[0, 1, 2].map((item) => (
-              <ListItem key={`item-${sectionId}-${item}`}>
-                <ListItemText primary={`Item ${item}`} />
-              </ListItem>
-            ))}
+            <ListSubheader><p>Veículo</p></ListSubheader>
+            <ListItemText primary={`Placa: ${item.placa} - Modelo: ${item.modelo} - Status: ${item.status}`} />
           </ul>
         </li>
       ))}
