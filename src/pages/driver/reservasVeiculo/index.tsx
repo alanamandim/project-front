@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import Grid from "@mui/material/Grid";
-import { Typography } from "@mui/material";
-import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
-import AllCarsSolicitacoes from "./components/CardsListarSolicitacoes";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
+import ReservasForm from "./components/ReservasVeiculo";
 
-const CardsList = () => {
+const ReservasVeiculoForm = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <>
-      {user.aprovador == true ? (
+      {user.motorista == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -19,12 +19,9 @@ const CardsList = () => {
           minHeight="80vh"
         >
           <Typography variant="h3" mt={3} mb={3} alignItems="center">
-            Solicitation Page
+            Reservation List
           </Typography>
-          <Typography variant="h4" mt={3} alignItems="center">
-            Veja os veículos que foram solicitados
-          </Typography>
-          <AllCarsSolicitacoes />
+          <ReservasForm />
         </Grid>
       ) : (
         <Navigate to="/" />
@@ -33,4 +30,4 @@ const CardsList = () => {
   );
 };
 
-export default CardsList;
+export default ReservasVeiculoForm;

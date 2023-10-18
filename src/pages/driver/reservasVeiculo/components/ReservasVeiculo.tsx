@@ -1,24 +1,18 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import List from "@mui/material/List";
+// LISTA DOS VEÍCULOS QUE ESTE USUÁRIO RESERVOU E O STATUS DA RESERVA!!!!
 
-const ReturnSheetsList = () => {
+import { Card, CardContent, CardMedia, List, Typography } from "@mui/material";
+
+const ReservasForm = () => {
   const lista = [
     {
       id: 1,
       nome: "Doblo",
-      status: "Disponível",
+      status: "Aguardando Aprovação",
     },
     {
       id: 2,
       nome: "Doblo2",
-      status: "Disponível",
+      status: "Aguardando Aprovação",
     },
   ];
 
@@ -53,10 +47,10 @@ const ReturnSheetsList = () => {
                     {carro.status}
                   </Typography>
                 </CardContent>
-                <CardActions>
+                {/* <CardActions>
                   <Button size="small">Aprovar</Button>
-                  {/* <Button size="small">Solicitar</Button> */}
-                </CardActions>
+                  <Button size="small">Solicitar</Button>
+                </CardActions> */}
               </Card>
             </ul>
           </li>
@@ -66,4 +60,4 @@ const ReturnSheetsList = () => {
   );
 };
 
-export default ReturnSheetsList;
+export default ReservasForm;
