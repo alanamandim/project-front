@@ -1,95 +1,47 @@
-<<<<<<< HEAD
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const AllCarsSolicitacoes = () => {
   // FIXME: Delete this if request works
-  const data = [{
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  },]
+  const url = "http://localhost:3000";
 
-  // FIXME: Do a request (axios or fetch) here and call him data
+  const [dataGet, setDataGet] = useState([])
 
-  return (
-    <List
-      sx={{
-        width: '100%',
-        maxWidth: 440,
-        bgcolor: 'background.paper',
-        position: 'relative',
-        overflow: 'auto',
-        maxHeight: 300,
-        '& ul': { padding: 0 },
-      }}
-      subheader={<li />}
-    >
-      {data.map((item) => (
-        <li key={item.placa}>
-          <ul>
-            <ListSubheader><p>Veículo</p></ListSubheader>
-            <ListItemText primary={`Placa: ${item.placa} - Modelo: ${item.modelo} - Status: ${item.status}`} />
-          </ul>
-        </li>
-      ))}
-    </List>
-  );
-}
-=======
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
-import List from "@mui/material/List";
+  async function getInfo() {
+    const response = await fetch(url, {
+      method: "get",
+      body: JSON.stringify(dataGet),
+      headers: { "Content-Type": "application/json" },
+    });
 
-const AllCarsSolicitacoes = () => {
-  const lista = [
-    {
-      id: 1,
-      nome: "Doblo",
-      status: "Disponível",
-    },
-    {
-      id: 2,
-      nome: "Doblo2",
-      status: "Disponível",
-    },
-  ];
->>>>>>> af94a40ff1ce4e5bd7b4709448bd72b2c079f6a8
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data)
+    }
+  }
+
+  async function postInfo() {
+    const response = await fetch(url, {
+      method: "post",
+      body: JSON.stringify(''),
+      // FIXME: GET THE VALUE TO SEND TO BACKEND AND PUT INSIDE A STRINGIFY
+      headers: { "Content-Type": "application/json" },
+    })
+
+    if (response.ok) {
+      toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
 
   return (
     <>
@@ -105,8 +57,10 @@ const AllCarsSolicitacoes = () => {
         }}
         subheader={<li />}
       >
-        {lista.map((carro: any) => (
-          <li key={`section-${carro.id}`}>
+
+        {/* FIXME: Put the interface of item and NEVER USE ANY */}
+        {dataGet.map((item: any) => (
+          <li key={`section-${item.id}`}>
             <ul>
               <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
                 <CardMedia
@@ -116,15 +70,15 @@ const AllCarsSolicitacoes = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {carro.nome}
+                    {item.nome}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {carro.status}
+                    {item.status}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">Aprovar</Button>
-                  {/* <Button size="small">Solicitar</Button> */}
+                  <Button size="small" onClick={postInfo}>Aprovar</Button>
+                  <Button size="small" onClick={getInfo}>Solicitar</Button>
                 </CardActions>
               </Card>
             </ul>
@@ -133,6 +87,6 @@ const AllCarsSolicitacoes = () => {
       </List>
     </>
   );
-};
+}
 
 export default AllCarsSolicitacoes;

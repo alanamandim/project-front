@@ -1,67 +1,83 @@
-import React, { ChangeEvent, useState } from "react";
-import * as yup from "yup";
-import { useFormik } from "formik";
+import { useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
 
 import {
-  Autocomplete,
   Button,
   Grid,
-  IconButton,
-  InputAdornment,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   TextField,
 } from "@mui/material";
-
-interface FormValues {
-  motivo: string;
-  destino: string;
-  viatura: string;
-  saram: string;
-}
+import { toast } from "react-toastify";
 
 const SolicitacaoForm = () => {
 
-  const errorRequired = "Campo obrigatório";
+  // FIXME: Fix the route
+  const url = "http://localhost:3000";
 
-  const schemaSolicitacao = yup.object({
-    motivo: yup.string().required(errorRequired),
-    destino: yup.string().required(errorRequired),
-    viatura: yup.string().required(errorRequired),
-    saram: yup.string().required(errorRequired),
-  });
+  const [reason, setReason] = useState('')
+  const [destiny, setDestiny] = useState('')
+  const [vehicle, setVehicle] = useState('')
+  const [saram, setSaram] = useState('')
 
-  const initialValues: FormValues = {
-    motivo: "",
-    destino: "",
-    viatura: "",
-    saram: "",
-  };
+  async function sendInfo() {
+    const response = await fetch(url, {
+      method: "post",
+      // FIXME: Check if the post method is correct
+      body: JSON.stringify(
+        [
+          reason,
+          destiny,
+          vehicle,
+          saram
+        ]
+      ),
+      headers: { "Content-Type": "application/json" },
+    })
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: schemaSolicitacao,
-    onSubmit: (values) => {
-      const newUserData = {
-        motivo: values.motivo,
-        destino: values.destino,
-        viatura: values.viatura,
-        saram: values.saram,
-      };
+    if (response.ok) {
+      toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
 
-      console.log(newUserData);
-      console.log("newUserData");
-      formik.resetForm();
-    },
-  });
+  function getValuesFromForm() {
+    const inputElementReason = document.getElementById("motivo") as HTMLInputElement | null;
+    if (inputElementReason !== null) {
+      const formReason = inputElementReason.value;
+      setReason(formReason)
+    }
 
-  const { values, touched, errors, handleChange } = formik;
+    const inputElementDestiny = document.getElementById("destino") as HTMLInputElement | null;
+    if (inputElementDestiny !== null) {
+      const formDestiny = inputElementDestiny.value;
+      setDestiny(formDestiny)
+    }
+
+    const formVehicle: HTMLSelectElement | null = document.querySelector("#vehicle");
+    const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
+
+    if (resultVehicle) {
+      setVehicle(resultVehicle);
+    }
+
+    const inputElementSaram = document.getElementById("saram") as HTMLInputElement | null;
+    if (inputElementSaram !== null) {
+      const formSaram = inputElementSaram.value;
+      setSaram(formSaram)
+    }
+  }
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onChange={getValuesFromForm}>
       <Grid
         item
         container
@@ -76,10 +92,7 @@ const SolicitacaoForm = () => {
             id="motivo"
             name="motivo"
             fullWidth
-            value={values.motivo}
-            onChange={handleChange}
-            error={touched.motivo && Boolean(errors.motivo)}
-            helperText={touched.motivo && errors.motivo}
+            value={reason}
           />
         </Grid>
         <Grid item mb={3}>
@@ -88,10 +101,7 @@ const SolicitacaoForm = () => {
             id="destino"
             name="destino"
             fullWidth
-            value={values.destino}
-            onChange={handleChange}
-            error={touched.destino && Boolean(errors.destino)}
-            helperText={touched.destino && errors.destino}
+            value={destiny}
           />
         </Grid>
         <Grid item mb={3}>
@@ -99,9 +109,8 @@ const SolicitacaoForm = () => {
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
-            // value={viatura}
+            value={vehicle}
             label="viatura"
-            onChange={handleChange}
           >
             <MenuItem value="">
               <em>None</em>
@@ -117,14 +126,11 @@ const SolicitacaoForm = () => {
             id="saram"
             name="saram"
             fullWidth
-            value={values.saram}
-            onChange={handleChange}
-            error={touched.saram && Boolean(errors.saram)}
-            helperText={touched.saram && errors.saram}
+            value={saram}
           />
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" type="submit">
+          <Button variant="contained" size="large" onClick={sendInfo}>
             SOLICITAR
           </Button>
         </Grid>

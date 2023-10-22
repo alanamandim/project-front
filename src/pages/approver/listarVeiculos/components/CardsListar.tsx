@@ -1,91 +1,31 @@
-<<<<<<< HEAD
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import { useEffect, useState } from 'react';
 
 const AllCars = () => {
   // FIXME: Delete this if request works
-  const data = [{
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  }, {
-    "placa": "QJBHDS",
-    "modelo": "Doblo",
-    "status": "Disponível"
-  },]
+  const url = "http://localhost:3000";
+
+  const [dataGet, setDataGet] = useState([])
+
+  useEffect(() => {
+    async function getInfo() {
+      const response = await fetch(url, {
+        method: "get",
+        body: JSON.stringify(dataGet),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setDataGet(data)
+      }
+    }
+
+    getInfo()
+  }, [dataGet])
 
   // FIXME: Do a request (axios or fetch) here and call him data
-
-  return (
-    <List
-      sx={{
-        width: '100%',
-        maxWidth: 440,
-        bgcolor: 'background.paper',
-        position: 'relative',
-        overflow: 'auto',
-        maxHeight: 300,
-        '& ul': { padding: 0 },
-      }}
-      subheader={<li />}
-    >
-      {data.map((item) => (
-        <li key={item.placa}>
-          <ul>
-            <ListSubheader><p>Veículo</p></ListSubheader>
-            <ListItemText primary={`Placa: ${item.placa} - Modelo: ${item.modelo} - Status: ${item.status}`} />
-          </ul>
-        </li>
-      ))}
-    </List>
-  );
-}
-=======
-import List from "@mui/material/List";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-
-const AllCars = () => {
-  const lista = [
-    {
-      id: 1,
-      nome: "Doblo",
-      status: "Disponível",
-    },
-    {
-      id: 2,
-      nome: "Doblo2",
-      status: "Disponível",
-    },
-  ];
->>>>>>> af94a40ff1ce4e5bd7b4709448bd72b2c079f6a8
 
   return (
     <>
@@ -101,8 +41,8 @@ const AllCars = () => {
         }}
         subheader={<li />}
       >
-        {lista.map((carro: any) => (
-          <li key={`section-${carro.id}`}>
+        {dataGet.map((item: any) => (
+          <li key={`section-${item.id}`}>
             <ul>
               <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
                 <CardMedia
@@ -112,10 +52,10 @@ const AllCars = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {carro.nome}
+                    {item.nome}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {carro.status}
+                    {item.status}
                   </Typography>
                 </CardContent>
                 {/* <CardActions>

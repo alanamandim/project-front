@@ -7,20 +7,30 @@ import {
   Typography,
 } from "@mui/material";
 import List from "@mui/material/List";
+import { useEffect, useState } from "react";
 
 const ReturnSheetsList = () => {
-  const lista = [
-    {
-      id: 1,
-      nome: "Doblo",
-      status: "Disponível",
-    },
-    {
-      id: 2,
-      nome: "Doblo2",
-      status: "Disponível",
-    },
-  ];
+  // FIXME: Delete this if request works
+  const url = "http://localhost:3000";
+
+  const [dataGet, setDataGet] = useState([])
+
+  useEffect(() => {
+    async function getInfo() {
+      const response = await fetch(url, {
+        method: "get",
+        body: JSON.stringify(dataGet),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setDataGet(data)
+      }
+    }
+
+    getInfo()
+  }, [dataGet])
 
   return (
     <>
@@ -36,8 +46,10 @@ const ReturnSheetsList = () => {
         }}
         subheader={<li />}
       >
-        {lista.map((carro: any) => (
-          <li key={`section-${carro.id}`}>
+
+        {/* FIXME: Put the interface of item and NEVER USE ANY */}
+        {dataGet.map((item: any) => (
+          <li key={`section-${item.id}`}>
             <ul>
               <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
                 <CardMedia
@@ -47,10 +59,10 @@ const ReturnSheetsList = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {carro.nome}
+                    {item.nome}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {carro.status}
+                    {item.status}
                   </Typography>
                 </CardContent>
                 <CardActions>
