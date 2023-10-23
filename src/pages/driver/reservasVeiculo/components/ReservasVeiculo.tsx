@@ -1,20 +1,42 @@
 // LISTA DOS VEÍCULOS QUE ESTE USUÁRIO RESERVOU E O STATUS DA RESERVA!!!!
 
 import { Card, CardContent, CardMedia, List, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
-const ReservasForm = () => {
-  const lista = [
-    {
-      id: 1,
-      nome: "Doblo",
-      status: "Aguardando Aprovação",
-    },
-    {
-      id: 2,
-      nome: "Doblo2",
-      status: "Aguardando Aprovação",
-    },
-  ];
+const ReservasForm = async () => {
+  const url = "http://localhost:3000";
+
+  const [dataGet, setDataGet] = useState([])
+
+  useEffect(() => {
+    async function getInfo() {
+      const response = await fetch(url, {
+        method: "get",
+        body: JSON.stringify(dataGet),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setDataGet(data)
+      }
+    }
+
+    getInfo()
+  }, [dataGet])
+
+  // const data = [
+  //   {
+  //     id: 1,
+  //     nome: "Doblo",
+  //     status: "Aguardando Aprovação",
+  //   },
+  //   {
+  //     id: 2,
+  //     nome: "Doblo2",
+  //     status: "Aguardando Aprovação",
+  //   },
+  // ];
 
   return (
     <>
@@ -30,8 +52,8 @@ const ReservasForm = () => {
         }}
         subheader={<li />}
       >
-        {lista.map((carro: any) => (
-          <li key={`section-${carro.id}`}>
+        {dataGet?.map((item: any) => (
+          <li key={`section-${item.id}`}>
             <ul>
               <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
                 <CardMedia
@@ -41,10 +63,10 @@ const ReservasForm = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {carro.nome}
+                    {item.nome}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {carro.status}
+                    {item.status}
                   </Typography>
                 </CardContent>
                 {/* <CardActions>

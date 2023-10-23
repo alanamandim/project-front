@@ -10,7 +10,7 @@ const CardsList = () => {
 
   return (
     <>
-      {user.aprovador == true ? (
+      {user.aprovador === true ? (
         <Grid
           display="flex"
           flexDirection="column"

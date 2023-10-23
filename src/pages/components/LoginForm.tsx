@@ -1,18 +1,14 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import Grid from "@mui/material/Grid";
 import {
   Button,
   FormLabel,
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
   TextField,
   Typography,
 } from "@mui/material";
 
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import sleep from "../../utils/Sleep";

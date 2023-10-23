@@ -1,5 +1,3 @@
-import * as yup from "yup";
-import { useFormik } from "formik";
 import FormLabel from "@mui/material/FormLabel";
 
 import {
@@ -10,48 +8,66 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-
-interface FormValues {
-  motivo: string;
-  viatura: string;
-  motorista: string;
-}
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const ReservaForm = () => {
-  const errorRequired = "Campo obrigatório";
+  // FIXME: Fix the route
+  const url = "http://localhost:3000";
 
-  const schemaSolicitacao = yup.object({
-    motivo: yup.string().required(errorRequired),
-    viatura: yup.string().required(errorRequired),
-    motorista: yup.string().required(errorRequired),
-  });
+  const [reason, setReason] = useState("");
+  const [driver, setDriver] = useState("");
+  const [vehicle, setVehicle] = useState("");
 
-  const initialValues: FormValues = {
-    motivo: "",
-    viatura: "",
-    motorista: "",
-  };
+  async function sendInfo() {
+    const response = await fetch(url, {
+      method: "post",
+      // FIXME: Check if the post method is correct
+      body: JSON.stringify([reason, driver, vehicle]),
+      headers: { "Content-Type": "application/json" },
+    });
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: schemaSolicitacao,
-    onSubmit: (values) => {
-      const newUserData = {
-        motivo: values.motivo,
-        viatura: values.viatura,
-        motorista: values.motorista,
-      };
+    if (response.ok) {
+      toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
 
-      console.log(newUserData);
-      console.log("newUserData");
-      formik.resetForm();
-    },
-  });
+  function getValuesFromForm() {
+    const inputElementReason = document.getElementById(
+      "motivo"
+    ) as HTMLInputElement | null;
+    if (inputElementReason !== null) {
+      const formReason = inputElementReason.value;
+      setReason(formReason);
+    }
 
-  const { values, touched, errors, handleChange } = formik;
+    const inputElementDriver = document.getElementById(
+      "motorista"
+    ) as HTMLInputElement | null;
+    if (inputElementDriver !== null) {
+      const formDriver = inputElementDriver.value;
+      setDriver(formDriver);
+    }
+
+    const formVehicle: HTMLSelectElement | null =
+      document.querySelector("#vehicle");
+    const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
+
+    if (resultVehicle) {
+      setVehicle(resultVehicle);
+    }
+  }
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onChange={getValuesFromForm}>
       <Grid
         item
         container
@@ -62,24 +78,15 @@ const ReservaForm = () => {
       >
         <Grid item mb={3}>
           <FormLabel htmlFor="motivo">Motivo</FormLabel>
-          <TextField
-            id="motivo"
-            name="motivo"
-            fullWidth
-            value={values.motivo}
-            onChange={handleChange}
-            error={touched.motivo && Boolean(errors.motivo)}
-            helperText={touched.motivo && errors.motivo}
-          />
+          <TextField id="motivo" name="motivo" fullWidth value={reason} />
         </Grid>
         <Grid item mb={3}>
           <InputLabel id="demo-select-small-label">Viatura</InputLabel>
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
-            // value={viatura}
+            value={vehicle}
             label="viatura"
-            onChange={handleChange}
           >
             <MenuItem value="">
               <em>None</em>
@@ -91,18 +98,10 @@ const ReservaForm = () => {
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="motorista">Motorista</FormLabel>
-          <TextField
-            id="motorista"
-            name="motorista"
-            fullWidth
-            value={values.motorista}
-            onChange={handleChange}
-            error={touched.motorista && Boolean(errors.motorista)}
-            helperText={touched.motorista && errors.motorista}
-          />
+          <TextField id="motorista" name="motorista" fullWidth value={driver} />
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" type="submit">
+          <Button variant="contained" size="large" onClick={sendInfo}>
             RESERVAR
           </Button>
         </Grid>
