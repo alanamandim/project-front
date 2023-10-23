@@ -13,13 +13,11 @@ import {
 
 interface FormValues {
   motivo: string;
-  destino: string;
   viatura: string;
   motorista: string;
 }
 
 const ReservaForm = () => {
-
   const errorRequired = "Campo obrigatório";
 
   const schemaSolicitacao = yup.object({
@@ -30,7 +28,6 @@ const ReservaForm = () => {
 
   const initialValues: FormValues = {
     motivo: "",
-    destino: "",
     viatura: "",
     motorista: "",
   };
@@ -41,7 +38,6 @@ const ReservaForm = () => {
     onSubmit: (values) => {
       const newUserData = {
         motivo: values.motivo,
-        destino: values.destino,
         viatura: values.viatura,
         motorista: values.motorista,
       };
@@ -88,9 +84,9 @@ const ReservaForm = () => {
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={"12"}>Ten</MenuItem>
+            <MenuItem value={"13"}>Twenty</MenuItem>
+            <MenuItem value={"14"}>Thirty</MenuItem>
           </Select>
         </Grid>
         <Grid item mb={3}>
