@@ -19,7 +19,6 @@ const ReservaForm = () => {
   const [driver, setDriver] = useState('')
   const [vehicle, setVehicle] = useState('')
 
-
   async function sendInfo() {
     const response = await fetch(url, {
       method: "post",
@@ -69,56 +68,58 @@ const ReservaForm = () => {
   }
 
   return (
-    <form onChange={getValuesFromForm}>
-      <Grid
-        item
-        container
-        columnSpacing={2}
-        mt={2}
-        direction="column"
-        justifyContent="center"
-      >
-        <Grid item mb={3}>
-          <FormLabel htmlFor="motivo">Motivo</FormLabel>
-          <TextField
-            id="motivo"
-            name="motivo"
-            fullWidth
-            value={reason}
-          />
+    <>
+      <form onChange={getValuesFromForm}>
+        <Grid
+          item
+          container
+          columnSpacing={2}
+          mt={2}
+          direction="column"
+          justifyContent="center"
+        >
+          <Grid item mb={3}>
+            <FormLabel htmlFor="motivo">Motivo</FormLabel>
+            <TextField
+              id="motivo"
+              name="motivo"
+              fullWidth
+              value={reason}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <InputLabel id="demo-select-small-label">Viatura</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={vehicle}
+              label="viatura"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="motorista">Motorista</FormLabel>
+            <TextField
+              id="motorista"
+              name="motorista"
+              fullWidth
+              value={driver}
+            />
+          </Grid>
+          <Grid item mb={3} alignItems="center">
+            <Button variant="contained" size="large" onClick={sendInfo}>
+              RESERVAR
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item mb={3}>
-          <InputLabel id="demo-select-small-label">Viatura</InputLabel>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={vehicle}
-            label="viatura"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel htmlFor="motorista">Motorista</FormLabel>
-          <TextField
-            id="motorista"
-            name="motorista"
-            fullWidth
-            value={driver}
-          />
-        </Grid>
-        <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" onClick={sendInfo}>
-            RESERVAR
-          </Button>
-        </Grid>
-      </Grid>
-    </form>
+      </form>
+    </>
   );
 };
 
