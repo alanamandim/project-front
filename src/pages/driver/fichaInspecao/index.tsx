@@ -1,12 +1,11 @@
+import { Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
-import { Grid, Typography } from "@mui/material";
-import ReservasForm from "./components/ReservasVeiculo";
+import { Navigate } from "react-router-dom";
+import InspecaoForm from "./components/FormInspecao";
 
-const ReservasVeiculoForm = () => {
+const Inspecao = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -19,9 +18,12 @@ const ReservasVeiculoForm = () => {
           minHeight="80vh"
         >
           <Typography variant="h3" mt={3} mb={3} alignItems="center">
-            Reservation List
+            Inspeção Page
           </Typography>
-          {/* <ReservasForm /> */}
+          <Typography variant="h4" mt={3} alignItems="center">
+            Preencha o formulário e faça o envio:
+          </Typography>
+          <InspecaoForm />
         </Grid>
       ) : (
         <Navigate to="/" />
@@ -30,4 +32,4 @@ const ReservasVeiculoForm = () => {
   );
 };
 
-export default ReservasVeiculoForm;
+export default Inspecao;

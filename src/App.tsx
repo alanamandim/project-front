@@ -18,6 +18,7 @@ import ReturnSheets from "./pages/approver/fichaRetorno";
 import ReservasVeiculoForm from "./pages/driver/reservasVeiculo";
 import RequestUsers from "./pages/manager/aproveRequests";
 import ListUsersPage from "./pages/manager/listUsers";
+import Inspecao from "./pages/driver/fichaInspecao";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/driver" element={<Driver />} />
+        <Route path="/driver/inspecao-veiculo" element={<Inspecao />} />
         <Route path="/driver/reservar-veiculo" element={<Reserve />} />
         <Route
           path="/driver/reservas-veiculo"
