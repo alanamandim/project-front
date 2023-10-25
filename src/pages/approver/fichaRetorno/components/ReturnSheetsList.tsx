@@ -15,22 +15,36 @@ const ReturnSheetsList = () => {
 
   const [dataGet, setDataGet] = useState([])
 
-  useEffect(() => {
-    async function getInfo() {
-      const response = await fetch(url, {
-        method: "get",
-        body: JSON.stringify(dataGet),
-        headers: { "Content-Type": "application/json" },
-      });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function getInfo() {
+    const response = await fetch(url, {
+      method: "get",
+      body: JSON.stringify(dataGet),
+      headers: { "Content-Type": "application/json" },
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        setDataGet(data)
-      }
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data)
     }
+  }
 
+  useEffect(() => {
     getInfo()
-  }, [dataGet])
+  }, [getInfo])
+
+  async function putInfo(info1: string, info2: string) {
+    const response = await fetch(url, {
+      method: "put",
+      body: JSON.stringify({ info1, info2 }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data)
+    }
+  }
 
   return (
     <>
@@ -67,7 +81,7 @@ const ReturnSheetsList = () => {
                 </CardContent>
                 <CardActions>
                   <Button size="small">Aprovar</Button>
-                  {/* <Button size="small">Solicitar</Button> */}
+                  <Button size="small" onClick={() => putInfo(item.nome, item.status)}>Solicitar</Button>
                 </CardActions>
               </Card>
             </ul>

@@ -22,7 +22,7 @@ const AllCarsSolicitacoes = () => {
     }
   }
 
-  async function postInfo() {
+  async function putInfo() {
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify(''),
@@ -77,7 +77,7 @@ const AllCarsSolicitacoes = () => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" onClick={postInfo}>Aprovar</Button>
+                  <Button size="small" onClick={putInfo}>Aprovar</Button>
                   <Button size="small" onClick={getInfo}>Solicitar</Button>
                 </CardActions>
               </Card>
