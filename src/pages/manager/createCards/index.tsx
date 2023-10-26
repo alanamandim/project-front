@@ -1,15 +1,15 @@
-import { Navigate, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../context/AuthContext";
 import { Grid, Typography } from "@mui/material";
+import { Navigate } from "react-router-dom";
+import CreatedCard from "./components/CreateCardForm";
 import { useContext } from "react";
-import ListUsersCard from "./components/ListUsers";
+import { AuthContext } from "../../../context/AuthContext";
 
-const ListUsersPage = () => {
+const CreateCar = () => {
   const { user } = useContext(AuthContext);
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor === true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -18,12 +18,12 @@ const ListUsersPage = () => {
           minHeight="80vh"
         >
           <Typography variant="h3" mt={3} mb={3} alignItems="center">
-            List all Users
+            Create Car Page
           </Typography>
           <Typography variant="h4" mt={3} alignItems="center">
-            Todos os veículos disponíveis
+            Preencha o formulário e cadastre o seu veículo:
           </Typography>
-          <ListUsersCard />
+          <CreatedCard />
         </Grid>
       ) : (
         <Navigate to="/" />
@@ -32,4 +32,4 @@ const ListUsersPage = () => {
   );
 };
 
-export default ListUsersPage;
+export default CreateCar;
