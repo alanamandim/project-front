@@ -19,6 +19,7 @@ import ReservasVeiculoForm from "./pages/driver/reservasVeiculo";
 import RequestUsers from "./pages/manager/aproveRequests";
 import ListUsersPage from "./pages/manager/listUsers";
 import Inspecao from "./pages/driver/fichaInspecao";
+import CreateCar from "./pages/manager/createCards";
 
 function App() {
   return (
@@ -42,8 +43,10 @@ function App() {
         <Route path="/approver/listar-veiculos" element={<ListarVeiculos />} />
         <Route path="/approver/fichas-retorno" element={<ReturnSheets />} />
         <Route path="/manager" element={<Manager />} />
-        <Route path="/manager/list-users" element={<RequestUsers />} />
-        <Route path="/manager/aprove-requests" element={<ListUsersPage />} />
+        <Route path="/manager/list-users" element={<ListUsersPage />} />
+        <Route path="/manager/aprove-requests" element={<RequestUsers />} />
+        <Route path="/manager/create-cars" element={<CreateCar />} />
+        <Route path="/manager/create-cars-models" element={<CreateCar />} />
         <Route path="/sender" element={<Sender />} />
         <Route path="/mission" element={<Mission />} />
         <Route path="/insp" element={<Inspetion />} />
