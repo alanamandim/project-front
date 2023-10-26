@@ -61,14 +61,24 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     gestor: true,
     aprovador: true,
     emissor: true,
-    photo: "imagem"
-  }); {/* Esse usuário TESTANDO é para teste! */ }
+    photo: "imagem",
+  });
+  {
+    /* Esse usuário TESTANDO é para teste! */
+  }
 
   const navigate = useNavigate();
 
   const registerUser = async (data: IRegisterUser) => {
     try {
-      await api.post("/registraUsuario", data);
+      // await api.post("/registraUsuario", data);
+      await fetch(`${api}/registraUsuario`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       setUser({
         name: data.name,
         saram: data.saram,
@@ -77,9 +87,8 @@ const AuthProvider = ({ children }: IAuthProvider) => {
         gestor: true,
         aprovador: true,
         emissor: true,
-        photo: "imagem"
+        photo: "imagem",
       });
-
 
       // Checking if user.name has registered by RegisterForm
       // FIXME: Remove it when sync with database
@@ -116,7 +125,6 @@ const AuthProvider = ({ children }: IAuthProvider) => {
         progress: undefined,
       });
       navigate("/", { replace: true });
-
     } catch (err) {
       toast.error(`Ops! Deu algo de errado!`, {
         position: "top-right",
@@ -128,18 +136,18 @@ const AuthProvider = ({ children }: IAuthProvider) => {
         progress: undefined,
       });
     }
-  }
+  };
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        registerUser
+        registerUser,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthProvider;

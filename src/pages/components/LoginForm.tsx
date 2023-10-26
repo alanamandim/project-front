@@ -2,12 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import Grid from "@mui/material/Grid";
-import {
-  Button,
-  FormLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, FormLabel, TextField, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,20 +18,24 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const userDataFromRegister = useContext(AuthContext)
+  const userDataFromRegister = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
   };
 
   function handleLogin() {
-    const inputElementEmail = document.getElementById("email") as HTMLInputElement | null;
+    const inputElementEmail = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
     if (inputElementEmail !== null) {
       const formEmail = inputElementEmail.value;
       setEmail(formEmail);
     }
 
-    const inputElementPassword = document.getElementById("password") as HTMLInputElement | null;
+    const inputElementPassword = document.getElementById(
+      "password"
+    ) as HTMLInputElement | null;
     if (inputElementPassword !== null) {
       const formPassword = inputElementPassword.value;
       setPassword(formPassword);
@@ -50,12 +49,28 @@ const LoginForm = () => {
     };
 
     // Automatic Request from Database
-    await api.post("/loginUsuario", newUserData);
+    //await api.post("/loginUsuario", newUserData);
+    await fetch(`${api}/loginUsuario`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUserData),
+    });
 
     // Manual request
     // FIXME: Remove it when sync with database
-    if (newUserData.email === userDataFromRegister.user.email && newUserData.password === userDataFromRegister.user.password) {
-      console.log(newUserData.email, newUserData.password, '----', userDataFromRegister.user.email, userDataFromRegister.user.password)
+    if (
+      newUserData.email === userDataFromRegister.user.email &&
+      newUserData.password === userDataFromRegister.user.password
+    ) {
+      console.log(
+        newUserData.email,
+        newUserData.password,
+        "----",
+        userDataFromRegister.user.email,
+        userDataFromRegister.user.password
+      );
       toast.success(`Login efetuado com sucesso!`, {
         position: "top-right",
         autoClose: 4000,
@@ -68,12 +83,18 @@ const LoginForm = () => {
 
       const TimeSleep = async () => {
         await sleep(2000);
-        window.location.href = '/dashboard'
+        window.location.href = "/dashboard";
       };
 
       TimeSleep();
     } else {
-      console.log(newUserData.email, newUserData.password, '----', userDataFromRegister.user.email, userDataFromRegister.user.password)
+      console.log(
+        newUserData.email,
+        newUserData.password,
+        "----",
+        userDataFromRegister.user.email,
+        userDataFromRegister.user.password
+      );
       toast.error(`Ops! Login ou senha incorreto!`, {
         position: "top-right",
         autoClose: 4000,
@@ -108,12 +129,7 @@ const LoginForm = () => {
         </Grid>
         <Grid item mb={3} display="flex" flexDirection="column">
           <FormLabel htmlFor="password">Senha</FormLabel>
-          <TextField
-            id="password"
-            name="password"
-            fullWidth
-            value={password}
-          />
+          <TextField id="password" name="password" fullWidth value={password} />
         </Grid>
         <Grid item mb={3}>
           <Button variant="contained" size="large" onClick={submitLogin}>

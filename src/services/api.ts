@@ -1,29 +1,29 @@
 import axios, { AxiosInstance } from 'axios';
 import { destroyCookie, parseCookies } from 'nookies';
 
-const api: AxiosInstance = axios.create({
-  baseURL: process.env.API_URL,
-});
+const api = 'http://localhost:8080'
 
-const { '@alana:token': token } = parseCookies();
+console.log(api)
 
-if (token) {
-  api.defaults.headers.Authorization = `Bearer ${token}`;
-}
+// const { '@alana:token': token } = parseCookies();
 
-api.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response.status === 401) {
-      destroyCookie(undefined, '@alana:token');
+// if (token) {
+//   api.defaults.headers.Authorization = `Bearer ${token}`;
+// }
 
-      if (window.location.pathname !== '/') {
-        window.location.replace('/');
-      }
-    }
+// api.interceptors.response.use(
+//   response => response,
+//   error => {
+//     if (error.response.status === 401) {
+//       destroyCookie(undefined, '@alana:token');
 
-    return Promise.reject(error);
-  },
-);
+//       if (window.location.pathname !== '/') {
+//         window.location.replace('/');
+//       }
+//     }
+
+//     return Promise.reject(error);
+//   },
+// );
 
 export default api;
