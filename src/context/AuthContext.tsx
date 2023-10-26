@@ -17,8 +17,8 @@ interface IUser {
   gestor: boolean;
   aprovador: boolean;
   emissor: boolean;
-  password?: string;
-  confirm_password?: string;
+  senha?: string;
+  confirm_senha?: string;
   photo?: string;
 }
 
@@ -26,8 +26,8 @@ export interface IRegisterUser {
   email: string;
   name: string;
   saram: string;
-  password: string;
-  confirm_password?: string;
+  senha: string;
+  confirm_senha?: string;
   photo?: string;
 }
 
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     name: "Testando",
     saram: "123123123123",
     email: "testando#gmail.com",
-    password: "XXXXXX",
+    senha: "XXXXXX",
     motorista: true,
     gestor: true,
     aprovador: true,
@@ -92,7 +92,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
       // Checking if user.name has registered by RegisterForm
       // FIXME: Remove it when sync with database
-      if (user.email === "testando#gmail.com" && user.password === "XXXXXX") {
+      if (user.email === "testando#gmail.com" && user.senha === "XXXXXX") {
         toast.error(`Ops! Deu algo de errado!`, {
           position: "top-right",
           autoClose: 4000,

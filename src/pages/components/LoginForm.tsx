@@ -11,13 +11,13 @@ import api from "../../services/api";
 
 interface FormValues {
   email: string;
-  password: string;
+  senha: string;
 }
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [senha, setsenha] = useState<string>("");
   const userDataFromRegister = useContext(AuthContext);
 
   const goToRegister = () => {
@@ -33,19 +33,19 @@ const LoginForm = () => {
       setEmail(formEmail);
     }
 
-    const inputElementPassword = document.getElementById(
-      "password"
+    const inputElementsenha = document.getElementById(
+      "senha"
     ) as HTMLInputElement | null;
-    if (inputElementPassword !== null) {
-      const formPassword = inputElementPassword.value;
-      setPassword(formPassword);
+    if (inputElementsenha !== null) {
+      const formsenha = inputElementsenha.value;
+      setsenha(formsenha);
     }
   }
 
   async function submitLogin() {
     const newUserData: FormValues = {
       email: email,
-      password: password,
+      senha: senha,
     };
 
     // Automatic Request from Database
@@ -62,14 +62,14 @@ const LoginForm = () => {
     // FIXME: Remove it when sync with database
     if (
       newUserData.email === userDataFromRegister.user.email &&
-      newUserData.password === userDataFromRegister.user.password
+      newUserData.senha === userDataFromRegister.user.senha
     ) {
       console.log(
         newUserData.email,
-        newUserData.password,
+        newUserData.senha,
         "----",
         userDataFromRegister.user.email,
-        userDataFromRegister.user.password
+        userDataFromRegister.user.senha
       );
       toast.success(`Login efetuado com sucesso!`, {
         position: "top-right",
@@ -90,10 +90,10 @@ const LoginForm = () => {
     } else {
       console.log(
         newUserData.email,
-        newUserData.password,
+        newUserData.senha,
         "----",
         userDataFromRegister.user.email,
-        userDataFromRegister.user.password
+        userDataFromRegister.user.senha
       );
       toast.error(`Ops! Login ou senha incorreto!`, {
         position: "top-right",
@@ -128,8 +128,8 @@ const LoginForm = () => {
           />
         </Grid>
         <Grid item mb={3} display="flex" flexDirection="column">
-          <FormLabel htmlFor="password">Senha</FormLabel>
-          <TextField id="password" name="password" fullWidth value={password} />
+          <FormLabel htmlFor="senha">Senha</FormLabel>
+          <TextField id="senha" name="senha" fullWidth value={senha} />
         </Grid>
         <Grid item mb={3}>
           <Button variant="contained" size="large" onClick={submitLogin}>
