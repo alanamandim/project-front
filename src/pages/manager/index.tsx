@@ -19,7 +19,7 @@ const Manager = () => {
           minHeight="80vh"
         >
           <Typography variant="h3" mt={3} mb={3} alignItems="center">
-            Boss Page
+            Gestor Page
           </Typography>
           <Grid display="flex" mt={3} flexDirection="column">
             <Grid item mb={3}>
