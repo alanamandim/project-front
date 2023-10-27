@@ -7,10 +7,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Manager = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor == true || userLocal.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"

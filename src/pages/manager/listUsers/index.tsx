@@ -6,10 +6,11 @@ import ListUsersCard from "./components/ListUsers";
 
 const ListUsersPage = () => {
   const { user } = useContext(AuthContext);
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor == true || userLocal.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"

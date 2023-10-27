@@ -54,7 +54,7 @@ const LoginForm = () => {
       method: "POST",
       body: formData,
     })
-      .then((response: any) => {
+      .then((res: any) => {
         // A resposta do servidor, se necessário.
         toast.success(`Login efetuado com sucesso!`, {
           position: "top-right",
@@ -66,7 +66,8 @@ const LoginForm = () => {
           progress: undefined,
         });
 
-        setUser(response);
+        setUser(res.data);
+        window.localStorage.setItem("user", res.data);
 
         const TimeSleep = async () => {
           await sleep(2000);

@@ -6,10 +6,11 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Sender = () => {
   const { user } = useContext(AuthContext);
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.chefe == true ? (
+      {user.chefe == true || userLocal.motorista == true ? (
         <Grid
           display="flex"
           flexDirection="column"

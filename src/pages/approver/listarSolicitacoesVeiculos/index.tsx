@@ -7,10 +7,11 @@ import AllCarsSolicitacoes from "./components/CardsListarSolicitacoes";
 
 const CardsList = () => {
   const { user } = useContext(AuthContext);
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.aprovador === true ? (
+      {user.aprovador == true || userLocal.aprovador == true ? (
         <Grid
           display="flex"
           flexDirection="column"
