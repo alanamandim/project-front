@@ -52,17 +52,7 @@ interface IAuthContext {
 export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
-  const [user, setUser] = useState<IUser>({
-    name: "Testando",
-    saram: "123123123123",
-    email: "testando#gmail.com",
-    senha: "XXXXXX",
-    motorista: true,
-    gestor: true,
-    aprovador: true,
-    emissor: true,
-    photo: "imagem",
-  });
+  const [user, setUser] = useState<IUser>();
   {
     /* Esse usuário TESTANDO é para teste! */
   }
