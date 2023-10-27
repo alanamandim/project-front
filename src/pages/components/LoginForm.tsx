@@ -18,7 +18,7 @@ const LoginForm = () => {
     navigate("/register");
   };
 
-  function handleLogin() {
+  async function submitLogin() {
     const inputElementEmail = document.getElementById(
       "email"
     ) as HTMLInputElement | null;
@@ -34,20 +34,12 @@ const LoginForm = () => {
       const formsenha = inputElementsenha.value;
       setsenha(formsenha);
     }
-  }
-
-  async function submitLogin() {
-    const newUserData = {
-      email: email,
-      senha: senha,
-    };
-
-    // Automatic Request from Database
-    //await api.post("/loginUsuario", newUserData);
 
     const formData = new FormData();
     formData.append("email", email);
     formData.append("senha", senha);
+
+    console.log(formData);
 
     // Exemplo de como enviar o arquivo para o back-end usando fetch API.
     fetch(`http://localhost:8080/loginUsuario`, {
@@ -66,15 +58,15 @@ const LoginForm = () => {
           progress: undefined,
         });
 
-        setUser(res.data);
+        setUser(res);
         window.localStorage.setItem("user", res.data);
 
-        const TimeSleep = async () => {
-          await sleep(2000);
-          window.location.href = "/dashboard";
-        };
+        // const TimeSleep = async () => {
+        //   await sleep(2000);
+        //   window.location.href = "/dashboard";
+        // };
 
-        TimeSleep();
+        // TimeSleep();
       })
       .catch((error) => {
         // Os erros, se houver.
@@ -91,7 +83,7 @@ const LoginForm = () => {
   }
 
   return (
-    <form onChange={handleLogin}>
+    <form>
       <Grid
         container
         columnSpacing={2}
@@ -115,7 +107,12 @@ const LoginForm = () => {
           <TextField id="senha" name="senha" fullWidth value={senha} />
         </Grid>
         <Grid item mb={3}>
-          <Button variant="contained" size="large" onClick={submitLogin}>
+          <Button
+            variant="contained"
+            type="button"
+            size="large"
+            onClick={submitLogin}
+          >
             LOGIN
           </Button>
         </Grid>

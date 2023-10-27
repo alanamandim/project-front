@@ -23,76 +23,58 @@ const RegisterForm = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
-  const userContext = useContext(AuthContext);
 
   const handleClickShowsenha = () => setShowsenha((show) => !show);
 
-  function collectDataFromForm() {
-    const inputElementName = document.getElementById(
-      "name"
-    ) as HTMLInputElement | null;
-    if (inputElementName !== null) {
-      const formName = inputElementName.value;
-      setName(formName);
-    }
-
-    const inputElementEmail = document.getElementById(
-      "email"
-    ) as HTMLInputElement | null;
-    if (inputElementEmail !== null) {
-      const formEmail = inputElementEmail.value;
-      setEmail(formEmail);
-    }
-
-    const inputElementSaram = document.getElementById(
-      "saram"
-    ) as HTMLInputElement | null;
-    if (inputElementSaram !== null) {
-      const formSaram = inputElementSaram.value;
-      setSaram(formSaram);
-    }
-
-    const inputElementsenha = document.getElementById(
-      "senha"
-    ) as HTMLInputElement | null;
-    if (inputElementsenha !== null) {
-      const formsenha = inputElementsenha.value;
-      setsenha(formsenha);
-    }
-
-    const inputElementChecksenha = document.getElementById(
-      "check-senha"
-    ) as HTMLInputElement | null;
-    if (inputElementChecksenha !== null) {
-      const formChecksenha = inputElementChecksenha.value;
-      setChecksenha(formChecksenha);
-    }
-  }
-
   function getValuesFromForm() {
     if (senha === checksenha) {
-      // FIXME: Change it when syncing with the database
-      // const newUserData: IRegisterUser = {
-      //   email: email,
-      //   name: name,
-      //   saram: saram,
-      //   senha: senha,
-      // };
+      const inputElementName = document.getElementById(
+        "name"
+      ) as HTMLInputElement | null;
+      if (inputElementName !== null) {
+        const formName = inputElementName.value;
+        setName(formName);
+      }
 
-      // await api.post("/registerUser", newUserData);
-      // userContext.registerUser({
-      //   name: newUserData.name,
-      //   email: newUserData.email,
-      //   senha: newUserData.senha,
-      //   saram: newUserData.saram,
-      //   photo: "",
-      // });
+      const inputElementEmail = document.getElementById(
+        "email"
+      ) as HTMLInputElement | null;
+      if (inputElementEmail !== null) {
+        const formEmail = inputElementEmail.value;
+        setEmail(formEmail);
+      }
+
+      const inputElementSaram = document.getElementById(
+        "saram"
+      ) as HTMLInputElement | null;
+      if (inputElementSaram !== null) {
+        const formSaram = inputElementSaram.value;
+        setSaram(formSaram);
+      }
+
+      const inputElementsenha = document.getElementById(
+        "senha"
+      ) as HTMLInputElement | null;
+      if (inputElementsenha !== null) {
+        const formsenha = inputElementsenha.value;
+        setsenha(formsenha);
+      }
+
+      const inputElementChecksenha = document.getElementById(
+        "check-senha"
+      ) as HTMLInputElement | null;
+      if (inputElementChecksenha !== null) {
+        const formChecksenha = inputElementChecksenha.value;
+        setChecksenha(formChecksenha);
+      }
 
       const formData = new FormData();
       formData.append("nome", name);
       formData.append("saram", saram);
       formData.append("email", email);
       formData.append("senha", senha);
+
+      console.log(formData);
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/registraUsuario`, {
@@ -112,12 +94,12 @@ const RegisterForm = () => {
 
           console.log(response.body);
 
-          const TimeSleep = async () => {
-            await sleep(2000);
-            window.location.href = "/";
-          };
+          // const TimeSleep = async () => {
+          //   await sleep(2000);
+          //   window.location.href = "/";
+          // };
 
-          TimeSleep();
+          // TimeSleep();
         })
         .catch((error) => {
           // Os erros, se houver.
@@ -146,10 +128,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        onChange={() => collectDataFromForm()}
-      >
+      <form>
         <Grid
           item
           container
@@ -211,7 +190,7 @@ const RegisterForm = () => {
             <Button
               variant="contained"
               size="large"
-              type="submit"
+              type="button"
               onClick={getValuesFromForm}
             >
               CADASTRAR
