@@ -16,7 +16,7 @@ interface IUser {
   motorista: boolean;
   gestor: boolean;
   aprovador: boolean;
-  emissor: boolean;
+  chefe: boolean;
   senha?: string;
   confirm_senha?: string;
   photo?: string;
@@ -77,7 +77,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
         motorista: true,
         gestor: true,
         aprovador: true,
-        emissor: true,
+        chefe: true,
         photo: "imagem",
       });
 
