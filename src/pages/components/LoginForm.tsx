@@ -49,14 +49,20 @@ const LoginForm = () => {
       senha: senha,
     };
 
-    console.log(newUserData, "USERDATA ANTES");
-
     // Automatic Request from Database
     //await api.post("/loginUsuario", newUserData);
-    await axios
-      .post(api + "/loginUsuario", newUserData)
-      .then((res) => {
-        console.log(newUserData.email, newUserData.senha);
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("senha", senha);
+
+    // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+    fetch(`http://localhost:8080/loginUsuario`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        // A resposta do servidor, se necessário.
         toast.success(`Login efetuado com sucesso!`, {
           position: "top-right",
           autoClose: 4000,
@@ -66,7 +72,6 @@ const LoginForm = () => {
           draggable: true,
           progress: undefined,
         });
-
         const TimeSleep = async () => {
           await sleep(2000);
           window.location.href = "/dashboard";
@@ -74,8 +79,8 @@ const LoginForm = () => {
 
         TimeSleep();
       })
-      .catch(function () {
-        console.log(newUserData.email, newUserData.senha);
+      .catch((error) => {
+        // Os erros, se houver.
         toast.error(`Ops! Login ou senha incorreto!`, {
           position: "top-right",
           autoClose: 4000,
@@ -86,6 +91,40 @@ const LoginForm = () => {
           progress: undefined,
         });
       });
+
+    // await axios
+    //   .post(api + "/loginUsuario", newUserData)
+    //   .then((res) => {
+    //     console.log(newUserData.email, newUserData.senha);
+    //     toast.success(`Login efetuado com sucesso!`, {
+    //       position: "top-right",
+    //       autoClose: 4000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+
+    //     const TimeSleep = async () => {
+    //       await sleep(2000);
+    //       window.location.href = "/dashboard";
+    //     };
+
+    //     TimeSleep();
+    //   })
+    //   .catch(function () {
+    //     console.log(newUserData.email, newUserData.senha);
+    //     toast.error(`Ops! Login ou senha incorreto!`, {
+    //       position: "top-right",
+    //       autoClose: 4000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //     });
+    //   });
 
     // Manual request
     // FIXME: Remove it when sync with database
