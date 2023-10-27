@@ -52,7 +52,7 @@ interface IAuthContext {
 export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser>({} as IUser);
   {
     /* Esse usuário TESTANDO é para teste! */
   }
@@ -82,28 +82,28 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
       // Checking if user.name has registered by RegisterForm
       // FIXME: Remove it when sync with database
-      if (user.email === "testando#gmail.com" && user.senha === "XXXXXX") {
-        toast.error(`Ops! Deu algo de errado!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.success(`Cadastramos você, agora faça o login!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        navigate("/", { replace: true });
-      }
+      // if (user.email === "testando#gmail.com" && user.senha === "XXXXXX") {
+      //   toast.error(`Ops! Deu algo de errado!`, {
+      //     position: "top-right",
+      //     autoClose: 4000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //   });
+      // } else {
+      //   toast.success(`Cadastramos você, agora faça o login!`, {
+      //     position: "top-right",
+      //     autoClose: 4000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //   });
+      //   navigate("/", { replace: true });
+      // }
 
       toast.success(`Cadastramos você, agora faça o login!`, {
         position: "top-right",
