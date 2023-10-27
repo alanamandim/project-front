@@ -49,6 +49,8 @@ const LoginForm = () => {
       senha: senha,
     };
 
+    console.log(newUserData, "USERDATA ANTES");
+
     // Automatic Request from Database
     //await api.post("/loginUsuario", newUserData);
     await axios
