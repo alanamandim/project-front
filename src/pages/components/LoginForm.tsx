@@ -18,7 +18,7 @@ const LoginForm = () => {
     navigate("/register");
   };
 
-  async function submitLogin() {
+  function handleLogin() {
     const inputElementEmail = document.getElementById(
       "email"
     ) as HTMLInputElement | null;
@@ -34,6 +34,11 @@ const LoginForm = () => {
       const formsenha = inputElementsenha.value;
       setsenha(formsenha);
     }
+  }
+
+  async function submitLogin() {
+    // Automatic Request from Database
+    //await api.post("/loginUsuario", newUserData);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -61,12 +66,12 @@ const LoginForm = () => {
         setUser(res);
         window.localStorage.setItem("user", res.data);
 
-        // const TimeSleep = async () => {
-        //   await sleep(2000);
-        //   window.location.href = "/dashboard";
-        // };
+        const TimeSleep = async () => {
+          await sleep(2000);
+          window.location.href = "/dashboard";
+        };
 
-        // TimeSleep();
+        TimeSleep();
       })
       .catch((error) => {
         // Os erros, se houver.
@@ -83,7 +88,7 @@ const LoginForm = () => {
   }
 
   return (
-    <form>
+    <form onChange={handleLogin}>
       <Grid
         container
         columnSpacing={2}
@@ -107,12 +112,7 @@ const LoginForm = () => {
           <TextField id="senha" name="senha" fullWidth value={senha} />
         </Grid>
         <Grid item mb={3}>
-          <Button
-            variant="contained"
-            type="button"
-            size="large"
-            onClick={submitLogin}
-          >
+          <Button variant="contained" size="large" onClick={submitLogin}>
             LOGIN
           </Button>
         </Grid>

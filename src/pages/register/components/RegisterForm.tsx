@@ -26,48 +26,50 @@ const RegisterForm = () => {
 
   const handleClickShowsenha = () => setShowsenha((show) => !show);
 
+  function collectDataFromForm() {
+    const inputElementName = document.getElementById(
+      "name"
+    ) as HTMLInputElement | null;
+    if (inputElementName !== null) {
+      const formName = inputElementName.value;
+      setName(formName);
+    }
+
+    const inputElementEmail = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
+    if (inputElementEmail !== null) {
+      const formEmail = inputElementEmail.value;
+      setEmail(formEmail);
+    }
+
+    const inputElementSaram = document.getElementById(
+      "saram"
+    ) as HTMLInputElement | null;
+    if (inputElementSaram !== null) {
+      const formSaram = inputElementSaram.value;
+      setSaram(formSaram);
+    }
+
+    const inputElementsenha = document.getElementById(
+      "senha"
+    ) as HTMLInputElement | null;
+    if (inputElementsenha !== null) {
+      const formsenha = inputElementsenha.value;
+      setsenha(formsenha);
+    }
+
+    const inputElementChecksenha = document.getElementById(
+      "check-senha"
+    ) as HTMLInputElement | null;
+    if (inputElementChecksenha !== null) {
+      const formChecksenha = inputElementChecksenha.value;
+      setChecksenha(formChecksenha);
+    }
+  }
+
   function getValuesFromForm() {
     if (senha === checksenha) {
-      const inputElementName = document.getElementById(
-        "name"
-      ) as HTMLInputElement | null;
-      if (inputElementName !== null) {
-        const formName = inputElementName.value;
-        setName(formName);
-      }
-
-      const inputElementEmail = document.getElementById(
-        "email"
-      ) as HTMLInputElement | null;
-      if (inputElementEmail !== null) {
-        const formEmail = inputElementEmail.value;
-        setEmail(formEmail);
-      }
-
-      const inputElementSaram = document.getElementById(
-        "saram"
-      ) as HTMLInputElement | null;
-      if (inputElementSaram !== null) {
-        const formSaram = inputElementSaram.value;
-        setSaram(formSaram);
-      }
-
-      const inputElementsenha = document.getElementById(
-        "senha"
-      ) as HTMLInputElement | null;
-      if (inputElementsenha !== null) {
-        const formsenha = inputElementsenha.value;
-        setsenha(formsenha);
-      }
-
-      const inputElementChecksenha = document.getElementById(
-        "check-senha"
-      ) as HTMLInputElement | null;
-      if (inputElementChecksenha !== null) {
-        const formChecksenha = inputElementChecksenha.value;
-        setChecksenha(formChecksenha);
-      }
-
       const formData = new FormData();
       formData.append("nome", name);
       formData.append("saram", saram);
@@ -92,14 +94,14 @@ const RegisterForm = () => {
             progress: undefined,
           });
 
-          console.log(response.body);
+          console.log(response);
 
-          // const TimeSleep = async () => {
-          //   await sleep(2000);
-          //   window.location.href = "/";
-          // };
+          const TimeSleep = async () => {
+            await sleep(2000);
+            window.location.href = "/";
+          };
 
-          // TimeSleep();
+          TimeSleep();
         })
         .catch((error) => {
           // Os erros, se houver.
@@ -128,7 +130,10 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        onChange={() => collectDataFromForm()}
+      >
         <Grid
           item
           container
@@ -190,7 +195,7 @@ const RegisterForm = () => {
             <Button
               variant="contained"
               size="large"
-              type="button"
+              type="submit"
               onClick={getValuesFromForm}
             >
               CADASTRAR
