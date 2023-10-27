@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 import Grid from "@mui/material/Grid";
 import { Button, FormLabel, TextField, Typography } from "@mui/material";
@@ -50,61 +51,42 @@ const LoginForm = () => {
 
     // Automatic Request from Database
     //await api.post("/loginUsuario", newUserData);
-    await fetch(`${api}/loginUsuario`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserData),
-    });
+    await axios
+      .post(api + "/loginUsuario", newUserData)
+      .then((res) => {
+        console.log(newUserData.email, newUserData.senha);
+        toast.success(`Login efetuado com sucesso!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        const TimeSleep = async () => {
+          await sleep(2000);
+          window.location.href = "/dashboard";
+        };
+
+        TimeSleep();
+      })
+      .catch(function () {
+        console.log(newUserData.email, newUserData.senha);
+        toast.error(`Ops! Login ou senha incorreto!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
 
     // Manual request
     // FIXME: Remove it when sync with database
-    if (
-      newUserData.email === userDataFromRegister.user.email &&
-      newUserData.senha === userDataFromRegister.user.senha
-    ) {
-      console.log(
-        newUserData.email,
-        newUserData.senha,
-        "----",
-        userDataFromRegister.user.email,
-        userDataFromRegister.user.senha
-      );
-      toast.success(`Login efetuado com sucesso!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-
-      const TimeSleep = async () => {
-        await sleep(2000);
-        window.location.href = "/dashboard";
-      };
-
-      TimeSleep();
-    } else {
-      console.log(
-        newUserData.email,
-        newUserData.senha,
-        "----",
-        userDataFromRegister.user.email,
-        userDataFromRegister.user.senha
-      );
-      toast.error(`Ops! Login ou senha incorreto!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   }
 
   return (
