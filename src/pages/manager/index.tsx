@@ -10,7 +10,7 @@ const Manager = () => {
 
   return (
     <>
-      {user.emissor == true ? (
+      {user.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"
