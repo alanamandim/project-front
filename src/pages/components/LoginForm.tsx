@@ -2,88 +2,91 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import Grid from "@mui/material/Grid";
-import {
-  Button,
-  FormLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, FormLabel, TextField, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import sleep from "../../utils/Sleep";
-import api from "../../services/api";
-
-interface FormValues {
-  email: string;
-  password: string;
-}
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const userDataFromRegister = useContext(AuthContext)
+  const [senha, setsenha] = useState<string>("");
+  const { setUser } = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
   };
 
   function handleLogin() {
-    const inputElementEmail = document.getElementById("email") as HTMLInputElement | null;
+    const inputElementEmail = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
     if (inputElementEmail !== null) {
       const formEmail = inputElementEmail.value;
       setEmail(formEmail);
     }
 
-    const inputElementPassword = document.getElementById("password") as HTMLInputElement | null;
-    if (inputElementPassword !== null) {
-      const formPassword = inputElementPassword.value;
-      setPassword(formPassword);
+    const inputElementsenha = document.getElementById(
+      "senha"
+    ) as HTMLInputElement | null;
+    if (inputElementsenha !== null) {
+      const formsenha = inputElementsenha.value;
+      setsenha(formsenha);
     }
   }
 
   async function submitLogin() {
-    const newUserData: FormValues = {
+    const newUserData = {
       email: email,
-      password: password,
+      senha: senha,
     };
 
     // Automatic Request from Database
-    await api.post("/loginUsuario", newUserData);
+    //await api.post("/loginUsuario", newUserData);
 
-    // Manual request
-    // FIXME: Remove it when sync with database
-    if (newUserData.email === userDataFromRegister.user.email && newUserData.password === userDataFromRegister.user.password) {
-      console.log(newUserData.email, newUserData.password, '----', userDataFromRegister.user.email, userDataFromRegister.user.password)
-      toast.success(`Login efetuado com sucesso!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("senha", senha);
+
+    // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+    fetch(`http://localhost:8080/loginUsuario`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response: any) => {
+        // A resposta do servidor, se necessário.
+        toast.success(`Login efetuado com sucesso!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        setUser(response);
+
+        const TimeSleep = async () => {
+          await sleep(2000);
+          window.location.href = "/dashboard";
+        };
+
+        TimeSleep();
+      })
+      .catch((error) => {
+        // Os erros, se houver.
+        toast.error(`Ops! Login ou senha incorreto!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-
-      const TimeSleep = async () => {
-        await sleep(2000);
-        window.location.href = '/dashboard'
-      };
-
-      TimeSleep();
-    } else {
-      console.log(newUserData.email, newUserData.password, '----', userDataFromRegister.user.email, userDataFromRegister.user.password)
-      toast.error(`Ops! Login ou senha incorreto!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   }
 
   return (
@@ -107,13 +110,8 @@ const LoginForm = () => {
           />
         </Grid>
         <Grid item mb={3} display="flex" flexDirection="column">
-          <FormLabel htmlFor="password">Senha</FormLabel>
-          <TextField
-            id="password"
-            name="password"
-            fullWidth
-            value={password}
-          />
+          <FormLabel htmlFor="senha">Senha</FormLabel>
+          <TextField id="senha" name="senha" fullWidth value={senha} />
         </Grid>
         <Grid item mb={3}>
           <Button variant="contained" size="large" onClick={submitLogin}>

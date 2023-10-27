@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
-import { AuthContext, IRegisterUser } from '../../../context/AuthContext'
+import { AuthContext, IRegisterUser } from "../../../context/AuthContext";
 
 import {
   Button,
@@ -17,85 +17,120 @@ import { toast } from "react-toastify";
 import sleep from "../../../utils/Sleep";
 
 const RegisterForm = () => {
-  const [password, setPassword] = useState<string>("");
-  const [checkPassword, setCheckPassword] = useState<string>("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [senha, setsenha] = useState<string>("");
+  const [checksenha, setChecksenha] = useState<string>("");
+  const [showsenha, setShowsenha] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
-  const userContext = useContext(AuthContext)
+  const userContext = useContext(AuthContext);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowsenha = () => setShowsenha((show) => !show);
 
   function collectDataFromForm() {
-    const inputElementName = document.getElementById("name") as HTMLInputElement | null;
+    const inputElementName = document.getElementById(
+      "name"
+    ) as HTMLInputElement | null;
     if (inputElementName !== null) {
       const formName = inputElementName.value;
       setName(formName);
     }
 
-    const inputElementEmail = document.getElementById("email") as HTMLInputElement | null;
+    const inputElementEmail = document.getElementById(
+      "email"
+    ) as HTMLInputElement | null;
     if (inputElementEmail !== null) {
       const formEmail = inputElementEmail.value;
       setEmail(formEmail);
     }
 
-    const inputElementSaram = document.getElementById("saram") as HTMLInputElement | null;
+    const inputElementSaram = document.getElementById(
+      "saram"
+    ) as HTMLInputElement | null;
     if (inputElementSaram !== null) {
       const formSaram = inputElementSaram.value;
       setSaram(formSaram);
     }
 
-    const inputElementPassword = document.getElementById("password") as HTMLInputElement | null;
-    if (inputElementPassword !== null) {
-      const formPassword = inputElementPassword.value;
-      setPassword(formPassword);
+    const inputElementsenha = document.getElementById(
+      "senha"
+    ) as HTMLInputElement | null;
+    if (inputElementsenha !== null) {
+      const formsenha = inputElementsenha.value;
+      setsenha(formsenha);
     }
 
-    const inputElementCheckPassword = document.getElementById("check-password") as HTMLInputElement | null;
-    if (inputElementCheckPassword !== null) {
-      const formCheckPassword = inputElementCheckPassword.value;
-      setCheckPassword(formCheckPassword);
+    const inputElementChecksenha = document.getElementById(
+      "check-senha"
+    ) as HTMLInputElement | null;
+    if (inputElementChecksenha !== null) {
+      const formChecksenha = inputElementChecksenha.value;
+      setChecksenha(formChecksenha);
     }
   }
 
   function getValuesFromForm() {
-    if (password === checkPassword) {
+    if (senha === checksenha) {
       // FIXME: Change it when syncing with the database
-      const newUserData: IRegisterUser = {
-        email: email,
-        name: name,
-        saram: saram,
-        password: password,
-      };
+      // const newUserData: IRegisterUser = {
+      //   email: email,
+      //   name: name,
+      //   saram: saram,
+      //   senha: senha,
+      // };
 
       // await api.post("/registerUser", newUserData);
-      userContext.registerUser({
-        name: newUserData.name,
-        email: newUserData.email,
-        password: newUserData.password,
-        saram: newUserData.saram,
-        photo: '',
-      });
+      // userContext.registerUser({
+      //   name: newUserData.name,
+      //   email: newUserData.email,
+      //   senha: newUserData.senha,
+      //   saram: newUserData.saram,
+      //   photo: "",
+      // });
 
-      toast.success(`You're registered, now please log in!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      const formData = new FormData();
+      formData.append("nome", name);
+      formData.append("email", email);
+      formData.append("saram", saram);
+      formData.append("senha", senha);
 
-      const TimeSleep = async () => {
-        await sleep(2000);
-        window.location.href = '/'
-      };
+      // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+      fetch(`http://localhost:8080/registraUsuario`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response: any) => {
+          toast.success(`${response}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
 
-      TimeSleep();
+          const TimeSleep = async () => {
+            await sleep(2000);
+            window.location.href = "/";
+          };
+
+          TimeSleep();
+        })
+        .catch((error) => {
+          // Os erros, se houver.
+          toast.error(`Ops! Algo está incorreto!`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
     } else {
-      toast.error(`Oops! The passwords do not match!`, {
+      toast.error(`Oops! The senhas do not match!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -109,7 +144,10 @@ const RegisterForm = () => {
 
   return (
     <>
-      <form onSubmit={(e) => e.preventDefault()} onChange={() => collectDataFromForm()} >
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        onChange={() => collectDataFromForm()}
+      >
         <Grid
           item
           container
@@ -119,75 +157,67 @@ const RegisterForm = () => {
           justifyContent="center"
         >
           <Grid item mb={3}>
-            <FormLabel htmlFor="name">Foto (Envie uma foto se for motorista e se enviou o formulário abaixo!)</FormLabel>
+            <FormLabel htmlFor="name">
+              Foto (Envie uma foto se for motorista e se enviou o formulário
+              abaixo!)
+            </FormLabel>
             <ImageUploader id={saram} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
-            <TextField
-              id="name"
-              name="name"
-              fullWidth
-              value={name}
-            />
+            <TextField id="name" name="name" fullWidth value={name} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="saram">SARAM</FormLabel>
-            <TextField
-              id="saram"
-              name="saram"
-              fullWidth
-              value={saram}
-            />
+            <TextField id="saram" name="saram" fullWidth value={saram} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="email">Email</FormLabel>
-            <TextField
-              id="email"
-              name="email"
-              fullWidth
-              value={email}
-            />
+            <TextField id="email" name="email" fullWidth value={email} />
           </Grid>
           <Grid item mb={3}>
-            <FormLabel htmlFor="password">Senha</FormLabel>
+            <FormLabel htmlFor="senha">Senha</FormLabel>
             <OutlinedInput
-              type={showPassword ? "text" : "password"}
+              type={showsenha ? "text" : "senha"}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
+                    aria-label="toggle senha visibility"
+                    onClick={handleClickShowsenha}
                     edge="end"
                   >
-                    {showPassword ? <IconEye /> : <IconEyeOff />}
+                    {showsenha ? <IconEye /> : <IconEyeOff />}
                   </IconButton>
                 </InputAdornment>
               }
-              id="password"
-              name="password"
-              value={password}
+              id="senha"
+              name="senha"
+              value={senha}
               fullWidth
             />
           </Grid>
           <Grid item mb={3}>
-            <FormLabel htmlFor="confirm_password">Confirmar Senha</FormLabel>
+            <FormLabel htmlFor="confirm_senha">Confirmar Senha</FormLabel>
             <TextField
-              id="check-password"
-              name="check-password"
+              id="check-senha"
+              name="check-senha"
               fullWidth
-              value={checkPassword}
+              value={checksenha}
             />
           </Grid>
           <Grid item mb={3} alignItems="center">
-            <Button variant="contained" size="large" type="submit" onClick={getValuesFromForm}>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              onClick={getValuesFromForm}
+            >
               CADASTRAR
             </Button>
           </Grid>
         </Grid>
       </form>
     </>
-
   );
 };
 

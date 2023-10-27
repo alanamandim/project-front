@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { MenuItem, Select } from "@mui/material";
 
 function ListUsersCard() {
 
@@ -66,14 +67,21 @@ function ListUsersCard() {
             <Typography gutterBottom variant="h5" component="div">
               Lizard
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
           </CardContent>
           <CardActions>
             <Button size="small">Enviar Ajustes</Button>
-            <select></select>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              // value={age}
+              label="Age"
+              // onChange={handleChange}
+            >
+              <MenuItem value={"motorista"}>Motorista</MenuItem>
+              <MenuItem value={"aprovador"}>Aprovador</MenuItem>
+              <MenuItem value={"gestor"}>Gestor</MenuItem>
+              <MenuItem value={"emissor"}>Emissor</MenuItem>
+            </Select>
           </CardActions>
         </Card>
       ))}

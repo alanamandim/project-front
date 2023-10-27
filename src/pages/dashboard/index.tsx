@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  console.log(user);
 
   return (
     <>

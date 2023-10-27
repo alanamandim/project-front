@@ -4,9 +4,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import { useEffect } from 'react';
+import { Button } from '@mui/material';
 
 const url = "http://localhost:8080";
 
@@ -61,19 +61,19 @@ const ListRequests = async () => {
   }
 
   return (
-    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List
+      dense
+      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+    >
       {[0, 1, 2, 3].map((value) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
           <ListItem
             key={value}
             secondaryAction={
-              <Checkbox
-                edge="end"
-                onChange={handleToggle(value)}
-                checked={checked.indexOf(value) !== -1}
-                inputProps={{ 'aria-labelledby': labelId }}
-              />
+              <Button variant="contained" size="large">
+                APROVAR
+              </Button>
             }
             disablePadding
           >
@@ -84,14 +84,14 @@ const ListRequests = async () => {
                   src={`/static/images/avatar/${value + 1}.jpg`}
                 />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText id={labelId} primary={`Nome Fulano ${value + 1}`} />
             </ListItemButton>
           </ListItem>
         );
       })}
     </List>
   );
-}
+};
 
 export default ListRequests;
 
