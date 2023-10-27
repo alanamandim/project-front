@@ -44,7 +44,7 @@ const LoginForm = () => {
   }
 
   async function submitLogin() {
-    const newUserData: FormValues = {
+    const newUserData = {
       email: email,
       senha: senha,
     };
