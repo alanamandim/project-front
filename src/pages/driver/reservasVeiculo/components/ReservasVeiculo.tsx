@@ -4,11 +4,11 @@ import { Card, CardContent, CardMedia, List, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 
-const ReservasForm = async () => {
-  const url = "http://localhost:3000";
-  const userContext = useContext(AuthContext)
+const ReservasForm: any = async () => {
+  const url = "http://localhost:8080";
+  const userContext = useContext(AuthContext);
 
-  const [dataGet, setDataGet] = useState([])
+  const [dataGet, setDataGet] = useState([]);
 
   useEffect(() => {
     async function getInfo() {
@@ -20,12 +20,12 @@ const ReservasForm = async () => {
 
       if (response.ok) {
         const data = await response.json();
-        setDataGet(data)
+        setDataGet(data);
       }
     }
 
-    getInfo()
-  }, [dataGet])
+    getInfo();
+  }, [dataGet]);
 
   return (
     <>
@@ -41,7 +41,6 @@ const ReservasForm = async () => {
         }}
         subheader={<li />}
       >
-
         {dataGet?.map((item: any) => (
           <li key={`section-${item.id}`}>
             {item.saram === userContext.user.saram ? (
@@ -66,9 +65,7 @@ const ReservasForm = async () => {
                 </CardActions> */}
                 </Card>
               </ul>
-            ) : (
-              null
-            )}
+            ) : null}
           </li>
         ))}
       </List>
