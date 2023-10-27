@@ -6,11 +6,11 @@ import ReservasForm from "./components/ReservasVeiculo";
 
 const ReservasVeiculoForm = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.motorista == true ? (
+      {user.motorista == true || userLocal.motorista == true ? (
         <Grid
           display="flex"
           flexDirection="column"

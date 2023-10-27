@@ -6,10 +6,11 @@ import InspecaoForm from "./components/FormInspecao";
 
 const Inspecao = () => {
   const { user } = useContext(AuthContext);
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.motorista == true ? (
+      {user.motorista == true || userLocal.motorista == true ? (
         <Grid
           display="flex"
           flexDirection="column"

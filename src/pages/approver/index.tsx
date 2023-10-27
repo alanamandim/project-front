@@ -7,45 +7,68 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Approver = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {
-        user.aprovador == true ? (
-            <Grid
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              minHeight="80vh"
-            >
-              <Typography variant="h3" mt={3} mb={3} alignItems="center">
-                Approver Page
-              </Typography>
-              <Grid display="flex" mt={3} flexDirection="column">
-                <Grid item mb={3}>
-                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/approver/listar-veiculos')}}>
-                    Ver Veículos
-                  </Button>
-                </Grid>
-                <Grid item mb={3}>
-                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/approver/solicitar-veiculos')}}>
-                    Ver Solicitações
-                  </Button>
-                </Grid>
-                <Grid item mb={3}>
-                  <Button style={{width: '200px'}} variant="contained" size="large" type="button" onClick={() => { navigate('/approver/fichas-retorno')}}>
-                    Fichas de Retorno
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>  
-        ) : (
-          <Navigate to="/" />
-        )
-      }
+      {user.aprovador == true || userLocal.aprovador == true ? (
+        <Grid
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="80vh"
+        >
+          <Typography variant="h3" mt={3} mb={3} alignItems="center">
+            Approver Page
+          </Typography>
+          <Grid display="flex" mt={3} flexDirection="column">
+            <Grid item mb={3}>
+              <Button
+                style={{ width: "200px" }}
+                variant="contained"
+                size="large"
+                type="button"
+                onClick={() => {
+                  navigate("/approver/listar-veiculos");
+                }}
+              >
+                Ver Veículos
+              </Button>
+            </Grid>
+            <Grid item mb={3}>
+              <Button
+                style={{ width: "200px" }}
+                variant="contained"
+                size="large"
+                type="button"
+                onClick={() => {
+                  navigate("/approver/solicitar-veiculos");
+                }}
+              >
+                Ver Solicitações
+              </Button>
+            </Grid>
+            <Grid item mb={3}>
+              <Button
+                style={{ width: "200px" }}
+                variant="contained"
+                size="large"
+                type="button"
+                onClick={() => {
+                  navigate("/approver/fichas-retorno");
+                }}
+              >
+                Fichas de Retorno
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      ) : (
+        <Navigate to="/" />
+      )}
     </>
-  )
+  );
 };
 
 export default Approver;

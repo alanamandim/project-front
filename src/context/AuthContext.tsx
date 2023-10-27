@@ -40,7 +40,6 @@ interface IAuthContext {
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
   //signOut: () => Promise<void>;
   //signOutResident: () => Promise<void>;
-  registerUser: (data: IRegisterUser) => Promise<void>;
   // currentBranch: ICurrentBranch | null;
   //getCurrentBranch: () => Promise<void>;
   //getProductPermissions: () => Promise<void>;
@@ -54,87 +53,12 @@ export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  {
-    /* Esse usuário TESTANDO é para teste! */
-  }
-
-  const navigate = useNavigate();
-
-  const registerUser = async (data: IRegisterUser) => {
-    try {
-      // await api.post("/registraUsuario", data);
-      await fetch(`${api}/registraUsuario`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      setUser({
-        name: data.name,
-        saram: data.saram,
-        email: data.email,
-        motorista: true,
-        gestor: true,
-        aprovador: true,
-        chefe: true,
-        photo: "imagem",
-      });
-
-      // Checking if user.name has registered by RegisterForm
-      // FIXME: Remove it when sync with database
-      // if (user.email === "testando#gmail.com" && user.senha === "XXXXXX") {
-      //   toast.error(`Ops! Deu algo de errado!`, {
-      //     position: "top-right",
-      //     autoClose: 4000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //   });
-      // } else {
-      //   toast.success(`Cadastramos você, agora faça o login!`, {
-      //     position: "top-right",
-      //     autoClose: 4000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: true,
-      //     draggable: true,
-      //     progress: undefined,
-      //   });
-      //   navigate("/", { replace: true });
-      // }
-
-      toast.success(`Cadastramos você, agora faça o login!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      navigate("/", { replace: true });
-    } catch (err) {
-      toast.error(`Ops! Deu algo de errado!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-        registerUser,
       }}
     >
       {children}
