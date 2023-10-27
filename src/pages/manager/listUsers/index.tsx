@@ -6,7 +6,6 @@ import ListUsersCard from "./components/ListUsers";
 
 const ListUsersPage = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   return (
     <>

@@ -1,13 +1,12 @@
 import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import ListRequests from "./components/AproveRequests";
 
 const RequestUsers = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   return (
     <>
