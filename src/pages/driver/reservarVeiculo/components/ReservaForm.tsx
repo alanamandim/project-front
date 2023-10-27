@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
-  const url = "http://localhost:3000";
+  const url = "http://localhost:8080";
 
   const [reason, setReason] = useState("");
   const [driver, setDriver] = useState("");
@@ -29,6 +29,16 @@ const ReservaForm = () => {
 
     if (response.ok) {
       toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`Requisição Errada!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
