@@ -90,8 +90,8 @@ const RegisterForm = () => {
 
       const formData = new FormData();
       formData.append("nome", name);
-      formData.append("email", email);
       formData.append("saram", saram);
+      formData.append("email", email);
       formData.append("senha", senha);
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
@@ -100,7 +100,7 @@ const RegisterForm = () => {
         body: formData,
       })
         .then((response: any) => {
-          toast.success(`${response}`, {
+          toast.success(`${response.body}`, {
             position: "top-right",
             autoClose: 4000,
             hideProgressBar: false,
@@ -109,6 +109,8 @@ const RegisterForm = () => {
             draggable: true,
             progress: undefined,
           });
+
+          console.log(response.body);
 
           const TimeSleep = async () => {
             await sleep(2000);
