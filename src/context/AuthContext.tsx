@@ -37,6 +37,7 @@ interface IAuthProvider {
 
 interface IAuthContext {
   user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   //signOut: () => Promise<void>;
   //signOutResident: () => Promise<void>;
   registerUser: (data: IRegisterUser) => Promise<void>;
@@ -132,6 +133,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         registerUser,
       }}
     >

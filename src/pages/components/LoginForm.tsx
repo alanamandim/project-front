@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
 
 import Grid from "@mui/material/Grid";
 import { Button, FormLabel, TextField, Typography } from "@mui/material";
@@ -8,18 +7,12 @@ import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import sleep from "../../utils/Sleep";
-import api from "../../services/api";
-
-interface FormValues {
-  email: string;
-  senha: string;
-}
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [senha, setsenha] = useState<string>("");
-  const userDataFromRegister = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
@@ -61,7 +54,7 @@ const LoginForm = () => {
       method: "POST",
       body: formData,
     })
-      .then((response) => {
+      .then((response: any) => {
         // A resposta do servidor, se necessário.
         toast.success(`Login efetuado com sucesso!`, {
           position: "top-right",
@@ -72,6 +65,9 @@ const LoginForm = () => {
           draggable: true,
           progress: undefined,
         });
+
+        setUser(response);
+
         const TimeSleep = async () => {
           await sleep(2000);
           window.location.href = "/dashboard";
@@ -91,43 +87,6 @@ const LoginForm = () => {
           progress: undefined,
         });
       });
-
-    // await axios
-    //   .post(api + "/loginUsuario", newUserData)
-    //   .then((res) => {
-    //     console.log(newUserData.email, newUserData.senha);
-    //     toast.success(`Login efetuado com sucesso!`, {
-    //       position: "top-right",
-    //       autoClose: 4000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-
-    //     const TimeSleep = async () => {
-    //       await sleep(2000);
-    //       window.location.href = "/dashboard";
-    //     };
-
-    //     TimeSleep();
-    //   })
-    //   .catch(function () {
-    //     console.log(newUserData.email, newUserData.senha);
-    //     toast.error(`Ops! Login ou senha incorreto!`, {
-    //       position: "top-right",
-    //       autoClose: 4000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //     });
-    //   });
-
-    // Manual request
-    // FIXME: Remove it when sync with database
   }
 
   return (

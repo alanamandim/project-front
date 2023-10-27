@@ -72,38 +72,63 @@ const RegisterForm = () => {
   function getValuesFromForm() {
     if (senha === checksenha) {
       // FIXME: Change it when syncing with the database
-      const newUserData: IRegisterUser = {
-        email: email,
-        name: name,
-        saram: saram,
-        senha: senha,
-      };
+      // const newUserData: IRegisterUser = {
+      //   email: email,
+      //   name: name,
+      //   saram: saram,
+      //   senha: senha,
+      // };
 
       // await api.post("/registerUser", newUserData);
-      userContext.registerUser({
-        name: newUserData.name,
-        email: newUserData.email,
-        senha: newUserData.senha,
-        saram: newUserData.saram,
-        photo: "",
-      });
+      // userContext.registerUser({
+      //   name: newUserData.name,
+      //   email: newUserData.email,
+      //   senha: newUserData.senha,
+      //   saram: newUserData.saram,
+      //   photo: "",
+      // });
 
-      toast.success(`You're registered, now please log in!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      const formData = new FormData();
+      formData.append("nome", name);
+      formData.append("email", email);
+      formData.append("saram", saram);
+      formData.append("senha", senha);
 
-      const TimeSleep = async () => {
-        await sleep(2000);
-        window.location.href = "/";
-      };
+      // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+      fetch(`http://localhost:8080/registraUsuario`, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response: any) => {
+          toast.success(`${response}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
 
-      TimeSleep();
+          const TimeSleep = async () => {
+            await sleep(2000);
+            window.location.href = "/";
+          };
+
+          TimeSleep();
+        })
+        .catch((error) => {
+          // Os erros, se houver.
+          toast.error(`Ops! Algo está incorreto!`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
     } else {
       toast.error(`Oops! The senhas do not match!`, {
         position: "top-right",
