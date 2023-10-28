@@ -42,6 +42,8 @@ const LoginForm = () => {
     formData.append("email", email);
     formData.append("senha", senha);
 
+    console.log(formData);
+
     // Exemplo de como enviar o arquivo para o back-end usando fetch API.
     fetch(`http://localhost:8080/loginUsuario`, {
       method: "POST",

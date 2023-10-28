@@ -10,22 +10,22 @@ const ReservasVeiculoForm = () => {
 
   return (
     <>
-      {user.motorista == true || userLocal.motorista == true ? (
-        <Grid
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          minHeight="80vh"
-        >
-          <Typography variant="h3" mt={3} mb={3} alignItems="center">
-            Reservation List
-          </Typography>
-          {/* <ReservasForm /> */}
-        </Grid>
-      ) : (
-        <Navigate to="/" />
-      )}
+      {/* {user.motorista == true || userLocal.motorista == true ? ( */}
+      <Grid
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="80vh"
+      >
+        <Typography variant="h3" mt={3} mb={3} alignItems="center">
+          Reservation List
+        </Typography>
+        <ReservasForm />
+      </Grid>
+      {/* ) : ( */}
+      {/* <Navigate to="/" /> */}
+      {/* )} */}
     </>
   );
 };

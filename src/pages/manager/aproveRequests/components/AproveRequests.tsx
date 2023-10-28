@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import { useEffect } from 'react';
-import { Button } from '@mui/material';
+import React, { useState } from "react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import { useEffect } from "react";
+import { Button } from "@mui/material";
 
 const url = "http://localhost:8080";
 
-const ListRequests = async () => {
+const ListRequests: any = async () => {
   const [checked, setChecked] = useState([1]);
-  const [dataGet, setDataGet] = React.useState([{}])
+  const [dataGet, setDataGet] = React.useState([{}]);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -27,7 +27,11 @@ const ListRequests = async () => {
     setChecked(newChecked);
   };
 
+<<<<<<< HEAD
 
+=======
+  // FIXME: Do a .map using getInfo
+>>>>>>> b6161c3bce538e23b59aa57ad99b3e86e329849d
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
     const response = await fetch(url, {
@@ -38,13 +42,13 @@ const ListRequests = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      setDataGet(data)
+      setDataGet(data);
     }
   }
 
   useEffect(() => {
-    getInfo()
-  }, [getInfo])
+    getInfo();
+  }, [getInfo]);
 
   // FIXME: Call this function when the button is pressed to refresh the content
   async function putInfo(info1: string, info2: string) {
@@ -56,7 +60,7 @@ const ListRequests = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      setDataGet(data)
+      setDataGet(data);
     }
   }
 
@@ -94,4 +98,3 @@ const ListRequests = async () => {
 };
 
 export default ListRequests;
-

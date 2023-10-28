@@ -23,7 +23,6 @@ const RegisterForm = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
-  const userContext = useContext(AuthContext);
 
   const handleClickShowsenha = () => setShowsenha((show) => !show);
 
@@ -71,6 +70,7 @@ const RegisterForm = () => {
 
   function getValuesFromForm() {
     if (senha === checksenha) {
+<<<<<<< HEAD
       const newUserData: IRegisterUser = {
         email: email,
         name: name,
@@ -78,11 +78,15 @@ const RegisterForm = () => {
         senha: senha,
       };
 
+=======
+>>>>>>> b6161c3bce538e23b59aa57ad99b3e86e329849d
       const formData = new FormData();
       formData.append("nome", name);
-      formData.append("email", email);
       formData.append("saram", saram);
+      formData.append("email", email);
       formData.append("senha", senha);
+
+      console.log(formData);
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/registraUsuario`, {
@@ -90,7 +94,7 @@ const RegisterForm = () => {
         body: formData,
       })
         .then((response: any) => {
-          toast.success(`${response}`, {
+          toast.success(`${response.body}`, {
             position: "top-right",
             autoClose: 4000,
             hideProgressBar: false,
@@ -99,6 +103,8 @@ const RegisterForm = () => {
             draggable: true,
             progress: undefined,
           });
+
+          console.log(response);
 
           const TimeSleep = async () => {
             await sleep(2000);
