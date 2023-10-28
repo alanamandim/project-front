@@ -30,9 +30,10 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/driver" element={<Driver />} />
+        <Route path="/driver" element={<Driver />} /> {/*  TIREI A TRAVA */}
         <Route path="/driver/inspecao-veiculo" element={<Inspecao />} />
-        <Route path="/driver/reservar-veiculo" element={<Reserve />} />
+        <Route path="/driver/reservar-veiculo" element={<Reserve />} />{" "}
+        {/*  TIREI A TRAVA */}
         <Route
           path="/driver/reservas-veiculo"
           element={<ReservasVeiculoForm />}

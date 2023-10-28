@@ -27,9 +27,10 @@ const Reserve = () => {
         </Typography>
         <ReservaForm />
       </Grid>
-      {/* ) : ( */}
-      <Navigate to="/" />
-      {/* )} */}
+      {/* ) : (
+          <Navigate to="/" />
+        )
+      } */}
     </>
   );
 };

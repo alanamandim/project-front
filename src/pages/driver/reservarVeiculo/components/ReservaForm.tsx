@@ -13,9 +13,11 @@ import { toast } from "react-toastify";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
-  const url = "http://localhost:3000";
+  const url = "http://localhost:8080/adicionaReserva";
 
   const [reason, setReason] = useState("");
+  const [dtHrIni, setDtHrIni] = useState("");
+  const [dtHrFim, setDtHrFim] = useState("");
   const [driver, setDriver] = useState("");
   const [vehicle, setVehicle] = useState("");
 
@@ -23,12 +25,22 @@ const ReservaForm = () => {
     const response = await fetch(url, {
       method: "post",
       // FIXME: Check if the post method is correct
-      body: JSON.stringify([reason, driver, vehicle]),
+      body: JSON.stringify([reason, dtHrIni, dtHrFim, driver, vehicle]),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`Requisição Errada!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -57,6 +69,22 @@ const ReservaForm = () => {
       setDriver(formDriver);
     }
 
+    const inputElementHrInicio = document.getElementById(
+      "dataHrInicio"
+    ) as HTMLInputElement | null;
+    if (inputElementHrInicio !== null) {
+      const formInicio = inputElementHrInicio.value;
+      setDtHrIni(formInicio);
+    }
+
+    const inputElementHrFim = document.getElementById(
+      "dataHrFim"
+    ) as HTMLInputElement | null;
+    if (inputElementHrFim !== null) {
+      const formFim = inputElementHrFim.value;
+      setDtHrFim(formFim);
+    }
+
     const formVehicle: HTMLSelectElement | null =
       document.querySelector("#vehicle");
     const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
@@ -82,6 +110,24 @@ const ReservaForm = () => {
             <TextField id="motivo" name="motivo" fullWidth value={reason} />
           </Grid>
           <Grid item mb={3}>
+            <FormLabel htmlFor="dataHrInicio">Data Hora Inicio</FormLabel>
+            <TextField
+              id="dataHrInicio"
+              name="dataHrInicio"
+              fullWidth
+              value={dtHrIni}
+            />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel htmlFor="dataHrFim">Data Hora Fim</FormLabel>
+            <TextField
+              id="dataHrFim"
+              name="dataHrFim"
+              fullWidth
+              value={dtHrFim}
+            />
+          </Grid>
+          <Grid item mb={3}>
             <InputLabel id="demo-select-small-label">Viatura</InputLabel>
             <Select
               labelId="demo-select-small-label"
@@ -90,14 +136,13 @@ const ReservaForm = () => {
               label="viatura"
             >
               <MenuItem value="">
-                <em>None</em>
+                <em>Selecione</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"QJA3H32"}>Placa: QJA3H32</MenuItem>
             </Select>
           </Grid>
           <Grid item mb={3}>
+            {/* tem que tirar e substituir pelo saram depois! */}
             <FormLabel htmlFor="motorista">Motorista</FormLabel>
             <TextField
               id="motorista"
