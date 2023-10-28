@@ -33,6 +33,9 @@ const LoginForm = () => {
         // A solicitação foi bem-sucedida (código de status 2xx)
         const data = await response.json();
         console.log(data);
+        setUser(data);
+        window.localStorage.setItem("user", data);
+        // window.location.href = "/dashboard";
       } else {
         // A solicitação falhou (código de status não 2xx)
         console.error("Falha no login:", response.statusText);
@@ -87,10 +90,6 @@ const LoginForm = () => {
           console.log(data);
 
           getEmail(email, senha);
-
-          //setUser(response.data);
-          //window.localStorage.setItem("user", response.data);
-          //window.location.href = "/dashboard";
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");
