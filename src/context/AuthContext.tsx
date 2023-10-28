@@ -16,9 +16,9 @@ interface IUser {
   motorista: boolean;
   gestor: boolean;
   aprovador: boolean;
-  emissor: boolean;
-  password?: string;
-  confirm_password?: string;
+  chefe: boolean;
+  senha?: string;
+  confirm_senha?: string;
   photo?: string;
 }
 
@@ -26,8 +26,8 @@ export interface IRegisterUser {
   email: string;
   name: string;
   saram: string;
-  password: string;
-  confirm_password?: string;
+  senha: string;
+  confirm_senha?: string;
   photo?: string;
 }
 
@@ -37,9 +37,9 @@ interface IAuthProvider {
 
 interface IAuthContext {
   user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   //signOut: () => Promise<void>;
   //signOutResident: () => Promise<void>;
-  registerUser: (data: IRegisterUser) => Promise<void>;
   // currentBranch: ICurrentBranch | null;
   //getCurrentBranch: () => Promise<void>;
   //getProductPermissions: () => Promise<void>;
@@ -52,97 +52,13 @@ interface IAuthContext {
 export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
-  const [user, setUser] = useState<IUser>({
-    name: "Testando",
-    saram: "123123123123",
-    email: "testando#gmail.com",
-    password: "XXXXXX",
-    motorista: true,
-    gestor: true,
-    aprovador: true,
-    emissor: true,
-    photo: "imagem",
-  });
-  {
-    /* Esse usuário TESTANDO é para teste! */
-  }
-
-  const navigate = useNavigate();
-
-  const registerUser = async (data: IRegisterUser) => {
-    try {
-      // await api.post("/registraUsuario", data);
-      await fetch(`${api}/registraUsuario`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      setUser({
-        name: data.name,
-        saram: data.saram,
-        email: data.email,
-        motorista: true,
-        gestor: true,
-        aprovador: true,
-        emissor: true,
-        photo: "imagem",
-      });
-
-      // Checking if user.name has registered by RegisterForm
-      // FIXME: Remove it when sync with database
-      if (user.email === "testando#gmail.com" && user.password === "XXXXXX") {
-        toast.error(`Ops! Deu algo de errado!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.success(`Cadastramos você, agora faça o login!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        navigate("/", { replace: true });
-      }
-
-      toast.success(`Cadastramos você, agora faça o login!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      navigate("/", { replace: true });
-    } catch (err) {
-      toast.error(`Ops! Deu algo de errado!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  };
+  const [user, setUser] = useState<IUser>({} as IUser);
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        registerUser,
+        setUser,
       }}
     >
       {children}

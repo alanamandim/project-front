@@ -6,29 +6,28 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Sender = () => {
   const { user } = useContext(AuthContext);
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {
-        user.gestor == true ? (
-            <Grid
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              minHeight="80vh"
-            >
-              <Typography variant="h3" mt={3} mb={3} alignItems="center">
-                Sender Page
-              </Typography>
-              {/* <RegisterForm /> */}
-            </Grid>
-        ) : (
-          <Navigate to="/" />
-        )
-      }
+      {user.chefe == true || userLocal.motorista == true ? (
+        <Grid
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="80vh"
+        >
+          <Typography variant="h3" mt={3} mb={3} alignItems="center">
+            Sender Page
+          </Typography>
+          {/* <RegisterForm /> */}
+        </Grid>
+      ) : (
+        <Navigate to="/" />
+      )}
     </>
-  )
+  );
 };
 
 export default Sender;

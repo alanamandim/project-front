@@ -49,8 +49,6 @@ function App() {
         <Route path="/manager/create-cars" element={<CreateCar />} />
         <Route path="/manager/create-cars-models" element={<CreateCar />} />
         <Route path="/sender" element={<Sender />} />
-        <Route path="/mission" element={<Mission />} />
-        <Route path="/insp" element={<Inspetion />} />
       </Routes>
     </>
   );

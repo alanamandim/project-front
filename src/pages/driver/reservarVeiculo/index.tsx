@@ -7,11 +7,11 @@ import ReservaForm from "./components/ReservaForm";
 
 const Reserve = () => {
   const { user } = useContext(AuthContext);
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {/* {
-        user.motorista === true ? ( */}
+      {/* {user.motorista == true || userLocal.motorista == true ? ( */}
       <Grid
         display="flex"
         flexDirection="column"

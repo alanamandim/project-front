@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 
 interface FormValues {
   user_email: string;
-  password: string;
+  senha: string;
 }
 
 const MissionForm = () => {
@@ -18,12 +18,12 @@ const MissionForm = () => {
       .email()
       .min(3, min2CharError)
       .required(errorRequired),
-    password: yup.string().required(errorRequired),
+    senha: yup.string().required(errorRequired),
   });
 
   const initialValues: FormValues = {
     user_email: "",
-    password: "",
+    senha: "",
   };
 
   const formik = useFormik({
@@ -32,7 +32,7 @@ const MissionForm = () => {
     onSubmit: (values) => {
       const newUserData = {
         user_email: values.user_email,
-        user_password: values.password,
+        user_senha: values.senha,
       };
 
       console.log(newUserData);

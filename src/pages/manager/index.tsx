@@ -7,10 +7,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Manager = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.emissor == true ? (
+      {user.gestor == true || userLocal.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -19,7 +20,7 @@ const Manager = () => {
           minHeight="80vh"
         >
           <Typography variant="h3" mt={3} mb={3} alignItems="center">
-            Boss Page
+            Gestor Page
           </Typography>
           <Grid display="flex" mt={3} flexDirection="column">
             <Grid item mb={3}>

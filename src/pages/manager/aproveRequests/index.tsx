@@ -8,10 +8,11 @@ import ListRequests from "./components/AproveRequests";
 const RequestUsers = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.motorista == true ? (
+      {user.gestor == true || userLocal.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"

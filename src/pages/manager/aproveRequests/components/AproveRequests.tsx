@@ -1,15 +1,18 @@
-import * as React from "react";
+import React, { useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
+import { useEffect } from "react";
 import { Button } from "@mui/material";
 
-const ListRequests = () => {
-  const [checked, setChecked] = React.useState([1]);
+const url = "http://localhost:8080";
+
+const ListRequests: any = async () => {
+  const [checked, setChecked] = useState([1]);
+  const [dataGet, setDataGet] = React.useState([{}]);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -23,6 +26,38 @@ const ListRequests = () => {
 
     setChecked(newChecked);
   };
+
+  // FIXME: Do a .map using getInfo
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  async function getInfo() {
+    const response = await fetch(url, {
+      method: "get",
+      body: JSON.stringify(dataGet),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data);
+    }
+  }
+
+  useEffect(() => {
+    getInfo();
+  }, [getInfo]);
+
+  async function putInfo(info1: string, info2: string) {
+    const response = await fetch(url, {
+      method: "put",
+      body: JSON.stringify({ info1, info2 }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data);
+    }
+  }
 
   return (
     <List

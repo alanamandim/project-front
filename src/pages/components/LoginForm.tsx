@@ -7,18 +7,12 @@ import { Button, FormLabel, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import sleep from "../../utils/Sleep";
-import api from "../../services/api";
-
-interface FormValues {
-  email: string;
-  password: string;
-}
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const userDataFromRegister = useContext(AuthContext);
+  const [senha, setsenha] = useState<string>("");
+  const { setUser } = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
@@ -33,78 +27,64 @@ const LoginForm = () => {
       setEmail(formEmail);
     }
 
-    const inputElementPassword = document.getElementById(
-      "password"
+    const inputElementsenha = document.getElementById(
+      "senha"
     ) as HTMLInputElement | null;
-    if (inputElementPassword !== null) {
-      const formPassword = inputElementPassword.value;
-      setPassword(formPassword);
+    if (inputElementsenha !== null) {
+      const formsenha = inputElementsenha.value;
+      setsenha(formsenha);
     }
   }
 
   async function submitLogin() {
-    const newUserData: FormValues = {
-      email: email,
-      password: password,
-    };
-
     // Automatic Request from Database
     //await api.post("/loginUsuario", newUserData);
-    await fetch(`${api}/loginUsuario`, {
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("senha", senha);
+
+    console.log(formData);
+
+    // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+    fetch(`http://localhost:8080/loginUsuario`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUserData),
-    });
+      body: formData,
+    })
+      .then((res: any) => {
+        // A resposta do servidor, se necessário.
+        toast.success(`Login efetuado com sucesso!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
 
-    // Manual request
-    // FIXME: Remove it when sync with database
-    if (
-      newUserData.email === userDataFromRegister.user.email &&
-      newUserData.password === userDataFromRegister.user.password
-    ) {
-      console.log(
-        newUserData.email,
-        newUserData.password,
-        "----",
-        userDataFromRegister.user.email,
-        userDataFromRegister.user.password
-      );
-      toast.success(`Login efetuado com sucesso!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        setUser(res);
+        window.localStorage.setItem("user", res.data);
+
+        const TimeSleep = async () => {
+          await sleep(2000);
+          window.location.href = "/dashboard";
+        };
+
+        TimeSleep();
+      })
+      .catch((error) => {
+        // Os erros, se houver.
+        toast.error(`Ops! Login ou senha incorreto!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-
-      const TimeSleep = async () => {
-        await sleep(2000);
-        window.location.href = "/dashboard";
-      };
-
-      TimeSleep();
-    } else {
-      console.log(
-        newUserData.email,
-        newUserData.password,
-        "----",
-        userDataFromRegister.user.email,
-        userDataFromRegister.user.password
-      );
-      toast.error(`Ops! Login ou senha incorreto!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   }
 
   return (
@@ -128,8 +108,8 @@ const LoginForm = () => {
           />
         </Grid>
         <Grid item mb={3} display="flex" flexDirection="column">
-          <FormLabel htmlFor="password">Senha</FormLabel>
-          <TextField id="password" name="password" fullWidth value={password} />
+          <FormLabel htmlFor="senha">Senha</FormLabel>
+          <TextField id="senha" name="senha" fullWidth value={senha} />
         </Grid>
         <Grid item mb={3}>
           <Button variant="contained" size="large" onClick={submitLogin}>
