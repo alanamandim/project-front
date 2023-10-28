@@ -44,7 +44,7 @@ function ListUsersCard() {
   // FIXME: Call this function when the button is pressed to refresh the content
   async function putInfo(info1: string, info2: string) {
     const response = await fetch(url, {
-      method: "put",
+      method: "PUT",
       body: JSON.stringify({ info1, info2 }),
       headers: { "Content-Type": "application/json" },
     });

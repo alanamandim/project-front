@@ -63,20 +63,14 @@ const LoginForm = () => {
 
           setUser(response.data);
           window.localStorage.setItem("user", response.data);
+          window.location.href = "/dashboard";
 
-          const TimeSleep = async () => {
-            await sleep(2000);
-            window.location.href = "/dashboard";
-          };
-
-          TimeSleep();
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");
         } else {
           toast.error("Erro desconhecido");
         }
-
 
       })
       .catch((error) => {

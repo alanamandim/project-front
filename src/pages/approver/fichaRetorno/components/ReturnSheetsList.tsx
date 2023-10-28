@@ -36,7 +36,7 @@ const ReturnSheetsList = () => {
   async function putInfo(info1: string, info2: string) {
     // FIXME: Check if this method is correctly
     const response = await fetch(url, {
-      method: "put",
+      method: "PUT",
       body: JSON.stringify({ info1, info2 }),
       headers: { "Content-Type": "application/json" },
     });
