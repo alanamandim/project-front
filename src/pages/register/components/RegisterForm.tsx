@@ -71,22 +71,12 @@ const RegisterForm = () => {
 
   function getValuesFromForm() {
     if (senha === checksenha) {
-      // FIXME: Change it when syncing with the database
-      // const newUserData: IRegisterUser = {
-      //   email: email,
-      //   name: name,
-      //   saram: saram,
-      //   senha: senha,
-      // };
-
-      // await api.post("/registerUser", newUserData);
-      // userContext.registerUser({
-      //   name: newUserData.name,
-      //   email: newUserData.email,
-      //   senha: newUserData.senha,
-      //   saram: newUserData.saram,
-      //   photo: "",
-      // });
+      const newUserData: IRegisterUser = {
+        email: email,
+        name: name,
+        saram: saram,
+        senha: senha,
+      };
 
       const formData = new FormData();
       formData.append("nome", name);
@@ -114,6 +104,14 @@ const RegisterForm = () => {
             await sleep(2000);
             window.location.href = "/";
           };
+
+          userContext.setUser({
+            name: newUserData.name,
+            email: newUserData.email,
+            senha: newUserData.senha,
+            saram: newUserData.saram,
+            photo: "",
+          });
 
           TimeSleep();
         })

@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import { useEffect, useState } from 'react';
 
 const AllCars = () => {
-  // FIXME: Delete this if request works
+  // FIXME: Check if this method is correctly
   const url = "http://localhost:3000";
 
   const [dataGet, setDataGet] = useState([])
@@ -11,7 +11,7 @@ const AllCars = () => {
   useEffect(() => {
     async function getInfo() {
       const response = await fetch(url, {
-        method: "get",
+        method: "GET",
         body: JSON.stringify(dataGet),
         headers: { "Content-Type": "application/json" },
       });
@@ -24,8 +24,6 @@ const AllCars = () => {
 
     getInfo()
   }, [dataGet])
-
-  // FIXME: Do a request (axios or fetch) here and call him data
 
   return (
     <>

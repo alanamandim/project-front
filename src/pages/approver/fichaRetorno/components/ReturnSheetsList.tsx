@@ -10,15 +10,15 @@ import List from "@mui/material/List";
 import { useEffect, useState } from "react";
 
 const ReturnSheetsList = () => {
-  // FIXME: Delete this if request works
-  const url = "http://localhost:3000";
+  // FIXME: Check if this method is correctly
+  const url = "http://localhost:8080";
 
   const [dataGet, setDataGet] = useState([])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
     const response = await fetch(url, {
-      method: "get",
+      method: "GET",
       body: JSON.stringify(dataGet),
       headers: { "Content-Type": "application/json" },
     });
@@ -34,6 +34,7 @@ const ReturnSheetsList = () => {
   }, [getInfo])
 
   async function putInfo(info1: string, info2: string) {
+    // FIXME: Check if this method is correctly
     const response = await fetch(url, {
       method: "put",
       body: JSON.stringify({ info1, info2 }),

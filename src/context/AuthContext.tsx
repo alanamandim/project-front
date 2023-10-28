@@ -1,8 +1,5 @@
 //LOCAL ONDE OCORRE A COMUNICAÇÃO DAS APIS (REGISTRO, SENHA E QUALQUER OUTRA ROTA)
 import { ReactNode, createContext, useState } from "react";
-import { toast } from "react-toastify";
-import api from "../services/api";
-import { useNavigate } from "react-router-dom";
 // import { AxiosResponse } from "axios";
 // import jwt, { JwtPayload } from "jsonwebtoken";
 // import { destroyCookie, parseCookies, setCookie } from "nookies";
@@ -13,10 +10,10 @@ interface IUser {
   email: string;
   name: string;
   saram: string;
-  motorista: boolean;
-  gestor: boolean;
-  aprovador: boolean;
-  chefe: boolean;
+  motorista?: boolean;
+  gestor?: boolean;
+  aprovador?: boolean;
+  chefe?: boolean;
   senha?: string;
   confirm_senha?: string;
   photo?: string;

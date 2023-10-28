@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 const SolicitacaoForm = () => {
 
   // FIXME: Fix the route
-  const url = "http://localhost:3000";
+  const url = "http://localhost:8080";
 
   const [reason, setReason] = useState('')
   const [destiny, setDestiny] = useState('')
@@ -23,7 +23,7 @@ const SolicitacaoForm = () => {
 
   async function sendInfo() {
     const response = await fetch(url, {
-      method: "post",
+      method: "POST",
       // FIXME: Check if the post method is correct
       body: JSON.stringify(
         [

@@ -28,11 +28,10 @@ const ListRequests = async () => {
   };
 
 
-  // FIXME: Do a .map using getInfo
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
     const response = await fetch(url, {
-      method: "get",
+      method: "GET",
       body: JSON.stringify(dataGet),
       headers: { "Content-Type": "application/json" },
     });
@@ -47,6 +46,7 @@ const ListRequests = async () => {
     getInfo()
   }, [getInfo])
 
+  // FIXME: Call this function when the button is pressed to refresh the content
   async function putInfo(info1: string, info2: string) {
     const response = await fetch(url, {
       method: "put",

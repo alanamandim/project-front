@@ -37,13 +37,6 @@ const LoginForm = () => {
   }
 
   async function submitLogin() {
-    const newUserData = {
-      email: email,
-      senha: senha,
-    };
-
-    // Automatic Request from Database
-    //await api.post("/loginUsuario", newUserData);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -54,27 +47,35 @@ const LoginForm = () => {
       method: "POST",
       body: formData,
     })
-      .then((res: any) => {
-        // A resposta do servidor, se necessário.
-        toast.success(`Login efetuado com sucesso!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      .then((response: any) => {
+        if (response.status === 200) {
+          toast.success(`Login efetuado com sucesso!`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
 
-        setUser(res.data);
-        window.localStorage.setItem("user", res.data);
+          setUser(response.data);
+          window.localStorage.setItem("user", response.data);
 
-        const TimeSleep = async () => {
-          await sleep(2000);
-          window.location.href = "/dashboard";
-        };
+          const TimeSleep = async () => {
+            await sleep(2000);
+            window.location.href = "/dashboard";
+          };
 
-        TimeSleep();
+          TimeSleep();
+        } else if (response.status === 401) {
+          // Invalid ID
+          toast.error("Ops! Login ou senha incorreto.");
+        } else {
+          toast.error("Erro desconhecido");
+        }
+
+
       })
       .catch((error) => {
         // Os erros, se houver.

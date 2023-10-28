@@ -15,7 +15,7 @@ function ListUsersCard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
     const response = await fetch(url, {
-      method: "get",
+      method: "GET",
       body: JSON.stringify(
         {
           name: "Testando",
@@ -41,6 +41,7 @@ function ListUsersCard() {
     getInfo()
   }, [getInfo])
 
+  // FIXME: Call this function when the button is pressed to refresh the content
   async function putInfo(info1: string, info2: string) {
     const response = await fetch(url, {
       method: "put",
@@ -75,7 +76,7 @@ function ListUsersCard() {
               id="demo-simple-select"
               // value={age}
               label="Age"
-              // onChange={handleChange}
+            // onChange={handleChange}
             >
               <MenuItem value={"motorista"}>Motorista</MenuItem>
               <MenuItem value={"aprovador"}>Aprovador</MenuItem>

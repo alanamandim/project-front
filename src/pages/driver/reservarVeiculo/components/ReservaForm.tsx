@@ -8,20 +8,23 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
-  const url = "http://localhost:3000";
+  const url = "http://localhost:8080";
 
   const [reason, setReason] = useState("");
-  const [driver, setDriver] = useState("");
   const [vehicle, setVehicle] = useState("");
+  const [driver, setDriver] = useState('');
+  const [availableVehicles, setAvailableVehicles] = useState({})
+  const userContext = useContext(AuthContext);
 
   async function sendInfo() {
     const response = await fetch(url, {
-      method: "post",
+      method: "POST",
       // FIXME: Check if the post method is correct
       body: JSON.stringify([reason, driver, vehicle]),
       headers: { "Content-Type": "application/json" },
@@ -37,6 +40,36 @@ const ReservaForm = () => {
         draggable: true,
         progress: undefined,
       });
+    }
+  }
+
+  useEffect(() => {
+    getAvailableVehicles()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  async function getAvailableVehicles() {
+    const response = await fetch(url + '/listaViaturasDisponiveis', {
+      method: "post",
+      // FIXME: Check if the post method is correct
+      body: JSON.stringify(userContext.user.saram),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setAvailableVehicles(data);
     }
   }
 
@@ -89,12 +122,12 @@ const ReservaForm = () => {
               value={vehicle}
               label="viatura"
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {/* FIXME: Check if this getting values is correctly */}
+              {
+                availableVehicles && Object.keys(availableVehicles).map(key => (
+                  <MenuItem key={key} value={key}>{key}</MenuItem>
+                ))
+              }
             </Select>
           </Grid>
           <Grid item mb={3}>

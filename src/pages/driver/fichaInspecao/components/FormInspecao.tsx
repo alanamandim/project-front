@@ -21,6 +21,7 @@ const InspecaoForm = () => {
   const [idSolicitacao, setIdSolicitacao] = useState('');
 
   const sendInfo = async () => {
+    // FIXME: Check if this method is correctly
     const url = "http://localhost:8080";
     const data = {
       oleo,
@@ -35,7 +36,7 @@ const InspecaoForm = () => {
 
     try {
       const response = await fetch(url, {
-        method: "POST", // "POST" deve estar em maiúsculas
+        method: "POST",
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       });

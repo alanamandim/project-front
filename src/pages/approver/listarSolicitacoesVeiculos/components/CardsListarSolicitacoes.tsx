@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const AllCarsSolicitacoes = () => {
-  // FIXME: Delete this if request works
-  const url = "http://localhost:3000";
+  // FIXME: Check if this method is correctly
+  const url = "http://localhost:8080";
 
   const [dataGet, setDataGet] = useState([])
 
   async function getInfo() {
     const response = await fetch(url, {
-      method: "get",
+      method: "GET",
       body: JSON.stringify(dataGet),
       headers: { "Content-Type": "application/json" },
     });
@@ -24,7 +24,7 @@ const AllCarsSolicitacoes = () => {
 
   async function putInfo() {
     const response = await fetch(url, {
-      method: "post",
+      method: "POST",
       body: JSON.stringify(''),
       // FIXME: GET THE VALUE TO SEND TO BACKEND AND PUT INSIDE A STRINGIFY
       headers: { "Content-Type": "application/json" },

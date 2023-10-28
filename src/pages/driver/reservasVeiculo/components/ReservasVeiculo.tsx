@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 
 const ReservasForm = async () => {
-  const url = "http://localhost:3000";
+  const url = "http://localhost:8080";
   const userContext = useContext(AuthContext)
 
   const [dataGet, setDataGet] = useState([])
@@ -13,7 +13,7 @@ const ReservasForm = async () => {
   useEffect(() => {
     async function getInfo() {
       const response = await fetch(url, {
-        method: "get",
+        method: "GET",
         body: JSON.stringify(dataGet),
         headers: { "Content-Type": "application/json" },
       });
