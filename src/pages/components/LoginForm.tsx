@@ -64,13 +64,14 @@ const LoginForm = () => {
           });
 
           setUser(response.data);
+          console.log(response);
           window.localStorage.setItem("user", response.data);
-          window.location.href = "/dashboard";
+          //window.location.href = "/dashboard";
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");
         } else {
-          toast.error("Erro desconhecido");
+          toast.error("Ops! Login ou senha incorreto.");
           console.log(response.status);
           console.log(response);
         }
