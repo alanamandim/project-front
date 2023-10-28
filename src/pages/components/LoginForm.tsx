@@ -75,6 +75,7 @@ const LoginForm = () => {
       })
       .catch((error) => {
         // Os erros, se houver.
+        console.log(error)
         toast.error(`Ops! Login ou senha incorreto!`, {
           position: "top-right",
           autoClose: 4000,
