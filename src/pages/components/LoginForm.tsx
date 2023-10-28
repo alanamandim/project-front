@@ -37,16 +37,19 @@ const LoginForm = () => {
   }
 
   async function submitLogin() {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("senha", senha);
+    const formData = { email, senha };
+    // formData.append("email", email);
+    // formData.append("senha", senha);
 
     console.log(formData);
 
     // Exemplo de como enviar o arquivo para o back-end usando fetch API.
     fetch(`http://localhost:8080/loginUsuario`, {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     })
       .then((response: any) => {
         if (response.status === 200) {
