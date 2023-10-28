@@ -20,12 +20,13 @@ const LoginForm = () => {
 
   async function getEmail(name: string, pass: string) {
     try {
+      const formData = { email, senha };
       const response = await fetch("http://localhost:8080/email", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, pass }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
