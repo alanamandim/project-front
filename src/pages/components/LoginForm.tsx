@@ -63,9 +63,11 @@ const LoginForm = () => {
             progress: undefined,
           });
 
-          setUser(response.data);
-          console.log(response);
-          window.localStorage.setItem("user", response.data);
+          const data = response.json();
+          console.log(data);
+
+          //setUser(response.data);
+          //window.localStorage.setItem("user", response.data);
           //window.location.href = "/dashboard";
         } else if (response.status === 401) {
           // Invalid ID
