@@ -18,6 +18,29 @@ const LoginForm = () => {
     navigate("/register");
   };
 
+  async function getEmail(name: string, pass: string) {
+    try {
+      const response = await fetch("http://localhost:8080/email", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, pass }),
+      });
+
+      if (response.ok) {
+        // A solicitação foi bem-sucedida (código de status 2xx)
+        const data = await response.json();
+        console.log(data);
+      } else {
+        // A solicitação falhou (código de status não 2xx)
+        console.error("Falha no login:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Erro ao fazer a solicitação:", error);
+    }
+  }
+
   function handleLogin() {
     const inputElementEmail = document.getElementById(
       "email"
@@ -38,10 +61,6 @@ const LoginForm = () => {
 
   async function submitLogin() {
     const formData = { email, senha };
-    // formData.append("email", email);
-    // formData.append("senha", senha);
-
-    console.log(formData);
 
     // Exemplo de como enviar o arquivo para o back-end usando fetch API.
     fetch(`http://localhost:8080/loginUsuario`, {
@@ -65,6 +84,8 @@ const LoginForm = () => {
 
           const data = response.json();
           console.log(data);
+
+          getEmail(email, senha);
 
           //setUser(response.data);
           //window.localStorage.setItem("user", response.data);
