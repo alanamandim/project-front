@@ -37,7 +37,6 @@ const LoginForm = () => {
   }
 
   async function submitLogin() {
-
     const formData = new FormData();
     formData.append("email", email);
     formData.append("senha", senha);
@@ -64,18 +63,18 @@ const LoginForm = () => {
           setUser(response.data);
           window.localStorage.setItem("user", response.data);
           window.location.href = "/dashboard";
-
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");
         } else {
           toast.error("Erro desconhecido");
+          console.log(response.status);
+          console.log(response);
         }
-
       })
       .catch((error) => {
         // Os erros, se houver.
-        console.log(error)
+        console.log(error);
         toast.error(`Ops! Login ou senha incorreto!`, {
           position: "top-right",
           autoClose: 4000,
