@@ -4,15 +4,9 @@ import { Card, CardContent, CardMedia, List, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 
-<<<<<<< HEAD
-const ReservasForm = async () => {
-  const url = "http://localhost:8080";
-  const userContext = useContext(AuthContext)
-=======
 const ReservasForm: any = async () => {
   const url = "http://localhost:8080";
   const userContext = useContext(AuthContext);
->>>>>>> b6161c3bce538e23b59aa57ad99b3e86e329849d
 
   const [dataGet, setDataGet] = useState([]);
 
