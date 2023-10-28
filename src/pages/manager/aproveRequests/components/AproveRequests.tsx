@@ -27,11 +27,6 @@ const ListRequests: any = async () => {
     setChecked(newChecked);
   };
 
-<<<<<<< HEAD
-
-=======
-  // FIXME: Do a .map using getInfo
->>>>>>> b6161c3bce538e23b59aa57ad99b3e86e329849d
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
     const response = await fetch(url, {

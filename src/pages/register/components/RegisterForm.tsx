@@ -23,6 +23,7 @@ const RegisterForm = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
+  const userContext = useContext(AuthContext);
 
   const handleClickShowsenha = () => setShowsenha((show) => !show);
 
@@ -70,7 +71,6 @@ const RegisterForm = () => {
 
   function getValuesFromForm() {
     if (senha === checksenha) {
-<<<<<<< HEAD
       const newUserData: IRegisterUser = {
         email: email,
         name: name,
@@ -78,8 +78,6 @@ const RegisterForm = () => {
         senha: senha,
       };
 
-=======
->>>>>>> b6161c3bce538e23b59aa57ad99b3e86e329849d
       const formData = new FormData();
       formData.append("nome", name);
       formData.append("saram", saram);
