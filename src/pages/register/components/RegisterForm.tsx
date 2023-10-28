@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const [checksenha, setChecksenha] = useState<string>("");
   const [showsenha, setShowsenha] = useState(false);
   const [email, setEmail] = useState<string>("");
-  const [name, setName] = useState<string>("");
+  const [nome, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
   const userContext = useContext(AuthContext);
 
@@ -29,7 +29,7 @@ const RegisterForm = () => {
 
   function collectDataFromForm() {
     const inputElementName = document.getElementById(
-      "name"
+      "nome"
     ) as HTMLInputElement | null;
     if (inputElementName !== null) {
       const formName = inputElementName.value;
@@ -71,14 +71,15 @@ const RegisterForm = () => {
 
   function getValuesFromForm() {
     if (senha === checksenha) {
-      const newUserData: IRegisterUser = {
-        email: email,
-        name: name,
-        saram: saram,
-        senha: senha,
-      };
+      // const newUserData: IRegisterUser = {
+      //   email: email,
+      //   name: name,
+      //   saram: saram,
+      //   senha: senha,
+      //  };
 
-      const formData = { name, saram, email, senha };
+      const formData = { nome, saram, email, senha };
+      console.log(formData);
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/registraUsuario`, {
@@ -150,15 +151,15 @@ const RegisterForm = () => {
           justifyContent="center"
         >
           <Grid item mb={3}>
-            <FormLabel htmlFor="name">
+            <FormLabel htmlFor="nome">
               Foto (Envie uma foto se for motorista e se enviou o formulário
               abaixo!)
             </FormLabel>
             <ImageUploader id={saram} />
           </Grid>
           <Grid item mb={3}>
-            <FormLabel htmlFor="name">Nome de Guerra</FormLabel>
-            <TextField id="name" name="name" fullWidth value={name} />
+            <FormLabel htmlFor="nome">Nome de Guerra</FormLabel>
+            <TextField id="nome" name="nome" fullWidth value={nome} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="saram">SARAM</FormLabel>

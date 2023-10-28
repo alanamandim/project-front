@@ -34,8 +34,9 @@ const LoginForm = () => {
         const data = await response.json();
         console.log(data);
         setUser(data);
-        window.localStorage.setItem("user", data);
-        // window.location.href = "/dashboard";
+        const userJSON = JSON.stringify(data);
+        window.localStorage.setItem("user", userJSON);
+        window.location.href = "/dashboard";
       } else {
         // A solicitação falhou (código de status não 2xx)
         console.error("Falha no login:", response.statusText);
