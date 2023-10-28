@@ -78,46 +78,37 @@ const RegisterForm = () => {
         senha: senha,
       };
 
-      const formData = new FormData();
-      formData.append("nome", name);
-      formData.append("saram", saram);
-      formData.append("email", email);
-      formData.append("senha", senha);
-
-      console.log(formData);
+      const formData = { name, saram, email, senha };
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/registraUsuario`, {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
         .then((response: any) => {
-          toast.success(`${response.body}`, {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          if (response.status === 200) {
+            toast.success(`Login efetuado com sucesso!`, {
+              position: "top-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
 
-          console.log(response);
-
-          const TimeSleep = async () => {
-            await sleep(2000);
             window.location.href = "/";
-          };
-
-          userContext.setUser({
-            name: newUserData.name,
-            email: newUserData.email,
-            senha: newUserData.senha,
-            saram: newUserData.saram,
-            photo: "",
-          });
-
-          TimeSleep();
+          } else if (response.status === 401) {
+            // Invalid ID
+            toast.error("Ops! Login ou senha incorreto.");
+          } else {
+            toast.error("Ops! Login ou senha incorreto.");
+            console.log(response.status);
+            console.log(response);
+          }
         })
         .catch((error) => {
           // Os erros, se houver.
