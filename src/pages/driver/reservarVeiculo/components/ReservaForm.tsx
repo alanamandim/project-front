@@ -173,7 +173,7 @@ const ReservaForm = () => {
               {availableVehicles?.map((e: IViatura) => (
                 <MenuItem
                   value={e.placa}
-                >{`${e.modelo} -> ${e.status}`}</MenuItem>
+                >{`${e.modelo} -> ${e.placa}`}</MenuItem>
               ))}
             </Select>
           </Grid>
@@ -183,8 +183,9 @@ const ReservaForm = () => {
             <TextField
               id="motorista"
               name="motorista"
+              disabled
               fullWidth
-              value={driver}
+              value={userContext.user.saram}
             />
           </Grid>
           <Grid item mb={3} alignItems="center">
