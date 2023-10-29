@@ -19,6 +19,12 @@ interface IUser {
   photo?: string;
 }
 
+export interface IViatura {
+  placa: string;
+  modelo: string;
+  status: string;
+}
+
 export interface IRegisterUser {
   email: string;
   name: string;

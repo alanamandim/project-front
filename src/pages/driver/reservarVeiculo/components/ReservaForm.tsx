@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../../context/AuthContext";
+import { AuthContext, IViatura } from "../../../../context/AuthContext";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
@@ -21,7 +21,7 @@ const ReservaForm = () => {
   const [dtHrFim, setDtHrFim] = useState("");
   const [driver, setDriver] = useState("");
   const [vehicle, setVehicle] = useState("");
-  const [availableVehicles, setAvailableVehicles] = useState({});
+  const [availableVehicles, setAvailableVehicles] = useState([]);
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
@@ -61,14 +61,11 @@ const ReservaForm = () => {
   }, []);
 
   async function getAvailableVehicles() {
-    const response = await fetch(
-      url + "/listaViaturasDisponiveis/" + userContext.user.saram,
-      {
-        method: "GET",
-        // FIXME: Check if the post method is correct
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const response = await fetch(url + "/listaSituacaoViaturas", {
+      method: "GET",
+      // FIXME: Check if the post method is correct
+      headers: { "Content-Type": "application/json" },
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -173,12 +170,11 @@ const ReservaForm = () => {
               label="viatura"
             >
               {/* FIXME: Check if this getting values is correctly */}
-              {availableVehicles &&
-                Object.keys(availableVehicles).map((key) => (
-                  <MenuItem key={key} value={key}>
-                    {key}
-                  </MenuItem>
-                ))}
+              {availableVehicles?.map((e: IViatura) => (
+                <MenuItem
+                  value={e.placa}
+                >{`${e.modelo} -> ${e.status}`}</MenuItem>
+              ))}
             </Select>
           </Grid>
           <Grid item mb={3}>

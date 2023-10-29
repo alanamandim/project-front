@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
 
 import {
@@ -10,31 +10,27 @@ import {
   TextField,
 } from "@mui/material";
 import { toast } from "react-toastify";
+import { AuthContext, IViatura } from "../../../../context/AuthContext";
 
 const SolicitacaoForm = () => {
-
   // FIXME: Fix the route
   const url = "http://localhost:8080";
 
-  const [reason, setReason] = useState('')
-  const [destiny, setDestiny] = useState('')
-  const [vehicle, setVehicle] = useState('')
-  const [saram, setSaram] = useState('')
+  const [reason, setReason] = useState("");
+  const [destiny, setDestiny] = useState("");
+  const [vehicle, setVehicle] = useState("");
+  const [saram, setSaram] = useState("");
+  const [available, setVehicles] = useState([]);
+
+  const userContext = useContext(AuthContext);
 
   async function sendInfo() {
     const response = await fetch(url, {
       method: "POST",
       // FIXME: Check if the post method is correct
-      body: JSON.stringify(
-        [
-          reason,
-          destiny,
-          vehicle,
-          saram
-        ]
-      ),
+      body: JSON.stringify([reason, destiny, vehicle, saram]),
       headers: { "Content-Type": "application/json" },
-    })
+    });
 
     if (response.ok) {
       toast.success(`Requisição enviada!`, {
@@ -49,30 +45,71 @@ const SolicitacaoForm = () => {
     }
   }
 
+  useEffect(() => {
+    getVehicles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function getVehicles() {
+    const response = await fetch(
+      url + "/listaViaturasDisponiveis/" + userContext.user.saram,
+      {
+        method: "GET",
+        // FIXME: Check if the post method is correct
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+
+      toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setVehicles(data);
+    }
+  }
+
+  console.log(available);
+
   function getValuesFromForm() {
-    const inputElementReason = document.getElementById("motivo") as HTMLInputElement | null;
+    const inputElementReason = document.getElementById(
+      "motivo"
+    ) as HTMLInputElement | null;
     if (inputElementReason !== null) {
       const formReason = inputElementReason.value;
-      setReason(formReason)
+      setReason(formReason);
     }
 
-    const inputElementDestiny = document.getElementById("destino") as HTMLInputElement | null;
+    const inputElementDestiny = document.getElementById(
+      "destino"
+    ) as HTMLInputElement | null;
     if (inputElementDestiny !== null) {
       const formDestiny = inputElementDestiny.value;
-      setDestiny(formDestiny)
+      setDestiny(formDestiny);
     }
 
-    const formVehicle: HTMLSelectElement | null = document.querySelector("#vehicle");
+    const formVehicle: HTMLSelectElement | null =
+      document.querySelector("#vehicle");
     const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
 
     if (resultVehicle) {
       setVehicle(resultVehicle);
     }
 
-    const inputElementSaram = document.getElementById("saram") as HTMLInputElement | null;
+    const inputElementSaram = document.getElementById(
+      "saram"
+    ) as HTMLInputElement | null;
     if (inputElementSaram !== null) {
       const formSaram = inputElementSaram.value;
-      setSaram(formSaram)
+      setSaram(formSaram);
     }
   }
 
@@ -88,21 +125,11 @@ const SolicitacaoForm = () => {
       >
         <Grid item mb={3}>
           <FormLabel htmlFor="motivo">Motivo</FormLabel>
-          <TextField
-            id="motivo"
-            name="motivo"
-            fullWidth
-            value={reason}
-          />
+          <TextField id="motivo" name="motivo" fullWidth value={reason} />
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="destino">Destino</FormLabel>
-          <TextField
-            id="destino"
-            name="destino"
-            fullWidth
-            value={destiny}
-          />
+          <TextField id="destino" name="destino" fullWidth value={destiny} />
         </Grid>
         <Grid item mb={3}>
           <InputLabel id="demo-select-small-label">Viatura</InputLabel>
@@ -112,22 +139,16 @@ const SolicitacaoForm = () => {
             value={vehicle}
             label="viatura"
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {available?.map((e: IViatura) => (
+              <MenuItem
+                value={e.placa}
+              >{`${e.modelo} -> ${e.status}`}</MenuItem>
+            ))}
           </Select>
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="saram">Saram</FormLabel>
-          <TextField
-            id="saram"
-            name="saram"
-            fullWidth
-            value={saram}
-          />
+          <TextField id="saram" name="saram" fullWidth value={saram} />
         </Grid>
         <Grid item mb={3} alignItems="center">
           <Button variant="contained" size="large" onClick={sendInfo}>
