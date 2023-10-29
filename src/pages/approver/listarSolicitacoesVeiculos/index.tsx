@@ -4,14 +4,14 @@ import { Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import AllCarsSolicitacoes from "./components/CardsListarSolicitacoes";
+import { toast } from "react-toastify";
 
 const CardsList = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.aprovador == true || userLocal.aprovador == true ? (
+      {user.aprovador == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -28,7 +28,7 @@ const CardsList = () => {
           <AllCarsSolicitacoes />
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

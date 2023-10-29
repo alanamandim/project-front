@@ -18,11 +18,11 @@ const LoginForm = () => {
     navigate("/register");
   };
 
-  async function getEmail(name: string, pass: string) {
+  async function getEmail() {
     try {
-      const formData = { email, senha };
+      const formData = { email };
       const response = await fetch("http://localhost:8080/email", {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
@@ -90,7 +90,7 @@ const LoginForm = () => {
           const data = response.json();
           console.log(data);
 
-          getEmail(email, senha);
+          getEmail();
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");

@@ -3,6 +3,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import ListUsersCard from "./components/ListUsers";
+import { toast } from "react-toastify";
 
 const ListUsersPage = () => {
   const { user } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const ListUsersPage = () => {
 
   return (
     <>
-      {user.gestor == true || userLocal.gestor == true ? (
+      {user.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -27,7 +28,7 @@ const ListUsersPage = () => {
           <ListUsersCard />
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

@@ -4,14 +4,14 @@ import { Typography } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import ReturnSheetsList from "./components/ReturnSheetsList";
+import { toast } from "react-toastify";
 
 const ReturnSheets = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.motorista == true || userLocal.motorista == true ? (
+      {user.motorista == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -28,7 +28,7 @@ const ReturnSheets = () => {
           <ReturnSheetsList />
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

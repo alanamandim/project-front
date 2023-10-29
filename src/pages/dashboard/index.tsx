@@ -1,11 +1,26 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Obtenha o objeto user do localStorage
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      // Parse o objeto do localStorage para um objeto JavaScript
+      const parsedUser = JSON.parse(storedUser);
+
+      // Defina o objeto user no estado
+      setUser(parsedUser);
+    }
+  }, []);
+
   console.log(user);
 
   return (
@@ -76,7 +91,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

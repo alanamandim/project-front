@@ -3,14 +3,14 @@ import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Sender = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.chefe == true || userLocal.motorista == true ? (
+      {user.chefe == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -24,7 +24,7 @@ const Sender = () => {
           {/* <RegisterForm /> */}
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

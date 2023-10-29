@@ -3,15 +3,15 @@ import Grid from "@mui/material/Grid";
 import { Button, Typography } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Manager = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.gestor == true || userLocal.gestor == true ? (
+      {user.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -78,7 +78,7 @@ const Manager = () => {
           </Grid>
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

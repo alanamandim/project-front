@@ -4,15 +4,14 @@ import { Typography } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import ListRequests from "./components/AproveRequests";
+import { toast } from "react-toastify";
 
 const RequestUsers = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.gestor == true || userLocal.gestor == true ? (
+      {user.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -29,7 +28,7 @@ const RequestUsers = () => {
           <ListRequests />
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

@@ -3,14 +3,14 @@ import { Navigate } from "react-router-dom";
 import CreatedCard from "./components/CreateCardForm";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const CreateCar = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.gestor == true || userLocal.gestor == true ? (
+      {user.gestor == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -27,7 +27,7 @@ const CreateCar = () => {
           <CreatedCard />
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );

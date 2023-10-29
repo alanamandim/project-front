@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import { Button, Typography } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Approver = () => {
   const { user } = useContext(AuthContext);
@@ -11,7 +12,7 @@ const Approver = () => {
 
   return (
     <>
-      {user.aprovador == true || userLocal.aprovador == true ? (
+      {user.aprovador == true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -65,7 +66,7 @@ const Approver = () => {
           </Grid>
         </Grid>
       ) : (
-        <Navigate to="/" />
+        toast.error("Ops! Algo deu errado, saia e entre novamente!")
       )}
     </>
   );
