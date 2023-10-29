@@ -16,16 +16,16 @@ const ReservaForm = () => {
   // FIXME: Fix the route
   const url = "http://localhost:8080";
 
-  const [reason, setReason] = useState("");
-  const [dtHrIni, setDtHrIni] = useState("");
-  const [dtHrFim, setDtHrFim] = useState("");
-  const [driver, setDriver] = useState("");
-  const [vehicle, setVehicle] = useState("");
+  const [motivo, setReason] = useState("");
+  const [dataHrInicio, setDtHrIni] = useState("");
+  const [dataHrFim, setDtHrFim] = useState("");
+  const [motorista, setDriver] = useState("");
+  const [viatura, setVehicle] = useState("");
   const [availableVehicles, setAvailableVehicles] = useState({});
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
-    const formData = { reason, dtHrIni, dtHrFim, driver, vehicle };
+    const formData = { motivo, dataHrInicio, dataHrFim, motorista, viatura };
     console.log(formData);
     const response = await fetch(url + "/adicionaReserva", {
       method: "POST",
@@ -143,7 +143,7 @@ const ReservaForm = () => {
         >
           <Grid item mb={3}>
             <FormLabel htmlFor="motivo">Motivo</FormLabel>
-            <TextField id="motivo" name="motivo" fullWidth value={reason} />
+            <TextField id="motivo" name="motivo" fullWidth value={motivo} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="dataHrInicio">Data Hora Inicio</FormLabel>
@@ -151,7 +151,7 @@ const ReservaForm = () => {
               id="dataHrInicio"
               name="dataHrInicio"
               fullWidth
-              value={dtHrIni}
+              value={dataHrInicio}
             />
           </Grid>
           <Grid item mb={3}>
@@ -160,7 +160,7 @@ const ReservaForm = () => {
               id="dataHrFim"
               name="dataHrFim"
               fullWidth
-              value={dtHrFim}
+              value={dataHrFim}
             />
           </Grid>
           <Grid item mb={3}>
@@ -168,7 +168,7 @@ const ReservaForm = () => {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={vehicle}
+              value={viatura}
               name="viatura"
               label="viatura"
             >
