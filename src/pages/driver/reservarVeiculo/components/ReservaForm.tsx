@@ -25,10 +25,12 @@ const ReservaForm = () => {
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
+    const formData = { reason, dtHrIni, dtHrFim, driver, vehicle };
+    console.log(formData);
     const response = await fetch(url + "/adicionaReserva", {
       method: "POST",
       // FIXME: Check if the post method is correct
-      body: JSON.stringify([reason, dtHrIni, dtHrFim, driver, vehicle]),
+      body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
     });
 
@@ -165,7 +167,7 @@ const ReservaForm = () => {
             <InputLabel id="demo-select-small-label">Viatura</InputLabel>
             <Select
               labelId="demo-select-small-label"
-              id="demo-select-small"
+              id="vehicle"
               value={vehicle}
               label="viatura"
             >
