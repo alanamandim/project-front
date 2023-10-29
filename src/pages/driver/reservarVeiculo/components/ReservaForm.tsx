@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { AuthContext, IViatura } from "../../../../context/AuthContext";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
@@ -21,7 +21,7 @@ const ReservaForm = () => {
   const [dtHrFim, setDtHrFim] = useState("");
   const [driver, setDriver] = useState("");
   const [vehicle, setVehicle] = useState("");
-  const [availableVehicles, setAvailableVehicles] = useState([]);
+  const [availableVehicles, setAvailableVehicles] = useState({});
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
@@ -63,7 +63,7 @@ const ReservaForm = () => {
   }, []);
 
   async function getAvailableVehicles() {
-    const response = await fetch(url + "/listaSituacaoViaturas", {
+    const response = await fetch(url + "/listaSituacaoViatura", {
       method: "GET",
       // FIXME: Check if the post method is correct
       headers: { "Content-Type": "application/json" },
@@ -167,25 +167,27 @@ const ReservaForm = () => {
             <InputLabel id="demo-select-small-label">Viatura</InputLabel>
             <Select
               labelId="demo-select-small-label"
-              id="vehicle"
+              id="demo-select-small"
               value={vehicle}
+              name="viatura"
               label="viatura"
             >
               {/* FIXME: Check if this getting values is correctly */}
-              {availableVehicles?.map((e: IViatura) => (
-                <MenuItem
-                  value={e.placa}
-                >{`${e.modelo} -> ${e.placa}`}</MenuItem>
-              ))}
+              {availableVehicles &&
+                Object.keys(availableVehicles).map((key) => (
+                  <MenuItem key={key} value={key}>
+                    {key}
+                  </MenuItem>
+                ))}
             </Select>
           </Grid>
           <Grid item mb={3}>
             {/* tem que tirar e substituir pelo saram depois! */}
             <FormLabel htmlFor="motorista">Motorista</FormLabel>
             <TextField
+              disabled
               id="motorista"
               name="motorista"
-              disabled
               fullWidth
               value={userContext.user.saram}
             />
