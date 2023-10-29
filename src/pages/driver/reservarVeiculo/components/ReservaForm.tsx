@@ -14,18 +14,18 @@ import { AuthContext } from "../../../../context/AuthContext";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
-  const url = "http://localhost:8080/adicionaReserva";
+  const url = "http://localhost:8080";
 
   const [reason, setReason] = useState("");
   const [dtHrIni, setDtHrIni] = useState("");
   const [dtHrFim, setDtHrFim] = useState("");
   const [driver, setDriver] = useState("");
   const [vehicle, setVehicle] = useState("");
-  const [availableVehicles, setAvailableVehicles] = useState({})
+  const [availableVehicles, setAvailableVehicles] = useState({});
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
-    const response = await fetch(url, {
+    const response = await fetch(url + "/adicionaReserva", {
       method: "POST",
       // FIXME: Check if the post method is correct
       body: JSON.stringify([reason, dtHrIni, dtHrFim, driver, vehicle]),
@@ -56,17 +56,19 @@ const ReservaForm = () => {
   }
 
   useEffect(() => {
-    getAvailableVehicles()
+    getAvailableVehicles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   async function getAvailableVehicles() {
-    const response = await fetch(url + '/listaViaturasDisponiveis', {
-      method: "post",
-      // FIXME: Check if the post method is correct
-      body: JSON.stringify(userContext.user.saram),
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      url + "/listaViaturasDisponiveis/" + userContext.user.saram,
+      {
+        method: "GET",
+        // FIXME: Check if the post method is correct
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -127,6 +129,8 @@ const ReservaForm = () => {
     }
   }
 
+  console.log(availableVehicles);
+
   return (
     <>
       <form onChange={getValuesFromForm}>
@@ -169,13 +173,14 @@ const ReservaForm = () => {
               label="viatura"
             >
               {/* FIXME: Check if this getting values is correctly */}
-              {
-                availableVehicles && Object.keys(availableVehicles).map(key => (
-                  <MenuItem key={key} value={key}>{key}</MenuItem>
-                ))
-              }
-            </Select >
-          </Grid >
+              {availableVehicles &&
+                Object.keys(availableVehicles).map((key) => (
+                  <MenuItem key={key} value={key}>
+                    {key}
+                  </MenuItem>
+                ))}
+            </Select>
+          </Grid>
           <Grid item mb={3}>
             {/* tem que tirar e substituir pelo saram depois! */}
             <FormLabel htmlFor="motorista">Motorista</FormLabel>
@@ -191,8 +196,8 @@ const ReservaForm = () => {
               RESERVAR
             </Button>
           </Grid>
-        </Grid >
-      </form >
+        </Grid>
+      </form>
     </>
   );
 };

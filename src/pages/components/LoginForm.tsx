@@ -6,7 +6,6 @@ import { Button, FormLabel, TextField, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import sleep from "../../utils/Sleep";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -20,13 +19,11 @@ const LoginForm = () => {
 
   async function getEmail() {
     try {
-      const formData = { email };
-      const response = await fetch("http://localhost:8080/email", {
+      const response = await fetch("http://localhost:8080/email/" + email, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
