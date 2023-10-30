@@ -21,6 +21,7 @@ const SolicitacaoForm = () => {
   const [vehicle, setVehicle] = useState("");
   const [saram, setSaram] = useState("");
   const [available, setVehicles] = useState([]);
+  const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
 
   const userContext = useContext(AuthContext);
 
@@ -73,7 +74,7 @@ const SolicitacaoForm = () => {
         progress: undefined,
       });
 
-      setVehicles(data);
+      setAvailableVehicles(data);
     }
   }
 
@@ -139,11 +140,12 @@ const SolicitacaoForm = () => {
             value={vehicle}
             label="viatura"
           >
-            {available?.map((e: IViatura) => (
-              <MenuItem
-                value={e.placa}
-              >{`${e.modelo} -> ${e.status}`}</MenuItem>
-            ))}
+            {availableVehicles &&
+              Object.keys(availableVehicles).map((key) => (
+                <MenuItem key={key} value={availableVehicles[key].placa}>
+                  {availableVehicles[key].modelo} - {availableVehicles[key].placa}
+                </MenuItem>
+              ))}
           </Select>
         </Grid>
         <Grid item mb={3}>

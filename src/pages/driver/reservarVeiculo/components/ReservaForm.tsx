@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../../context/AuthContext";
+import { AuthContext, IViatura } from "../../../../context/AuthContext";
 
 const ReservaForm = () => {
   // FIXME: Fix the route
@@ -21,7 +21,7 @@ const ReservaForm = () => {
   const [dataHrFim, setDtHrFim] = useState("");
   const [motorista, setDriver] = useState("");
   const [viatura, setVehicle] = useState("");
-  const [availableVehicles, setAvailableVehicles] = useState({});
+  const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
@@ -176,8 +176,8 @@ const ReservaForm = () => {
               {/* FIXME: Check if this getting values is correctly */}
               {availableVehicles &&
                 Object.keys(availableVehicles).map((key) => (
-                  <MenuItem key={key} value={key}>
-                    {key}
+                  <MenuItem key={key} value={availableVehicles[key].placa}>
+                    {availableVehicles[key].modelo} - {availableVehicles[key].placa}
                   </MenuItem>
                 ))}
             </Select>
