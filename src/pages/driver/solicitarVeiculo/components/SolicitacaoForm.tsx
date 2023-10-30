@@ -20,7 +20,6 @@ const SolicitacaoForm = () => {
   const [destiny, setDestiny] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [saram, setSaram] = useState("");
-  const [available, setVehicles] = useState([]);
   const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
 
   const userContext = useContext(AuthContext);
@@ -78,8 +77,6 @@ const SolicitacaoForm = () => {
     }
   }
 
-  console.log(available);
-
   function getValuesFromForm() {
     const inputElementReason = document.getElementById(
       "motivo"
@@ -95,14 +92,6 @@ const SolicitacaoForm = () => {
     if (inputElementDestiny !== null) {
       const formDestiny = inputElementDestiny.value;
       setDestiny(formDestiny);
-    }
-
-    const formVehicle: HTMLSelectElement | null =
-      document.querySelector("#vehicle");
-    const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
-
-    if (resultVehicle) {
-      setVehicle(resultVehicle);
     }
 
     const inputElementSaram = document.getElementById(
@@ -137,12 +126,14 @@ const SolicitacaoForm = () => {
           <Select
             labelId="demo-select-small-label"
             id="demo-select-small"
-            value={vehicle}
+            name="viatura"
             label="viatura"
           >
+            {/* FIXME: Check if this getting values is correctly */}
             {availableVehicles &&
               Object.keys(availableVehicles).map((key) => (
-                <MenuItem key={key} value={availableVehicles[key].placa}>
+                <MenuItem key={key} value={availableVehicles[key].placa}
+                  onClick={() => setVehicle(availableVehicles[key].placa)}>
                   {availableVehicles[key].modelo} - {availableVehicles[key].placa}
                 </MenuItem>
               ))}
