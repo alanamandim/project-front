@@ -39,7 +39,7 @@ const ReservaForm = () => {
       .then((response) => response.text()) // Converte o corpo da resposta para texto
       .then((data) => {
         console.log(data); // Exibe a mensagem no console
-        toast.success(`Requisição enviada!`, {
+        toast.success(`Requisição enviada! Id: ${data}`, {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,

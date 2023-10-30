@@ -39,7 +39,7 @@ const SolicitacaoForm = () => {
       .then((data) => {
         // Exibe a mensagem no console
         console.log(data);
-        toast.success(`Requisição enviada!`, {
+        toast.success(`Requisição enviada! Id: ${data}`, {
           position: "top-right",
           autoClose: 4000,
           hideProgressBar: false,
