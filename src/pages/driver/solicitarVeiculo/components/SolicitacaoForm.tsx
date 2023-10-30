@@ -37,7 +37,8 @@ const SolicitacaoForm = () => {
     })
       .then((response) => response.text()) // Converte o corpo da resposta para texto
       .then((data) => {
-        console.log(data); // Exibe a mensagem no console
+        //console.log(data.substring(18)); // Exibe a mensagem no console
+        console.log(data.substring(18, 19));
         toast.success(`Requisição enviada!`, {
           position: "top-right",
           autoClose: 4000,
