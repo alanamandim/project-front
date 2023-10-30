@@ -119,14 +119,6 @@ const ReservaForm = () => {
       const formFim = inputElementHrFim.value;
       setDtHrFim(formFim);
     }
-
-    const formVehicle: HTMLSelectElement | null =
-      document.querySelector("#viatura");
-    const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
-
-    if (resultVehicle) {
-      setVehicle(resultVehicle);
-    }
   }
 
   console.log(availableVehicles);
@@ -169,14 +161,14 @@ const ReservaForm = () => {
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
-              value={viatura}
               name="viatura"
               label="viatura"
             >
               {/* FIXME: Check if this getting values is correctly */}
               {availableVehicles &&
                 Object.keys(availableVehicles).map((key) => (
-                  <MenuItem key={key} value={availableVehicles[key].placa}>
+                  <MenuItem key={key} value={availableVehicles[key].placa}
+                    onClick={() => setVehicle(availableVehicles[key].placa)}>
                     {availableVehicles[key].modelo} - {availableVehicles[key].placa}
                   </MenuItem>
                 ))}
