@@ -148,7 +148,13 @@ const SolicitacaoForm = () => {
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="saram">Saram</FormLabel>
-          <TextField id="saram" name="saram" fullWidth value={saram} />
+          <TextField
+            disabled
+            id="saram"
+            name="saram"
+            fullWidth
+            value={userContext.user.saram}
+          />
         </Grid>
         <Grid item mb={3} alignItems="center">
           <Button variant="contained" size="large" onClick={sendInfo}>

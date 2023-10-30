@@ -63,7 +63,8 @@ const ReservaForm = () => {
   }, []);
 
   async function getAvailableVehicles() {
-    const response = await fetch(url + "/listaSituacaoViatura", {
+    //AJUSTAR O SELECT, TEM QUE APARECER O MODELO DA VIATURA E A PLACA DELA, O VALOR ENVIADO DEVE SER A PLACA!
+    const response = await fetch(url + "/listaSituacaoViaturas", {
       method: "GET",
       // FIXME: Check if the post method is correct
       headers: { "Content-Type": "application/json" },
