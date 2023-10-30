@@ -121,7 +121,7 @@ const ReservaForm = () => {
     }
 
     const formVehicle: HTMLSelectElement | null =
-      document.querySelector("#vehicle");
+      document.querySelector("#viatura");
     const resultVehicle = formVehicle?.options[formVehicle.selectedIndex].text;
 
     if (resultVehicle) {
