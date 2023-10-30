@@ -18,6 +18,7 @@ const AllCarsSolicitacoes = () => {
 
     if (response.ok) {
       const data = await response.json();
+      console.log(url, data)
       setDataGet(data)
     }
   }
@@ -31,6 +32,7 @@ const AllCarsSolicitacoes = () => {
     })
 
     if (response.ok) {
+      console.log(url, '')
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,

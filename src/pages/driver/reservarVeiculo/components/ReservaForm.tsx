@@ -35,6 +35,7 @@ const ReservaForm = () => {
     });
 
     if (response.ok) {
+      console.log(url + "/listaSituacaoViaturas", formData)
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -72,6 +73,7 @@ const ReservaForm = () => {
 
     if (response.ok) {
       const data = await response.json();
+      console.log(url + "/listaSituacaoViaturas", data)
 
       toast.success(`Requisição enviada!`, {
         position: "top-right",

@@ -21,6 +21,7 @@ const ReservasForm: any = async () => {
       if (response.ok) {
         const data = await response.json();
         setDataGet(data);
+        console.log(url, data)
       }
     }
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const AllCars = () => {
   // FIXME: Check if this method is correctly
-  const url = "http://localhost:3000";
+  const url = "http://localhost:8080";
 
   const [dataGet, setDataGet] = useState([])
 
@@ -18,6 +18,7 @@ const AllCars = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(url, data)
         setDataGet(data)
       }
     }

@@ -33,6 +33,7 @@ const SolicitacaoForm = () => {
     });
 
     if (response.ok) {
+      console.log(url + "/listaSituacaoViaturas", [reason, destiny, vehicle, saram])
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -62,6 +63,7 @@ const SolicitacaoForm = () => {
 
     if (response.ok) {
       const data = await response.json();
+      console.log(url + '/listaViaturasDisponiveis', data)
 
       toast.success(`Requisição enviada!`, {
         position: "top-right",
