@@ -22,6 +22,7 @@ const ReservaForm = () => {
   const [motorista, setDriver] = useState("");
   const [viatura, setVehicle] = useState("");
   const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
+  const [selectedVehicle, setSelectedVehicle] = useState("");
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
@@ -165,6 +166,8 @@ const ReservaForm = () => {
               id="demo-select-small"
               name="viatura"
               label="viatura"
+              value={selectedVehicle}
+              onChange={(e) => setSelectedVehicle(e.target.value)}
             >
               {/* FIXME: Check if this getting values is correctly */}
               {availableVehicles &&

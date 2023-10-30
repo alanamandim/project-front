@@ -20,6 +20,7 @@ const SolicitacaoForm = () => {
   const [destiny, setDestiny] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [saram, setSaram] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState("");
   const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
 
   const userContext = useContext(AuthContext);
@@ -130,6 +131,8 @@ const SolicitacaoForm = () => {
             id="demo-select-small"
             name="viatura"
             label="viatura"
+            value={selectedVehicle}
+            onChange={(e) => setSelectedVehicle(e.target.value)}
           >
             {/* FIXME: Check if this getting values is correctly */}
             {availableVehicles &&
