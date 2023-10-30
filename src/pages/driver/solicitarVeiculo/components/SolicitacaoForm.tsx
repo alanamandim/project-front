@@ -16,25 +16,33 @@ const SolicitacaoForm = () => {
   // FIXME: Fix the route
   const url = "http://localhost:8080";
 
-  const [reason, setReason] = useState("");
-  const [destiny, setDestiny] = useState("");
-  const [vehicle, setVehicle] = useState("");
-  const [saram, setSaram] = useState("");
-  const [selectedVehicle, setSelectedVehicle] = useState("");
-  const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
+  const [motivo, setReason] = useState("");
+  const [destino, setDestiny] = useState("");
+  const [viatura, setVehicle] = useState("");
+  const [motorista, setSaram] = useState("");
+  const [availableVehicles, setAvailableVehicles] = useState<
+    Record<string, IViatura>
+  >({});
 
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
-    const response = await fetch(url, {
+    const formData = { motivo, destino, viatura, motorista };
+    console.log(formData);
+    const response = await fetch(url + "/", {
       method: "POST",
       // FIXME: Check if the post method is correct
-      body: JSON.stringify([reason, destiny, vehicle, saram]),
+      body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
-      console.log(url + "/listaSituacaoViaturas", [reason, destiny, vehicle, saram])
+      console.log(url + "/listaSituacaoViaturas", [
+        motivo,
+        destino,
+        viatura,
+        motorista,
+      ]);
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -64,7 +72,7 @@ const SolicitacaoForm = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + '/listaViaturasDisponiveis', data)
+      console.log(url + "/listaViaturasDisponiveis", data);
 
       toast.success(`Requisição enviada!`, {
         position: "top-right",
@@ -118,11 +126,11 @@ const SolicitacaoForm = () => {
       >
         <Grid item mb={3}>
           <FormLabel htmlFor="motivo">Motivo</FormLabel>
-          <TextField id="motivo" name="motivo" fullWidth value={reason} />
+          <TextField id="motivo" name="motivo" fullWidth value={motivo} />
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="destino">Destino</FormLabel>
-          <TextField id="destino" name="destino" fullWidth value={destiny} />
+          <TextField id="destino" name="destino" fullWidth value={destino} />
         </Grid>
         <Grid item mb={3}>
           <InputLabel id="demo-select-small-label">Viatura</InputLabel>
@@ -131,15 +139,19 @@ const SolicitacaoForm = () => {
             id="demo-select-small"
             name="viatura"
             label="viatura"
-            value={selectedVehicle}
-            onChange={(e) => setSelectedVehicle(e.target.value)}
+            value={viatura}
+            onChange={(e) => setVehicle(e.target.value)}
           >
             {/* FIXME: Check if this getting values is correctly */}
             {availableVehicles &&
               Object.keys(availableVehicles).map((key) => (
-                <MenuItem key={key} value={availableVehicles[key].placa}
-                  onClick={() => setVehicle(availableVehicles[key].placa)}>
-                  {availableVehicles[key].modelo} - {availableVehicles[key].placa}
+                <MenuItem
+                  key={key}
+                  value={availableVehicles[key].placa}
+                  onClick={() => setVehicle(availableVehicles[key].placa)}
+                >
+                  {availableVehicles[key].modelo} -{" "}
+                  {availableVehicles[key].placa}
                 </MenuItem>
               ))}
           </Select>
