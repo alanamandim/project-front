@@ -36,6 +36,8 @@ const SolicitacaoForm = () => {
       headers: { "Content-Type": "application/json" },
     });
 
+    console.log(response);
+
     if (response.ok) {
       console.log(url + "/listaSituacaoViaturas", [
         motivo,

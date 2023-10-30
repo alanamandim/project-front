@@ -27,17 +27,19 @@ function App() {
       <Routes>
         {/* Local das rotas */}
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/driver" element={<Driver />} />
+        <Route path="/" element={<Login />} /> {/* FUNCIONANDO! */}
+        <Route path="/register" element={<Register />} /> {/* FUNCIONANDO! */}
+        <Route path="/dashboard" element={<Dashboard />} /> {/* FUNCIONANDO! */}
+        <Route path="/driver" element={<Driver />} /> {/* FUNCIONANDO! */}
         <Route path="/driver/inspecao-veiculo" element={<Inspecao />} />
-        <Route path="/driver/reservar-veiculo" element={<Reserve />} />
+        <Route path="/driver/reservar-veiculo" element={<Reserve />} />{" "}
+        {/* FUNCIONANDO! */}
         <Route
           path="/driver/reservas-veiculo"
           element={<ReservasVeiculoForm />}
         />
-        <Route path="/driver/solicitar-veiculo" element={<Request />} />
+        <Route path="/driver/solicitar-veiculo" element={<Request />} />{" "}
+        {/* FUNCIONANDO! */}
         <Route path="/approver" element={<Approver />} />
         <Route path="/approver/solicitar-veiculos" element={<CardsList />} />
         <Route path="/approver/listar-veiculos" element={<ListarVeiculos />} />

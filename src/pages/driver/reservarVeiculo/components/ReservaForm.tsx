@@ -21,7 +21,9 @@ const ReservaForm = () => {
   const [dataHrFim, setDtHrFim] = useState("");
   const [motorista, setDriver] = useState("");
   const [viatura, setVehicle] = useState("");
-  const [availableVehicles, setAvailableVehicles] = useState<Record<string, IViatura>>({});
+  const [availableVehicles, setAvailableVehicles] = useState<
+    Record<string, IViatura>
+  >({});
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const userContext = useContext(AuthContext);
 
@@ -35,8 +37,10 @@ const ReservaForm = () => {
       headers: { "Content-Type": "application/json" },
     });
 
+    console.log(response);
+
     if (response.ok) {
-      console.log(url + "/listaSituacaoViaturas", formData)
+      console.log(url + "/listaSituacaoViaturas", formData);
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -74,7 +78,7 @@ const ReservaForm = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + "/listaSituacaoViaturas", data)
+      console.log(url + "/listaSituacaoViaturas", data);
 
       toast.success(`Requisição enviada!`, {
         position: "top-right",
@@ -172,9 +176,13 @@ const ReservaForm = () => {
               {/* FIXME: Check if this getting values is correctly */}
               {availableVehicles &&
                 Object.keys(availableVehicles).map((key) => (
-                  <MenuItem key={key} value={availableVehicles[key].placa}
-                    onClick={() => setVehicle(availableVehicles[key].placa)}>
-                    {availableVehicles[key].modelo} - {availableVehicles[key].placa}
+                  <MenuItem
+                    key={key}
+                    value={availableVehicles[key].placa}
+                    onClick={() => setVehicle(availableVehicles[key].placa)}
+                  >
+                    {availableVehicles[key].modelo} -{" "}
+                    {availableVehicles[key].placa}
                   </MenuItem>
                 ))}
             </Select>
