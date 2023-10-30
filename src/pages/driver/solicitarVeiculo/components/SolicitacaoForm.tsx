@@ -34,27 +34,31 @@ const SolicitacaoForm = () => {
       // FIXME: Check if the post method is correct
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
-    });
-
-    console.log(response);
-
-    if (response.ok) {
-      console.log(url + "/listaSituacaoViaturas", [
-        motivo,
-        destino,
-        viatura,
-        motorista,
-      ]);
-      toast.success(`Requisição enviada!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    })
+      .then((response) => response.text()) // Converte o corpo da resposta para texto
+      .then((data) => {
+        console.log(data); // Exibe a mensagem no console
+        toast.success(`Requisição enviada!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        toast.error(`Requisição Errada!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-    }
   }
 
   useEffect(() => {
