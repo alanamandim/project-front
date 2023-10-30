@@ -29,7 +29,7 @@ const SolicitacaoForm = () => {
   async function sendInfo() {
     const formData = { motivo, destino, viatura, motorista };
     console.log(formData);
-    const response = await fetch(url + "/", {
+    const response = await fetch(url + "/adicionaSolicitacao", {
       method: "POST",
       // FIXME: Check if the post method is correct
       body: JSON.stringify(formData),
