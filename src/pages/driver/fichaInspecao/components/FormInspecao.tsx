@@ -93,6 +93,8 @@ const InspecaoForm: any = () => {
           progress: undefined,
         });
         localStorage.removeItem("idSolicitacao");
+        setIdSolicitacao(null);
+        window.location.href = "/driver";
       } else if (response.status == 500) {
         toast.error(
           `Não pode fazer inspeção sem aprovação da solicitação: ${response.status}`,
