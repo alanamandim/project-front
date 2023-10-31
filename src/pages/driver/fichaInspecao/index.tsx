@@ -1,13 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { Navigate } from "react-router-dom";
 import InspecaoForm from "./components/FormInspecao";
 import { toast } from "react-toastify";
 
 const Inspecao = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>

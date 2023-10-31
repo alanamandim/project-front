@@ -4,6 +4,8 @@ import {
   FormGroup,
   FormLabel,
   Grid,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -20,6 +22,7 @@ const InspecaoForm = () => {
   const [tanque, setTanque] = useState("");
   const [obs, setObs] = useState("");
   const [idSolicitacao, setIdSolicitacao] = useState(0);
+  const url = "http://localhost:8080";
 
   useEffect(() => {
     // Obtenha o objeto user do localStorage
@@ -32,12 +35,43 @@ const InspecaoForm = () => {
       // Defina o objeto user no estado
       setIdSolicitacao(parsedUser);
     }
+
+    getInfo();
   }, []);
 
-  const sendInfo = async () => {
-    // FIXME: Check if this method is correctly
-    const url = "http://localhost:8080";
+  const getInfo = async () => {
+    const response = await fetch(
+      // FIXME: Change the URL to get tanque selects
+      url + "/listaViaturasDisponiveis/",
+      {
+        method: "GET",
+        // FIXME: Check if the post method is correct
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
+    if (response.ok) {
+      const data = await response.json();
+      console.log(url + "/listaViaturasDisponiveis", data);
+
+      toast.success(`Requisição enviada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      // FIXME: Change the state than will receive the value
+      setAvailableVehicles(data);
+    }
+  }
+
+  const sendInfo = async () => {
+
+    // FIXME: Check if this method is correctly
     const data = {
       oleo,
       pneu,
@@ -121,13 +155,27 @@ const InspecaoForm = () => {
       </FormGroup>
       <Grid item mb={3}>
         <FormLabel htmlFor="tanque">Tanque</FormLabel>
-        <TextField
-          id="tanque"
+        <Select
+          labelId="demo-select-small-label"
+          id="demo-select-small"
           name="tanque"
-          fullWidth
+          label="tanque"
           value={tanque}
           onChange={(e) => setTanque(e.target.value)}
-        />
+        >
+          {/* FIXME: Check if this getting values is correctly */}
+          {/* FIXME: Change null to new state than has a GET value */}
+          {null &&
+            Object.keys(null).map((key) => (
+              <MenuItem
+                key={key}
+                value={null[key].placa}
+                onClick={() => setVehicle(null[key].placa)}
+              >
+                {null[key].modelo} - {null[key].placa}
+              </MenuItem>
+            ))}
+        </Select>
       </Grid>
       <Grid item mb={3}>
         <FormLabel htmlFor="obs">OBS</FormLabel>
