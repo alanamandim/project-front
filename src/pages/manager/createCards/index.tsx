@@ -1,5 +1,4 @@
 import { Grid, Typography } from "@mui/material";
-import { Navigate } from "react-router-dom";
 import CreatedCard from "./components/CreateCardForm";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
@@ -10,7 +9,7 @@ const CreateCar = () => {
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor === true ? (
         <Grid
           display="flex"
           flexDirection="column"

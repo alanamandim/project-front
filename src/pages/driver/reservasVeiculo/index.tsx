@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
 import { Grid, Typography } from "@mui/material";
 import ReservasForm from "./components/ReservasVeiculo";
 import { toast } from "react-toastify";
@@ -10,7 +9,7 @@ const ReservasVeiculoForm = () => {
 
   return (
     <>
-      {user.motorista == true ? (
+      {user.motorista === true ? (
         <Grid
           display="flex"
           flexDirection="column"
@@ -24,7 +23,7 @@ const ReservasVeiculoForm = () => {
           <ReservasForm />
         </Grid>
       ) : (
-        toast.error("Ops! Algo deu errado, saia e entre novamente!")
+        toast.error("Ops! Você não está autenticado como motorista, faça o login!")
       )}
     </>
   );

@@ -2,17 +2,16 @@ import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Button, Typography } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Approver = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.aprovador == true ? (
+      {user.aprovador === true ? (
         <Grid
           display="flex"
           flexDirection="column"

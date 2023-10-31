@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { useContext, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
       // Defina o objeto user no estado
       setUser(parsedUser);
     }
-  }, [user]);
+  }, [setUser, user]);
 
   console.log(user);
 

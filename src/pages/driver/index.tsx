@@ -9,12 +9,11 @@ import { toast } from "react-toastify";
 
 const Driver = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
   const navigate = useNavigate();
 
   return (
     <>
-      {user.motorista == true ? (
+      {user.motorista === true ? (
         <Grid
           display="flex"
           flexDirection="column"

@@ -2,7 +2,6 @@ import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import { AuthContext } from "../../../context/AuthContext";
-import { Navigate } from "react-router-dom";
 import AllCards from "./components/CardsListar";
 import { toast } from "react-toastify";
 
@@ -11,7 +10,7 @@ const ListarVeiculos = () => {
 
   return (
     <>
-      {user.aprovador == true ? (
+      {user.aprovador === true ? (
         <Grid
           display="flex"
           flexDirection="column"

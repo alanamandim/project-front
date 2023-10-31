@@ -1,4 +1,3 @@
-import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { Grid, Typography } from "@mui/material";
 import { useContext } from "react";
@@ -7,11 +6,10 @@ import { toast } from "react-toastify";
 
 const ListUsersPage = () => {
   const { user } = useContext(AuthContext);
-  const userLocal: any = localStorage.getItem("user");
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor === true ? (
         <Grid
           display="flex"
           flexDirection="column"
