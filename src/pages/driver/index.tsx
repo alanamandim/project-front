@@ -78,7 +78,7 @@ const Driver = () => {
                   navigate("/driver/reservas-veiculo");
                 }}
               >
-                Fichas das Viaturas
+                Visualizar Pedidos
               </Button>
             </Grid>
           </Grid>
