@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const InspecaoForm = () => {
+const InspecaoForm: any = () => {
   const [oleo, setOleo] = useState(true);
   const [pneu, setPneu] = useState(true);
   const [agua, setAgua] = useState(true);
@@ -20,7 +20,7 @@ const InspecaoForm = () => {
   const [arranhado, setArranhado] = useState(true);
 
   const [tanque, setTanque] = useState("");
-  const [tanqueValues, setTanqueValues] = useState("")
+  const [tanqueValues, setTanqueValues] = useState("");
   const [obs, setObs] = useState("");
   const [idSolicitacao, setIdSolicitacao] = useState(0);
   const url = "http://localhost:8080";
@@ -58,10 +58,9 @@ const InspecaoForm = () => {
       // FIXME: Change the state than will receive the value
       setTanqueValues(data);
     }
-  }
+  };
 
   const sendInfo = async () => {
-
     // FIXME: Check if this method is correctly
     const data = {
       oleo,
