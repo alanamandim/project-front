@@ -83,12 +83,28 @@ const InspecaoForm: any = () => {
       });
 
       if (response.ok) {
-        console.log("Dados enviados com sucesso.");
+        toast.success(`Inspeção enviada!`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         localStorage.removeItem("idSolicitacao");
-      } else {
-        console.error(
-          "Erro ao enviar os dados. Código de status:",
-          response.status
+      } else if (response.status == 500) {
+        toast.error(
+          `Não pode fazer inspeção sem aprovação da solicitação: ${response.status}`,
+          {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
         );
       }
     } catch (error) {
