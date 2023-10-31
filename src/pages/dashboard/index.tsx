@@ -19,7 +19,7 @@ const Dashboard = () => {
       // Defina o objeto user no estado
       setUser(parsedUser);
     }
-  }, []);
+  }, [user]);
 
   console.log(user);
 

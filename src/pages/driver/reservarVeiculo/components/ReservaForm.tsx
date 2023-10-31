@@ -39,6 +39,8 @@ const ReservaForm = () => {
       .then((response) => response.text()) // Converte o corpo da resposta para texto
       .then((data) => {
         console.log(data); // Exibe a mensagem no console
+        const userJSON = JSON.stringify(data);
+        window.localStorage.setItem("idReserva", userJSON);
         toast.success(`Requisição enviada! Id: ${data}`, {
           position: "top-right",
           autoClose: 4000,

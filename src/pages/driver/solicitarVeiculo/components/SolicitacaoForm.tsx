@@ -39,6 +39,8 @@ const SolicitacaoForm = () => {
       .then((data) => {
         // Exibe a mensagem no console
         console.log(data);
+        const userJSON = JSON.stringify(data);
+        window.localStorage.setItem("idSolicitacao", userJSON);
         toast.success(`Requisição enviada! Id: ${data}`, {
           position: "top-right",
           autoClose: 4000,

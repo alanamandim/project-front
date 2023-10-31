@@ -12,7 +12,7 @@ const ReservasForm: any = async () => {
 
   useEffect(() => {
     async function getInfo() {
-      const response = await fetch(url, {
+      const response = await fetch(url + "/", {
         method: "GET",
         body: JSON.stringify(dataGet),
         headers: { "Content-Type": "application/json" },
@@ -21,7 +21,7 @@ const ReservasForm: any = async () => {
       if (response.ok) {
         const data = await response.json();
         setDataGet(data);
-        console.log(url, data)
+        console.log(url, data);
       }
     }
 

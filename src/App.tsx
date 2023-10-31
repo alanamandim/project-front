@@ -4,8 +4,6 @@ import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import NotFound from "./pages/404";
 import { Route, Routes } from "react-router-dom";
-import Mission from "./pages/mission";
-import Inspetion from "./pages/inspetion";
 import Approver from "./pages/approver";
 import Driver from "./pages/driver";
 import Manager from "./pages/manager";
