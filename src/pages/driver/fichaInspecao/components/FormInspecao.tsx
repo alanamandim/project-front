@@ -73,6 +73,8 @@ const InspecaoForm: any = () => {
       idSolicitacao,
     };
 
+    console.log(data);
+
     try {
       const response = await fetch(url + "/adicionaInspecao", {
         method: "POST",
@@ -82,7 +84,6 @@ const InspecaoForm: any = () => {
 
       if (response.ok) {
         console.log("Dados enviados com sucesso.");
-        <Navigate to="/adicionaInspecao" />;
       } else {
         console.error(
           "Erro ao enviar os dados. Código de status:",
