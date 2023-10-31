@@ -20,6 +20,7 @@ const InspecaoForm = () => {
   const [arranhado, setArranhado] = useState(true);
 
   const [tanque, setTanque] = useState("");
+  const [tanqueValues, setTanqueValues] = useState("")
   const [obs, setObs] = useState("");
   const [idSolicitacao, setIdSolicitacao] = useState(0);
   const url = "http://localhost:8080";
@@ -42,7 +43,7 @@ const InspecaoForm = () => {
   const getInfo = async () => {
     const response = await fetch(
       // FIXME: Change the URL to get tanque selects
-      url + "/listaViaturasDisponiveis/",
+      url + "/listaTanque",
       {
         method: "GET",
         // FIXME: Check if the post method is correct
@@ -52,20 +53,10 @@ const InspecaoForm = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + "/listaViaturasDisponiveis", data);
-
-      toast.success(`Requisição enviada!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      console.log(url + "/listaTanque", data);
 
       // FIXME: Change the state than will receive the value
-      setAvailableVehicles(data);
+      setTanqueValues(data);
     }
   }
 
@@ -164,15 +155,14 @@ const InspecaoForm = () => {
           onChange={(e) => setTanque(e.target.value)}
         >
           {/* FIXME: Check if this getting values is correctly */}
-          {/* FIXME: Change null to new state than has a GET value */}
-          {null &&
-            Object.keys(null).map((key) => (
+          {tanqueValues &&
+            Object.keys(tanqueValues).map((key, index) => (
               <MenuItem
                 key={key}
-                value={null[key].placa}
-                onClick={() => setVehicle(null[key].placa)}
+                value={tanqueValues[index]}
+                onClick={() => setTanque(tanqueValues[index])}
               >
-                {null[key].modelo} - {null[key].placa}
+                {tanqueValues[index]}
               </MenuItem>
             ))}
         </Select>
