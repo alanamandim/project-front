@@ -22,7 +22,7 @@ const InspecaoForm: any = () => {
   const [tanque, setTanque] = useState("");
   const [tanqueValues, setTanqueValues] = useState("");
   const [obs, setObs] = useState("");
-  const [idSolicitacao, setIdSolicitacao] = useState(0);
+  const [idSolicitacao, setIdSolicitacao] = useState(null);
   const url = "http://localhost:8080";
 
   useEffect(() => {
@@ -84,6 +84,7 @@ const InspecaoForm: any = () => {
 
       if (response.ok) {
         console.log("Dados enviados com sucesso.");
+        localStorage.removeItem("idSolicitacao");
       } else {
         console.error(
           "Erro ao enviar os dados. Código de status:",
