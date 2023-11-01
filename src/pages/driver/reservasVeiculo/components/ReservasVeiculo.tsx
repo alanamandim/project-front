@@ -74,6 +74,7 @@ const ReservasForm = () => {
         }}
         subheader={<li />}
       >
+        <h1>Solicitações</h1>
         <ul>
           {dataSolicitacao.map((item) => (
             <Card
