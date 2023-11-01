@@ -88,6 +88,20 @@ const Dashboard = () => {
                 Chefe
               </Button>
             </Grid>
+            <Grid item mb={3}>
+              <Button
+                style={{ width: "200px" }}
+                variant="contained"
+                size="large"
+                type="button"
+                onClick={() => {
+                  localStorage.removeItem("idSolicitacao");
+                  localStorage.removeItem("user");
+                }}
+              >
+                Deslogar
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       ) : (
