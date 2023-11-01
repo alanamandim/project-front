@@ -206,9 +206,7 @@ const InspecaoForm: any = () => {
       </Grid>
       <button onClick={sendInfo}>Enviar</button>
     </div>
-  ) : (
-    null
-  );
+  ) : null;
 };
 
 export default InspecaoForm;

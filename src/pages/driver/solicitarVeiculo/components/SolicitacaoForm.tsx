@@ -27,41 +27,54 @@ const SolicitacaoForm = () => {
   const userContext = useContext(AuthContext);
 
   async function sendInfo() {
-    const formData = { motivo, destino, viatura, motorista };
-    console.log(formData);
-    const response = await fetch(url + "/adicionaSolicitacao", {
-      method: "POST",
-      // FIXME: Check if the post method is correct
-      body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.text()) // Converte o corpo da resposta para texto
-      .then((data) => {
-        // Exibe a mensagem no console
-        console.log(data);
-        const userJSON = JSON.stringify(data);
-        window.localStorage.setItem("idSolicitacao", userJSON);
-        toast.success(`Requisição enviada! Id: ${data}`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      })
-      .catch((err) => {
-        toast.error(`Requisição Errada!`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+    const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
+    if (storedIdSolicitacao) {
+      toast.error(`Já temos uma solicitação em andamento!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+    } else {
+      const formData = { motivo, destino, viatura, motorista };
+      console.log(formData);
+      const response = await fetch(url + "/adicionaSolicitacao", {
+        method: "POST",
+        // FIXME: Check if the post method is correct
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.text()) // Converte o corpo da resposta para texto
+        .then((data) => {
+          // Exibe a mensagem no console
+          console.log(data);
+          const userJSON = JSON.stringify(data);
+          window.localStorage.setItem("idSolicitacao", userJSON);
+          toast.success(`Requisição enviada! Id: ${data}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        })
+        .catch((err) => {
+          toast.error(`Requisição Errada: ${err}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        });
+    }
   }
 
   useEffect(() => {
