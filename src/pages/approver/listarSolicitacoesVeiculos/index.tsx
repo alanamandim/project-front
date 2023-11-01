@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import AllCarsSolicitacoes from "./components/CardsListarSolicitacoes";
 import { toast } from "react-toastify";
@@ -11,7 +10,7 @@ const CardsList = () => {
 
   return (
     <>
-      {user.aprovador == true ? (
+      {user.aprovador === true ? (
         <Grid
           display="flex"
           flexDirection="column"

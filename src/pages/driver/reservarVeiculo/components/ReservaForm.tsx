@@ -30,6 +30,8 @@ const ReservaForm = () => {
   async function sendInfo() {
     const formData = { motivo, dataHrInicio, dataHrFim, motorista, viatura };
     console.log(formData);
+
+    //FIXME: 'response' is declared but its value is never read.
     const response = await fetch(url + "/adicionaReserva", {
       method: "POST",
       // FIXME: Check if the post method is correct

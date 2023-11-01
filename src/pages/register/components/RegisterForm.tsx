@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
-import { AuthContext, IRegisterUser } from "../../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 import {
   Button,
@@ -23,7 +23,6 @@ const RegisterForm = () => {
   const [email, setEmail] = useState<string>("");
   const [nome, setName] = useState<string>("");
   const [saram, setSaram] = useState<string>("");
-  const userContext = useContext(AuthContext);
 
   const handleClickShowsenha = () => setShowsenha((show) => !show);
 

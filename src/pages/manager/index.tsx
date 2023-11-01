@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Button, Typography } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Manager = () => {
@@ -11,7 +11,7 @@ const Manager = () => {
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor === true ? (
         <Grid
           display="flex"
           flexDirection="column"

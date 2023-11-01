@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import ListRequests from "./components/AproveRequests";
 import { toast } from "react-toastify";
@@ -11,7 +10,7 @@ const RequestUsers = () => {
 
   return (
     <>
-      {user.gestor == true ? (
+      {user.gestor === true ? (
         <Grid
           display="flex"
           flexDirection="column"

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -10,7 +9,7 @@ const Sender = () => {
 
   return (
     <>
-      {user.chefe == true ? (
+      {user.chefe === true ? (
         <Grid
           display="flex"
           flexDirection="column"

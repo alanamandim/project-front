@@ -43,6 +43,7 @@ function ListUsersCard() {
   }, [getInfo])
 
   // FIXME: Call this function when the button is pressed to refresh the content
+  // FIXME: 'putInfo' is declared but its value is never read.
   async function putInfo(info1: string, info2: string) {
     const response = await fetch(url, {
       method: "PUT",

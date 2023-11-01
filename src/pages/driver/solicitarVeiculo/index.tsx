@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import SolicitacaoForm from "./components/SolicitacaoForm";
 import { toast } from "react-toastify";
@@ -11,7 +10,7 @@ const Request = () => {
 
   return (
     <>
-      {user.motorista == true ? (
+      {user.motorista === true ? (
         <Grid
           display="flex"
           flexDirection="column"

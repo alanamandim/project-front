@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const InspecaoForm: any = () => {
@@ -208,15 +207,7 @@ const InspecaoForm: any = () => {
       <button onClick={sendInfo}>Enviar</button>
     </div>
   ) : (
-    toast.error(`Crie a Solicitação primeiro!`, {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
+    null
   );
 };
 
