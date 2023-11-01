@@ -17,11 +17,11 @@ const LoginForm = () => {
     navigate("/register");
   };
 
-  const url = "http://localhost:8080/"
+  const url = "http://localhost:8080/";
 
   async function getEmail() {
     try {
-      const response = await fetch(url + 'email/' + email, {
+      const response = await fetch(url + "email/" + email, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,12 +31,11 @@ const LoginForm = () => {
       if (response.ok) {
         // A solicitação foi bem-sucedida (código de status 2xx)
         const data = await response.json();
-        console.log(url + 'email/', data)
+        console.log(url + "email/", data);
 
         setUser(data);
-
+        localStorage.clear();
         const userJSON = JSON.stringify(data);
-
         window.localStorage.setItem("user", userJSON);
         window.location.href = "/dashboard";
       } else {
@@ -70,7 +69,7 @@ const LoginForm = () => {
     const formData = { email, senha };
 
     // Exemplo de como enviar o arquivo para o back-end usando fetch API.
-    fetch(url + 'loginUsuario', {
+    fetch(url + "loginUsuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +89,7 @@ const LoginForm = () => {
           });
 
           const data = response.json();
-          console.log(url + 'loginusuario', data)
+          console.log(url + "loginusuario", data);
 
           getEmail();
         } else if (response.status === 401) {

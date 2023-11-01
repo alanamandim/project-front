@@ -95,8 +95,8 @@ const Dashboard = () => {
                 size="large"
                 type="button"
                 onClick={() => {
-                  localStorage.removeItem("idSolicitacao");
-                  localStorage.removeItem("user");
+                  localStorage.clear();
+                  window.location.href = "/";
                 }}
               >
                 Deslogar
