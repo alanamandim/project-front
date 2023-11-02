@@ -23,41 +23,81 @@ const ReservasForm = () => {
   const userContext = useContext(AuthContext);
   const [dataReserva, setDataReserva] = useState<Reserva[]>([]);
   const [dataSolicitacao, setDataSolicitacao] = useState<Solicitacao[]>([]);
-  const [loading, setLoading] = useState(true); // Adicionado um estado para controle de carregamento
+  // const [loading, setLoading] = useState(true); // Adicionado um estado para controle de carregamento
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const solicitacaoResponse = await fetch(
+  //         url + `/listaSolicitacao/${userContext.user.saram}`
+  //       );
+  //       if (!solicitacaoResponse.ok) {
+  //         throw new Error("Erro ao buscar solicitacao");
+  //       }
+  //       // const solicitacaoData = await solicitacaoResponse.json();
+  //       const solicitacaoData = JSON.parse(solicitacaoResponse);
+  //       const reservaResponse = await fetch(
+  //         url + `/listaReserva/${userContext.user.saram}`
+  //       );
+  //       if (!reservaResponse.ok) {
+  //         throw new Error("Erro ao buscar reserva");
+  //       }
+  //       const reservaData = await reservaResponse.json();
+
+  //       setDataSolicitacao(solicitacaoData);
+  //       setDataReserva(reservaData);
+  //       setLoading(false); // Dados carregados com sucesso, definindo o estado de carregamento como false
+  //     } catch (error) {
+  //       console.error(error);
+  //       setLoading(false); // Ocorreu um erro, definindo o estado de carregamento como false
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, [userContext.user.saram]);
+
+  // if (loading) {
+  //   return <div>Carregando...</div>;
+  // }
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const solicitacaoResponse = await fetch(
-          url + `/listaSolicitacao/${userContext.user.saram}`
-        );
-        if (!solicitacaoResponse.ok) {
-          throw new Error("Erro ao buscar solicitacao");
-        }
-        const solicitacaoData = await solicitacaoResponse.json();
+    getInfoSolicitacao();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-        const reservaResponse = await fetch(
-          url + `/listaReserva/${userContext.user.saram}`
-        );
-        if (!reservaResponse.ok) {
-          throw new Error("Erro ao buscar reserva");
-        }
-        const reservaData = await reservaResponse.json();
-
-        setDataSolicitacao(solicitacaoData);
-        setDataReserva(reservaData);
-        setLoading(false); // Dados carregados com sucesso, definindo o estado de carregamento como false
-      } catch (error) {
-        console.error(error);
-        setLoading(false); // Ocorreu um erro, definindo o estado de carregamento como false
+  async function getInfoSolicitacao() {
+    const response = await fetch(
+      url + `/listaSolicitacao/${userContext.user.saram}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataSolicitacao(data);
     }
+  }
 
-    fetchData();
-  }, [userContext.user.saram]);
+  useEffect(() => {
+    getInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if (loading) {
-    return <div>Carregando...</div>;
+  async function getInfo() {
+    const response = await fetch(
+      url + `/listaReserva/${userContext.user.saram}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataReserva(data);
+    }
   }
 
   return (

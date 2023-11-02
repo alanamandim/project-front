@@ -76,6 +76,7 @@ const MissaoFicha = () => {
 
   async function putFechaFicha() {
     const dataReq = { kmFinal, obs, id };
+    console.log(dataReq);
     const response = await fetch(url + "/fichaFichaMotora/", {
       method: "PUT",
       body: JSON.stringify(dataReq),
@@ -108,79 +109,81 @@ const MissaoFicha = () => {
 
   return (
     <>
-      <Grid
-        item
-        container
-        columnSpacing={2}
-        mt={2}
-        direction="column"
-        justifyContent="center"
-      >
-        <Grid item mb={3}>
-          <FormLabel>Id da Solicitação</FormLabel>
-          <TextField disabled fullWidth value={data.idSolicitacao} />
+      <form>
+        <Grid
+          item
+          container
+          columnSpacing={2}
+          mt={2}
+          direction="column"
+          justifyContent="center"
+        >
+          <Grid item mb={3}>
+            <FormLabel>Id da Solicitação</FormLabel>
+            <TextField disabled fullWidth value={data.idSolicitacao} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Motivo da Missão</FormLabel>
+            <TextField disabled fullWidth value={data.motivoMissao} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Destino</FormLabel>
+            <TextField disabled fullWidth value={data.destino} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Viatura</FormLabel>
+            <TextField disabled fullWidth value={data.viatura} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Motorista</FormLabel>
+            <TextField disabled fullWidth value={data.motorista} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Aprovador</FormLabel>
+            <TextField disabled fullWidth value={data.aprovador} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Id do Registro</FormLabel>
+            <TextField disabled fullWidth value={data.idRegistro} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Km Inicial</FormLabel>
+            <TextField disabled fullWidth value={data.kmInicial} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Data/Hora Saída </FormLabel>
+            <TextField disabled fullWidth value={data.dataHrSaida} />
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Tanque</FormLabel>
+            <TextField disabled fullWidth value={data.tanque} />
+          </Grid>
+          <FormControlLabel
+            control={<Checkbox checked={data.oleo} />}
+            label="Óleo"
+          />
+          <FormControlLabel
+            control={<Checkbox checked={data.pneu} />}
+            label="Pneu"
+          />
+          <FormControlLabel
+            control={<Checkbox checked={data.aguaRadiador} />}
+            label="Água do Radiador"
+          />
+          <FormControlLabel
+            control={<Checkbox checked={data.amassado} />}
+            label="Amassado"
+          />
+          <FormControlLabel
+            control={<Checkbox checked={data.aranhado} />}
+            label="Arranhado"
+          />
+          <Grid item mb={3}>
+            <FormLabel>Observação</FormLabel>
+            <TextField disabled fullWidth value={data.observacao} />
+          </Grid>
         </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Motivo da Missão</FormLabel>
-          <TextField disabled fullWidth value={data.motivoMissao} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Destino</FormLabel>
-          <TextField disabled fullWidth value={data.destino} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Viatura</FormLabel>
-          <TextField disabled fullWidth value={data.viatura} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Motorista</FormLabel>
-          <TextField disabled fullWidth value={data.motorista} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Aprovador</FormLabel>
-          <TextField disabled fullWidth value={data.aprovador} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Id do Registro</FormLabel>
-          <TextField disabled fullWidth value={data.idRegistro} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Km Inicial</FormLabel>
-          <TextField disabled fullWidth value={data.kmInicial} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Data/Hora Saída </FormLabel>
-          <TextField disabled fullWidth value={data.dataHrSaida} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Tanque</FormLabel>
-          <TextField disabled fullWidth value={data.tanque} />
-        </Grid>
-        <FormControlLabel
-          control={<Checkbox checked={data.oleo} />}
-          label="Óleo"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={data.pneu} />}
-          label="Pneu"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={data.aguaRadiador} />}
-          label="Água do Radiador"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={data.amassado} />}
-          label="Amassado"
-        />
-        <FormControlLabel
-          control={<Checkbox checked={data.aranhado} />}
-          label="Arranhado"
-        />
-        <Grid item mb={3}>
-          <FormLabel>Observação</FormLabel>
-          <TextField disabled fullWidth value={data.observacao} />
-        </Grid>
-      </Grid>
+      </form>
       <form>
         <Grid item mb={3}>
           <FormLabel htmlFor="obs">Km Final</FormLabel>
