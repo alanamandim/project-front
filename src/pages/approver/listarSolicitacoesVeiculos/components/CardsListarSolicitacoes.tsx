@@ -40,7 +40,7 @@ const AllCarsSolicitacoes = () => {
 
   async function putInfo(aprovador: string, status: string, id: number) {
     const data = { aprovador, status, id };
-    const response = await fetch(url, {
+    const response = await fetch(url + `/modificaStatusSolicitacao`, {
       method: "PUT",
       body: JSON.stringify(data),
       // FIXME: GET THE VALUE TO SEND TO BACKEND AND PUT INSIDE A STRINGIFY
