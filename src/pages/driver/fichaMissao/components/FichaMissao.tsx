@@ -1,6 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
-import { Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../../context/AuthContext";
 
@@ -9,8 +15,23 @@ const MissaoFicha = () => {
   const url = "http://localhost:8080";
 
   const [data, setArrayData] = useState<any>({});
+  const [kmFinal, setKmFinal] = useState<any>(null);
+  const [obs, setObs] = useState<string>("");
+  const [id, setId] = useState<any>(null);
 
   const userContext = useContext(AuthContext);
+
+  useEffect(() => {
+    // Obtenha o objeto user do localStorage
+    const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
+    if (storedIdSolicitacao) {
+      // Parse o objeto do localStorage para um objeto JavaScript
+      const parsedUser = JSON.parse(storedIdSolicitacao);
+
+      // Defina o objeto user no estado
+      setId(parsedUser);
+    }
+  }, []);
 
   useEffect(() => {
     getVehicles();
@@ -53,8 +74,40 @@ const MissaoFicha = () => {
     }
   }
 
+  async function putFechaFicha() {
+    const dataReq = { kmFinal, obs, id };
+    const response = await fetch(url + "/fichaFichaMotora/", {
+      method: "PUT",
+      body: JSON.stringify(dataReq),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      toast.success(`Ficha Fechada com Sucesso!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      localStorage.removeItem("idSolicitacao");
+    } else {
+      toast.error(`Algo deu errado com seu Fechamento!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
   return (
-    <form>
+    <>
       <Grid
         item
         container
@@ -100,35 +153,62 @@ const MissaoFicha = () => {
           <TextField disabled fullWidth value={data.dataHrSaida} />
         </Grid>
         <Grid item mb={3}>
-          <FormLabel>Óleo</FormLabel>
-          <TextField disabled fullWidth value={data.oleo} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Pneu</FormLabel>
-          <TextField disabled fullWidth value={data.pneu} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Água do Radiador</FormLabel>
-          <TextField disabled fullWidth value={data.aguaRadiador} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Amassado</FormLabel>
-          <TextField disabled fullWidth value={data.amassado} />
-        </Grid>
-        <Grid item mb={3}>
-          <FormLabel>Arranhado</FormLabel>
-          <TextField disabled fullWidth value={data.arranhado} />
-        </Grid>
-        <Grid item mb={3}>
           <FormLabel>Tanque</FormLabel>
           <TextField disabled fullWidth value={data.tanque} />
         </Grid>
+        <FormControlLabel
+          control={<Checkbox checked={data.oleo} />}
+          label="Óleo"
+        />
+        <FormControlLabel
+          control={<Checkbox checked={data.pneu} />}
+          label="Pneu"
+        />
+        <FormControlLabel
+          control={<Checkbox checked={data.aguaRadiador} />}
+          label="Água do Radiador"
+        />
+        <FormControlLabel
+          control={<Checkbox checked={data.amassado} />}
+          label="Amassado"
+        />
+        <FormControlLabel
+          control={<Checkbox checked={data.aranhado} />}
+          label="Arranhado"
+        />
         <Grid item mb={3}>
           <FormLabel>Observação</FormLabel>
           <TextField disabled fullWidth value={data.observacao} />
         </Grid>
       </Grid>
-    </form>
+      <form>
+        <Grid item mb={3}>
+          <FormLabel htmlFor="obs">Km Final</FormLabel>
+          <TextField
+            id="kmFinal"
+            name="kmFinal"
+            fullWidth
+            value={kmFinal}
+            onChange={(e) => setKmFinal(e.target.value)}
+          />
+        </Grid>
+        <Grid item mb={3}>
+          <FormLabel htmlFor="obs">OBS</FormLabel>
+          <TextField
+            id="obs"
+            name="obs"
+            fullWidth
+            value={obs}
+            onChange={(e) => setObs(e.target.value)}
+          />
+        </Grid>
+        <Grid item mb={3}>
+          <FormLabel htmlFor="obs">Id da Solicitação</FormLabel>
+          <TextField id="id" name="id" disabled fullWidth value={id} />
+        </Grid>
+        <Button onClick={putFechaFicha}>Fechar Ficha</Button>
+      </form>
+    </>
   );
 };
 

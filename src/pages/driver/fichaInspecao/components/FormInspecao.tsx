@@ -91,7 +91,6 @@ const InspecaoForm: any = () => {
           draggable: true,
           progress: undefined,
         });
-        localStorage.removeItem("idSolicitacao");
         setIdSolicitacao(null);
       } else if (response.status == 400) {
         toast.error(

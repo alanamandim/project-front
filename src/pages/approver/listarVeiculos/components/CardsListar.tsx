@@ -1,30 +1,29 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import List from '@mui/material/List';
-import { useEffect, useState } from 'react';
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import List from "@mui/material/List";
+import { useEffect, useState } from "react";
 
 const AllCars = () => {
   // FIXME: Check if this method is correctly
   const url = "http://localhost:8080";
 
-  const [dataGet, setDataGet] = useState([])
+  const [dataGet, setDataGet] = useState([]);
 
   useEffect(() => {
-    async function getInfo() {
-      const response = await fetch(url, {
-        method: "GET",
-        body: JSON.stringify(dataGet),
-        headers: { "Content-Type": "application/json" },
-      });
+    getInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(url, data)
-        setDataGet(data)
-      }
+  async function getInfo() {
+    const response = await fetch(url + `/listaSituacaoViaturas`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data);
     }
-
-    getInfo()
-  }, [dataGet])
+  }
 
   return (
     <>
@@ -41,7 +40,7 @@ const AllCars = () => {
         subheader={<li />}
       >
         {dataGet.map((item: any) => (
-          <li key={`section-${item.id}`}>
+          <li key={`section-${item.placa}`}>
             <ul>
               <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
                 <CardMedia
@@ -51,16 +50,13 @@ const AllCars = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {item.nome}
+                    {item.modelo}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.status}
+                    {`Status: ${item.status}, 
+                    Placa: ${item.placa}`}
                   </Typography>
                 </CardContent>
-                {/* <CardActions>
-                <Button size="small">Reservar</Button>
-                <Button size="small">Solicitar</Button>
-              </CardActions> */}
               </Card>
             </ul>
           </li>

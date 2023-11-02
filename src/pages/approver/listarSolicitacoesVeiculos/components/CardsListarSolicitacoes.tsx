@@ -1,38 +1,53 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
-import List from '@mui/material/List';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
+import List from "@mui/material/List";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const AllCarsSolicitacoes = () => {
   // FIXME: Check if this method is correctly
   const url = "http://localhost:8080";
 
-  const [dataGet, setDataGet] = useState([])
+  const [dataGet, setDataGet] = useState([]);
+  // const [aprovador, setAprovador] = useState("");
+  // const [status, setStatus] = useState("");
+  // const [id, setId] = useState(null);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    getInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function getInfo() {
-    const response = await fetch(url, {
+    const response = await fetch(url + `/listaSolicitacaoAguardandoAprovacao`, {
       method: "GET",
-      body: JSON.stringify(dataGet),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url, data)
-      setDataGet(data)
+      setDataGet(data);
     }
   }
 
-  async function putInfo() {
+  async function putInfo(aprovador: string, status: string, id: number) {
+    const data = { aprovador, status, id };
     const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(''),
+      method: "PUT",
+      body: JSON.stringify(data),
       // FIXME: GET THE VALUE TO SEND TO BACKEND AND PUT INSIDE A STRINGIFY
       headers: { "Content-Type": "application/json" },
-    })
+    });
 
     if (response.ok) {
-      console.log(url, '')
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -59,7 +74,6 @@ const AllCarsSolicitacoes = () => {
         }}
         subheader={<li />}
       >
-
         {/* FIXME: Put the interface of item and NEVER USE ANY */}
         {dataGet.map((item: any) => (
           <li key={`section-${item.id}`}>
@@ -72,15 +86,36 @@ const AllCarsSolicitacoes = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {item.nome}
+                    {item.viatura}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.status}
+                    {`
+                    Destino: ${item.destino}, 
+                    Motivo: ${item.motivo}, 
+                    Data/Hora: ${item.datahr},
+                    Motorista: ${item.motorista}, 
+                    Placa: ${item.placa}, 
+                    Status: ${item.status}
+                    `}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" onClick={putInfo}>Aprovar</Button>
-                  <Button size="small" onClick={getInfo}>Solicitar</Button>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      putInfo(user.saram, "Aprovada", item.id);
+                    }}
+                  >
+                    Aprovar
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      putInfo(user.saram, "Recusada", item.id);
+                    }}
+                  >
+                    Recusar
+                  </Button>
                 </CardActions>
               </Card>
             </ul>
@@ -89,6 +124,6 @@ const AllCarsSolicitacoes = () => {
       </List>
     </>
   );
-}
+};
 
 export default AllCarsSolicitacoes;

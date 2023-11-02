@@ -7,45 +7,63 @@ import {
   Typography,
 } from "@mui/material";
 import List from "@mui/material/List";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const ReturnSheetsList = () => {
   // FIXME: Check if this method is correctly
   const url = "http://localhost:8080";
 
-  const [dataGet, setDataGet] = useState([])
+  const [dataGet, setDataGet] = useState([]);
+  const { user } = useContext(AuthContext);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
-    const response = await fetch(url, {
+    const response = await fetch(url + `/fichaStatus`, {
       method: "GET",
-      body: JSON.stringify(dataGet),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url, data)
-      setDataGet(data)
+      setDataGet(data);
     }
   }
 
   useEffect(() => {
-    getInfo()
-  }, [getInfo])
+    getInfo();
+  }, []);
 
-  async function putInfo(info1: string, info2: string) {
+  async function putInfo(aprovador: string, status: string, id: number) {
     // FIXME: Check if this method is correctly
-    const response = await fetch(url, {
+    const sendData = { aprovador, status, id };
+    const response = await fetch(url + `/fechaFichaAprovador`, {
       method: "PUT",
-      body: JSON.stringify({ info1, info2 }),
+      body: JSON.stringify(sendData),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(url, data)
-      setDataGet(data)
+      toast.success(`Ficha Fechada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`Ficha Fechada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
@@ -63,7 +81,6 @@ const ReturnSheetsList = () => {
         }}
         subheader={<li />}
       >
-
         {/* FIXME: Put the interface of item and NEVER USE ANY */}
         {dataGet.map((item: any) => (
           <li key={`section-${item.id}`}>
@@ -76,15 +93,41 @@ const ReturnSheetsList = () => {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {item.nome}
+                    {item.motorista}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.status}
+                    {`
+                    Id Solicitação: ${item.idSolicitacao}, 
+                    Motivo: ${item.motivoMissao}, 
+                    Destino: ${item.destino}, 
+                    Viatura: ${item.viatura}, 
+                    Aprovador: ${item.aprovador}, 
+                    Id do Registro: ${item.idRegistro},
+                    Status da Missão: ${item.statusMissao}, 
+                    Km Inicial: ${item.kmInicial},
+                    Km Final: ${item.kmFinal},
+                    Data/Hora Saída: ${item.dataHrSaida}, 
+                    Data/Hora Chegada: ${item.dataHrChegada}, 
+                    Retorno do Motorista: ${item.motoristaRetorno}, 
+                    Óleo: ${item.oleo}, 
+                    Pneu: ${item.pneu}, 
+                    Água do Radiador: ${item.aguaRadiador}, 
+                    Amassado: ${item.amassado}, 
+                    Arranhado: ${item.aranhado}, 
+                    Tanque: ${item.tanque}, 
+                    Observação: ${item.observacao}
+                    `}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">Aprovar</Button>
-                  <Button size="small" onClick={() => putInfo(item.nome, item.status)}>Solicitar</Button>
+                  <Button
+                    size="small"
+                    onClick={() =>
+                      putInfo(user.saram, "Finalizada", item.idRegistro)
+                    }
+                  >
+                    Fechar Ficha
+                  </Button>
                 </CardActions>
               </Card>
             </ul>

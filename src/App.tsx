@@ -38,7 +38,8 @@ function App() {
         <Route
           path="/driver/reservas-veiculo"
           element={<ReservasVeiculoForm />}
-        />
+        />{" "}
+        {/* FUNCIONANDO! */}
         <Route path="/driver/solicitar-veiculo" element={<Request />} />{" "}
         {/* FUNCIONANDO! */}
         <Route path="/approver" element={<Approver />} />

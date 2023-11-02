@@ -10,7 +10,7 @@ const ReturnSheets = () => {
 
   return (
     <>
-      {user.motorista === true ? (
+      {user.aprovador === true ? (
         <Grid
           display="flex"
           flexDirection="column"
