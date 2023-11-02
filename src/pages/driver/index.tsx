@@ -80,6 +80,19 @@ const Driver = () => {
                 Visualizar Pedidos
               </Button>
             </Grid>
+            <Grid item mb={3}>
+              <Button
+                style={{ width: "210px" }}
+                variant="contained"
+                size="large"
+                type="button"
+                onClick={() => {
+                  navigate("/driver/ficha-missao");
+                }}
+              >
+                Visualizar Ficha da Viatura
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       ) : (
