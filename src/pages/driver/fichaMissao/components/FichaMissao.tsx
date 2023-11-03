@@ -19,6 +19,13 @@ const MissaoFicha = () => {
   const [obs, setObs] = useState<string>("");
   const [id, setId] = useState<any>(null);
 
+  const [oleoCheck, setOleoCheck] = useState<boolean>(false);
+  const [pneuCheck, setPneuCheck] = useState<boolean>(false);
+  const [radiadorCheck, setRadiadorCheck] = useState<boolean>(false);
+  const [aguaRadiadorCheck, setAguaRadiadorCheck] = useState<boolean>(false);
+  const [amassadoCheck, setAmassadoCheck] = useState<boolean>(false);
+  const [arranhadoCheck, setArranhadoCheck] = useState<boolean>(false);
+
   const userContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -35,12 +42,15 @@ const MissaoFicha = () => {
 
   useEffect(() => {
     getVehicles();
+
+    setOleoCheck(arrayData.oleo);
+    setPneuCheck(arrayData.pneu);
+    setRadiadorCheck(arrayData.radiador);
+    setAguaRadiadorCheck(arrayData.aguaRadiador);
+    setAmassadoCheck(arrayData.amassado);
+    setArranhadoCheck(arrayData.arranhado);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    // Atualize os valores checked dos componentes Checkbox aqui
-  }, [arrayData]);
 
   async function getVehicles() {
     const response = await fetch(
@@ -162,23 +172,23 @@ const MissaoFicha = () => {
             <TextField disabled fullWidth value={arrayData.tanque} />
           </Grid>
           <FormControlLabel
-            control={<Checkbox checked={arrayData.oleo} />}
+            control={<Checkbox checked={oleoCheck} />}
             label="Óleo"
           />
           <FormControlLabel
-            control={<Checkbox checked={arrayData.pneu} />}
+            control={<Checkbox checked={pneuCheck} />}
             label="Pneu"
           />
           <FormControlLabel
-            control={<Checkbox checked={arrayData.aguaRadiador} />}
+            control={<Checkbox checked={aguaRadiadorCheck} />}
             label="Água do Radiador"
           />
           <FormControlLabel
-            control={<Checkbox checked={arrayData.amassado} />}
+            control={<Checkbox checked={amassadoCheck} />}
             label="Amassado"
           />
           <FormControlLabel
-            control={<Checkbox checked={arrayData.aranhado} />}
+            control={<Checkbox checked={arranhadoCheck} />}
             label="Arranhado"
           />
           <Grid item mb={3}>
