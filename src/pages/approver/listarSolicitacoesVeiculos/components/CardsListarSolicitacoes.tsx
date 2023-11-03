@@ -104,7 +104,7 @@ const AllCarsSolicitacoes = () => {
                   <Button
                     size="small"
                     onClick={() => {
-                      putInfo(user.saram, "Aprovada", item.id);
+                      putInfo(user.saram, "Aprovada", item.idSolicitacao);
                     }}
                   >
                     Aprovar
@@ -112,7 +112,7 @@ const AllCarsSolicitacoes = () => {
                   <Button
                     size="small"
                     onClick={() => {
-                      putInfo(user.saram, "Recusada", item.id);
+                      putInfo(user.saram, "Recusada", item.idSolicitacao);
                     }}
                   >
                     Recusar
