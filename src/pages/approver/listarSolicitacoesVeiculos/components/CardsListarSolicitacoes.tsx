@@ -35,6 +35,7 @@ const AllCarsSolicitacoes = () => {
     if (response.ok) {
       const data = await response.json();
       setDataGet(data);
+      console.log(data);
     }
   }
 
@@ -104,7 +105,7 @@ const AllCarsSolicitacoes = () => {
                   <Button
                     size="small"
                     onClick={() => {
-                      putInfo(user.saram, "Aprovada", item.idSolicitacao);
+                      putInfo(user.saram, "Aprovada", item.idsolicitacao);
                     }}
                   >
                     Aprovar
@@ -112,7 +113,7 @@ const AllCarsSolicitacoes = () => {
                   <Button
                     size="small"
                     onClick={() => {
-                      putInfo(user.saram, "Recusada", item.idSolicitacao);
+                      putInfo(user.saram, "Recusada", item.idsolicitacao);
                     }}
                   >
                     Recusar
