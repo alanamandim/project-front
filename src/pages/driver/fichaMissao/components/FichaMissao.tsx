@@ -49,6 +49,7 @@ const MissaoFicha = () => {
     setAguaRadiadorCheck(arrayData.aguaRadiador);
     setAmassadoCheck(arrayData.amassado);
     setArranhadoCheck(arrayData.arranhado);
+    setArrayData({ ...arrayData });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
