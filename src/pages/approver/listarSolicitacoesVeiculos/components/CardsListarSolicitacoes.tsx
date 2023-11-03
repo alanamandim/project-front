@@ -76,7 +76,7 @@ const AllCarsSolicitacoes = () => {
         subheader={<li />}
       >
         {/* FIXME: Put the interface of item and NEVER USE ANY */}
-        {dataGet.map((item: any) => (
+        {dataGet?.map((item: any) => (
           <li key={`section-${item.id}`}>
             <ul>
               <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
