@@ -77,7 +77,7 @@ const MissaoFicha = () => {
   async function putFechaFicha() {
     const dataReq = { kmFinal, obs, id };
     console.log(dataReq);
-    const response = await fetch(url + "/fichaFichaMotora/", {
+    const response = await fetch(url + "/fechaFichaMotora/", {
       method: "PUT",
       body: JSON.stringify(dataReq),
       headers: { "Content-Type": "application/json" },
@@ -184,6 +184,7 @@ const MissaoFicha = () => {
           </Grid>
         </Grid>
       </form>
+      <h1>Formulário para Fechar a Ficha</h1>
       <form>
         <Grid item mb={3}>
           <FormLabel htmlFor="obs">Km Final</FormLabel>
@@ -207,7 +208,13 @@ const MissaoFicha = () => {
         </Grid>
         <Grid item mb={3}>
           <FormLabel htmlFor="obs">Id da Solicitação</FormLabel>
-          <TextField id="id" name="id" disabled fullWidth value={id} />
+          <TextField
+            id="id"
+            name="id"
+            disabled
+            fullWidth
+            value={data.idSolicitacao}
+          />
         </Grid>
         <Button onClick={putFechaFicha}>Fechar Ficha</Button>
       </form>
