@@ -19,35 +19,33 @@ const LoginForm = () => {
 
   const url = "http://localhost:8080/";
 
-  // async function getEmail() {
-  //   try {
-  //     const response = await fetch(url + "email/" + email, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
+  async function getEmail() {
+    try {
+      const response = await fetch(url + "email/" + email, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  //     if (response.ok) {
-  //       // A solicitação foi bem-sucedida (código de status 2xx)
-  //       const data = await response.json();
-  //       console.log(data);
+      if (response.ok) {
+        // A solicitação foi bem-sucedida (código de status 2xx)
+        const data = await response.json();
+        console.log(url + "email/", data);
 
-  //       setUser(data);
-  //       localStorage.clear();
-  //       const userJSON = JSON.stringify(data);
-  //       getUser(userJSON);
-  //       // window.localStorage.setItem("user", userJSON);
-
-  //       window.location.href = "/dashboard";
-  //     } else {
-  //       // A solicitação falhou (código de status não 2xx)
-  //       console.error("Falha no login:", response.statusText);
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro ao fazer a solicitação:", error);
-  //   }
-  // }
+        setUser(data);
+        localStorage.clear();
+        const userJSON = JSON.stringify(data);
+        window.localStorage.setItem("user", userJSON);
+        window.location.href = "/dashboard";
+      } else {
+        // A solicitação falhou (código de status não 2xx)
+        console.error("Falha no login:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Erro ao fazer a solicitação:", error);
+    }
+  }
 
   function handleLogin() {
     const inputElementEmail = document.getElementById(
@@ -67,104 +65,55 @@ const LoginForm = () => {
     }
   }
 
-  // async function submitLogin() {
-  //   const formData = { email, senha };
-  //
-  // Exemplo de como enviar o arquivo para o back-end usando fetch API.
-  //   await fetch(url + "loginUsuario", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(formData),
-  //   })
-  //     .then((response: any) => {
-  //       if (response.status === 200) {
-  //         toast.success(`Login efetuado com sucesso!`, {
-  //           position: "top-right",
-  //           autoClose: 4000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //         });
-
-  //         const data = response.json();
-  //         console.log("loginusuario", data);
-  //         setUser(data);
-  //         window.location.href = "/dashboard";
-
-  //         // getUser(data.email);
-  //       } else if (response.status === 401) {
-  //         // Invalid ID
-  //         toast.error("Ops! Login ou senha incorreto.");
-  //       } else {
-  //         toast.error("Ops! Login ou senha incorreto.");
-  //         console.log(response.status);
-  //         console.log(response);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       // Os erros, se houver.
-  //       console.log(error);
-  //       toast.error(`Ops! Algo inesperado aconteceu`, {
-  //         position: "top-right",
-  //         autoClose: 4000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //       });
-  //     });
-  // }
-
   async function submitLogin() {
-    const url = "http://localhost:8080/loginUsuario"; // Substitua pela URL do seu endpoint
     const formData = { email, senha };
 
-    const opcoes = {
+    // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+    fetch(url + "loginUsuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    };
+    })
+      .then((response: any) => {
+        if (response.status === 200) {
+          toast.success(`Login efetuado com sucesso!`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
 
-    try {
-      const resposta = await fetch(url, opcoes);
+          const data = response.json();
+          console.log(url + "loginusuario", data);
 
-      if (!resposta.ok) {
-        throw new Error(`Erro na solicitação: ${resposta.status}`);
-      }
-
-      const dados = await resposta.json();
-      console.log("Resposta do servidor:", dados);
-      toast.success(`Login efetuado com sucesso!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+          getEmail();
+        } else if (response.status === 401) {
+          // Invalid ID
+          toast.error("Ops! Login ou senha incorreto.");
+        } else {
+          toast.error("Ops! Login ou senha incorreto.");
+          console.log(response.status);
+          console.log(response);
+        }
+      })
+      .catch((error) => {
+        // Os erros, se houver.
+        console.log(error);
+        toast.error(`Ops! Algo inesperado aconteceu`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-      setUser(dados);
-
-      //window.location.href = "/dashboard";
-    } catch (erro) {
-      console.log(erro);
-      toast.error(`Ops! Algo inesperado aconteceu`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
   }
 
   return (

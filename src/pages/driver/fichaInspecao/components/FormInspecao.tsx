@@ -8,9 +8,8 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../../context/AuthContext";
 
 const InspecaoForm: any = () => {
   const [oleo, setOleo] = useState(true);
@@ -22,20 +21,22 @@ const InspecaoForm: any = () => {
   const [tanque, setTanque] = useState("");
   const [tanqueValues, setTanqueValues] = useState("");
   const [obs, setObs] = useState("");
-
+  const [idSolicitacao, setIdSolicitacao] = useState(null);
   const url = "http://localhost:8080";
-  const { user, idSolicitacao, setIdSolicitacao, getSolicitacaoId } =
-    useContext(AuthContext);
 
   useEffect(() => {
-    // const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
-    if (!idSolicitacao) {
+    // Obtenha o objeto user do localStorage
+    const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
+
+    if (storedIdSolicitacao) {
       // Parse o objeto do localStorage para um objeto JavaScript
-      getSolicitacaoId(user.saram);
+      const parsedUser = JSON.parse(storedIdSolicitacao);
+
       // Defina o objeto user no estado
-    } else {
-      getInfo();
+      setIdSolicitacao(parsedUser);
     }
+
+    getInfo();
   }, []);
 
   const getInfo = async () => {

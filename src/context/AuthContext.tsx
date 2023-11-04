@@ -1,5 +1,5 @@
 //LOCAL ONDE OCORRE A COMUNICAÇÃO DAS APIS (REGISTRO, SENHA E QUALQUER OUTRA ROTA)
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 // import { AxiosResponse } from "axios";
 // import jwt, { JwtPayload } from "jsonwebtoken";
 // import { destroyCookie, parseCookies, setCookie } from "nookies";
@@ -41,71 +41,27 @@ interface IAuthProvider {
 interface IAuthContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
-  setEmailGet: React.Dispatch<React.SetStateAction<string>>;
-  idSolicitacao: number | null;
-  setIdSolicitacao: React.Dispatch<React.SetStateAction<any>>;
   //signOut: () => Promise<void>;
   //signOutResident: () => Promise<void>;
   // currentBranch: ICurrentBranch | null;
   //getCurrentBranch: () => Promise<void>;
   //getProductPermissions: () => Promise<void>;
   // userBranches: IBranch[] | null;
-  getUser: () => Promise<void>;
-  getSolicitacaoId: (saram: string) => Promise<void>;
+  //getProfile: (userToken: string) => Promise<void>;
   // decodedToken: JwtPayload | null;
   // productDashboard: any;
 }
 
 export const AuthContext = createContext({} as IAuthContext);
-const url = "http://localhost:8080";
 
 const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const [emailGet, setEmailGet] = useState<string>({} as string);
-  const [idSolicitacao, setIdSolicitacao] = useState(null);
-
-  async function getUser() {
-    console.log(emailGet);
-    const response = await fetch(url + `/email/${emailGet}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      setUser(data);
-      setEmailGet(user.email);
-    }
-  }
-
-  async function getSolicitacaoId(saram: string) {
-    const response = await fetch(
-      // FIXME: Change the URL to get tanque selects
-      url + `/listaSolicitacaoInspecao/${saram}`,
-      {
-        method: "GET",
-        // FIXME: Check if the post method is correct
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      setIdSolicitacao(data.idSolicitacao);
-      // FIXME: Change the state than will receive the value
-    }
-  }
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-        getUser,
-        setEmailGet,
-        idSolicitacao,
-        setIdSolicitacao,
-        getSolicitacaoId,
       }}
     >
       {children}
