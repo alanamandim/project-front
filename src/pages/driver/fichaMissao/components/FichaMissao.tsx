@@ -14,10 +14,17 @@ const MissaoFicha = () => {
   // FIXME: Fix the route
   const url = "http://localhost:8080";
 
-  const [data, setArrayData] = useState<any>({});
+  const [arrayData, setArrayData] = useState<any>({});
   const [kmFinal, setKmFinal] = useState<any>(null);
   const [obs, setObs] = useState<string>("");
   const [id, setId] = useState<any>(null);
+
+  const [oleoCheck, setOleoCheck] = useState<boolean>(false);
+  const [pneuCheck, setPneuCheck] = useState<boolean>(false);
+  const [radiadorCheck, setRadiadorCheck] = useState<boolean>(false);
+  const [aguaRadiadorCheck, setAguaRadiadorCheck] = useState<boolean>(false);
+  const [amassadoCheck, setAmassadoCheck] = useState<boolean>(false);
+  const [arranhadoCheck, setArranhadoCheck] = useState<boolean>(false);
 
   const userContext = useContext(AuthContext);
 
@@ -35,6 +42,14 @@ const MissaoFicha = () => {
 
   useEffect(() => {
     getVehicles();
+
+    setOleoCheck(arrayData.oleo);
+    setPneuCheck(arrayData.pneu);
+    setRadiadorCheck(arrayData.radiador);
+    setAguaRadiadorCheck(arrayData.aguaRadiador);
+    setAmassadoCheck(arrayData.amassado);
+    setArranhadoCheck(arrayData.arranhado);
+    setArrayData({ ...arrayData });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -43,13 +58,14 @@ const MissaoFicha = () => {
       url + "/fichaMissao/" + userContext.user.saram,
       {
         method: "GET",
-        // FIXME: Check if the post method is correct
         headers: { "Content-Type": "application/json" },
       }
     );
 
     if (response.ok) {
       const dataArray = await response.json();
+      setArrayData(dataArray);
+
       toast.success(`Ficha Formada com Sucesso!`, {
         position: "top-right",
         autoClose: 4000,
@@ -59,8 +75,6 @@ const MissaoFicha = () => {
         draggable: true,
         progress: undefined,
       });
-
-      setArrayData(dataArray);
     } else {
       toast.error(`Algo deu errado com sua Ficha!`, {
         position: "top-right",
@@ -120,67 +134,67 @@ const MissaoFicha = () => {
         >
           <Grid item mb={3}>
             <FormLabel>Id da Solicitação</FormLabel>
-            <TextField disabled fullWidth value={data.idSolicitacao} />
+            <TextField disabled fullWidth value={arrayData.idSolicitacao} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Motivo da Missão</FormLabel>
-            <TextField disabled fullWidth value={data.motivoMissao} />
+            <TextField disabled fullWidth value={arrayData.motivoMissao} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Destino</FormLabel>
-            <TextField disabled fullWidth value={data.destino} />
+            <TextField disabled fullWidth value={arrayData.destino} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Viatura</FormLabel>
-            <TextField disabled fullWidth value={data.viatura} />
+            <TextField disabled fullWidth value={arrayData.viatura} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Motorista</FormLabel>
-            <TextField disabled fullWidth value={data.motorista} />
+            <TextField disabled fullWidth value={arrayData.motorista} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Aprovador</FormLabel>
-            <TextField disabled fullWidth value={data.aprovador} />
+            <TextField disabled fullWidth value={arrayData.aprovador} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Id do Registro</FormLabel>
-            <TextField disabled fullWidth value={data.idRegistro} />
+            <TextField disabled fullWidth value={arrayData.idRegistro} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Km Inicial</FormLabel>
-            <TextField disabled fullWidth value={data.kmInicial} />
+            <TextField disabled fullWidth value={arrayData.kmInicial} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Data/Hora Saída </FormLabel>
-            <TextField disabled fullWidth value={data.dataHrSaida} />
+            <TextField disabled fullWidth value={arrayData.dataHrSaida} />
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Tanque</FormLabel>
-            <TextField disabled fullWidth value={data.tanque} />
+            <TextField disabled fullWidth value={arrayData.tanque} />
           </Grid>
           <FormControlLabel
-            control={<Checkbox checked={data.oleo} />}
+            control={<Checkbox checked={oleoCheck} />}
             label="Óleo"
           />
           <FormControlLabel
-            control={<Checkbox checked={data.pneu} />}
+            control={<Checkbox checked={pneuCheck} />}
             label="Pneu"
           />
           <FormControlLabel
-            control={<Checkbox checked={data.aguaRadiador} />}
+            control={<Checkbox checked={aguaRadiadorCheck} />}
             label="Água do Radiador"
           />
           <FormControlLabel
-            control={<Checkbox checked={data.amassado} />}
+            control={<Checkbox checked={amassadoCheck} />}
             label="Amassado"
           />
           <FormControlLabel
-            control={<Checkbox checked={data.aranhado} />}
+            control={<Checkbox checked={arranhadoCheck} />}
             label="Arranhado"
           />
           <Grid item mb={3}>
             <FormLabel>Observação</FormLabel>
-            <TextField disabled fullWidth value={data.observacao} />
+            <TextField disabled fullWidth value={arrayData.observacao} />
           </Grid>
         </Grid>
       </form>
@@ -213,7 +227,7 @@ const MissaoFicha = () => {
             name="id"
             disabled
             fullWidth
-            value={data.idSolicitacao}
+            value={arrayData.idSolicitacao}
           />
         </Grid>
         <Button onClick={putFechaFicha}>Fechar Ficha</Button>
