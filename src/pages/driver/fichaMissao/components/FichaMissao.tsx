@@ -16,7 +16,7 @@ const MissaoFicha = () => {
 
   const [arrayData, setArrayData] = useState<any>({});
   const [kmFinal, setKmFinal] = useState<any>(null);
-  const [obs, setObs] = useState<string>("");
+  const [obsP, setObs] = useState<string>("");
   const [id, setId] = useState<any>(null);
 
   const [oleoCheck, setOleoCheck] = useState<boolean>(false);
@@ -114,8 +114,8 @@ const MissaoFicha = () => {
   }
 
   async function putFechaFicha() {
-    const texto = `${obs}. ${arrayData.observacao}`;
-    const dataReq = { kmFinal, texto, id };
+    const obs = `${obsP}. ${arrayData.observacao}`;
+    const dataReq = { kmFinal, obs, id };
     console.log(dataReq);
     const response = await fetch(url + "/fechaFichaMotora/", {
       method: "PUT",
@@ -242,7 +242,7 @@ const MissaoFicha = () => {
             id="obs"
             name="obs"
             fullWidth
-            value={obs}
+            value={obsP}
             onChange={(e) => setObs(e.target.value)}
           />
         </Grid>
