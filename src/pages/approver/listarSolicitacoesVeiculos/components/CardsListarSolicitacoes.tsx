@@ -94,7 +94,6 @@ const AllCarsSolicitacoes = () => {
                     {`
                     Destino: ${item.destino}, 
                     Motivo: ${item.motivo}, 
-                    Data/Hora: ${item.datahr},
                     Motorista: ${item.motorista}, 
                     Placa: ${item.placa}, 
                     Status: ${item.status}
@@ -105,7 +104,7 @@ const AllCarsSolicitacoes = () => {
                   <Button
                     size="small"
                     onClick={() => {
-                      putInfo(user.saram, "Aprovada", item.idsolicitacao);
+                      putInfo(user.saram, "Aprovada", item.idSolicitacao);
                     }}
                   >
                     Aprovar
@@ -113,7 +112,7 @@ const AllCarsSolicitacoes = () => {
                   <Button
                     size="small"
                     onClick={() => {
-                      putInfo(user.saram, "Recusada", item.idsolicitacao);
+                      putInfo(user.saram, "Recusada", item.idSolicitacao);
                     }}
                   >
                     Recusar

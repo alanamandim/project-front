@@ -8,8 +8,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const InspecaoForm: any = () => {
   const [oleo, setOleo] = useState(true);
@@ -23,6 +24,7 @@ const InspecaoForm: any = () => {
   const [obs, setObs] = useState("");
   const [idSolicitacao, setIdSolicitacao] = useState(null);
   const url = "http://localhost:8080";
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     // Obtenha o objeto user do localStorage
@@ -34,10 +36,34 @@ const InspecaoForm: any = () => {
 
       // Defina o objeto user no estado
       setIdSolicitacao(parsedUser);
+    } else {
+      getSolicitacaoId();
     }
 
     getInfo();
   }, []);
+
+  const getSolicitacaoId = async () => {
+    const response = await fetch(
+      // FIXME: Change the URL to get tanque selects
+      url + `/listaSolicitacaoInspecao/${user.saram}`,
+      {
+        method: "GET",
+        // FIXME: Check if the post method is correct
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+
+      // FIXME: Change the state than will receive the value
+      setIdSolicitacao(data.idSolicitacao);
+    } else {
+      toast.success("Olá, faça a sua primeira solicitação!");
+    }
+  };
 
   const getInfo = async () => {
     const response = await fetch(
