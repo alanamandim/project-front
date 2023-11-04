@@ -11,7 +11,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [senha, setsenha] = useState<string>("");
-  const { setUser, getUser } = useContext(AuthContext);
+  const { getUser } = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
@@ -19,35 +19,35 @@ const LoginForm = () => {
 
   const url = "http://localhost:8080/";
 
-  async function getEmail() {
-    try {
-      const response = await fetch(url + "email/" + email, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  // async function getEmail() {
+  //   try {
+  //     const response = await fetch(url + "email/" + email, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      if (response.ok) {
-        // A solicitação foi bem-sucedida (código de status 2xx)
-        const data = await response.json();
-        console.log(url + "email/", data);
+  //     if (response.ok) {
+  //       // A solicitação foi bem-sucedida (código de status 2xx)
+  //       const data = await response.json();
+  //       console.log(url + "email/", data);
 
-        setUser(data);
-        localStorage.clear();
-        const userJSON = JSON.stringify(data);
-        getUser(userJSON);
-        // window.localStorage.setItem("user", userJSON);
+  //       setUser(data);
+  //       localStorage.clear();
+  //       const userJSON = JSON.stringify(data);
+  //       getUser(userJSON);
+  //       // window.localStorage.setItem("user", userJSON);
 
-        window.location.href = "/dashboard";
-      } else {
-        // A solicitação falhou (código de status não 2xx)
-        console.error("Falha no login:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Erro ao fazer a solicitação:", error);
-    }
-  }
+  //       window.location.href = "/dashboard";
+  //     } else {
+  //       // A solicitação falhou (código de status não 2xx)
+  //       console.error("Falha no login:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Erro ao fazer a solicitação:", error);
+  //   }
+  // }
 
   function handleLogin() {
     const inputElementEmail = document.getElementById(
@@ -93,7 +93,7 @@ const LoginForm = () => {
           const data = response.json();
           console.log(url + "loginusuario", data);
 
-          getEmail();
+          getUser(data.email);
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");

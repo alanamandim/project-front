@@ -60,7 +60,7 @@ const url = "http://localhost:8080";
 
 const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const [email, setEmail] = useState<string>({} as string);
+  const [emailGet, setEmailGet] = useState<string>({} as string);
   const [idSolicitacao, setIdSolicitacao] = useState(null);
 
   async function getUser(email: string) {
@@ -72,7 +72,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     if (response.ok) {
       const data = await response.json();
       setUser(data);
-      setEmail(user.email);
+      setEmailGet(user.email);
     }
   }
 
@@ -95,7 +95,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   }
 
   useEffect(() => {
-    getUser(email);
+    getUser(emailGet);
   }, [setUser]);
 
   return (
