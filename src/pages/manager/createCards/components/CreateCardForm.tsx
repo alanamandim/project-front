@@ -8,6 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 
+//criar a requisição: /adicionaViatura (TODOS OS USESTATES TEM QUE ESTAR EM PORTUGUES EXATAMENTE COMO ESTÃO OS NAMES DOS INPUTS)
+
 const CreatedCard = () => {
   return (
     <form>

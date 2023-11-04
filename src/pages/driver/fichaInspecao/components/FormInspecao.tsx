@@ -29,7 +29,6 @@ const InspecaoForm: any = () => {
   useEffect(() => {
     // Obtenha o objeto user do localStorage
     const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
-
     if (storedIdSolicitacao) {
       // Parse o objeto do localStorage para um objeto JavaScript
       const parsedUser = JSON.parse(storedIdSolicitacao);

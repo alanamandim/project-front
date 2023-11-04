@@ -37,8 +37,32 @@ const MissaoFicha = () => {
 
       // Defina o objeto user no estado
       setId(parsedUser);
+    } else {
+      getSolicitacaoId();
     }
   }, []);
+
+  const getSolicitacaoId = async () => {
+    const response = await fetch(
+      // FIXME: Change the URL to get tanque selects
+      url + `/listaSolicitacaoInspecao/${userContext.user.saram}`,
+      {
+        method: "GET",
+        // FIXME: Check if the post method is correct
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+
+      // FIXME: Change the state than will receive the value
+      setId(data.idSolicitacao);
+    } else {
+      toast.success("Olá, faça a sua primeira solicitação!");
+    }
+  };
 
   useEffect(() => {
     getVehicles();
@@ -64,6 +88,7 @@ const MissaoFicha = () => {
 
     if (response.ok) {
       const dataArray = await response.json();
+      console.log(dataArray, "adasddsadsadsadsadsad");
       setArrayData(dataArray);
 
       toast.success(`Ficha Formada com Sucesso!`, {
@@ -89,7 +114,8 @@ const MissaoFicha = () => {
   }
 
   async function putFechaFicha() {
-    const dataReq = { kmFinal, obs, id };
+    const texto = `${obs}. ${arrayData.observacao}`;
+    const dataReq = { kmFinal, texto, id };
     console.log(dataReq);
     const response = await fetch(url + "/fechaFichaMotora/", {
       method: "PUT",
