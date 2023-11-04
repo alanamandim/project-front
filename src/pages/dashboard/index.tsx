@@ -5,21 +5,18 @@ import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, setEmailGet, getUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     // Obtenha o objeto user do localStorage
-    const storedUser = localStorage.getItem("user");
 
-    if (storedUser) {
+    if (user) {
       // Parse o objeto do localStorage para um objeto JavaScript
-      const parsedUser = JSON.parse(storedUser);
-
+      setEmailGet(user.email);
       // Defina o objeto user no estado
-      setUser(parsedUser);
     }
-  }, [setUser, user]);
+  }, [setUser]);
 
   console.log(user);
 

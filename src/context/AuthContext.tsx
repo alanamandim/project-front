@@ -41,6 +41,7 @@ interface IAuthProvider {
 interface IAuthContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
+  setEmailGet: React.Dispatch<React.SetStateAction<string>>;
   idSolicitacao: number | null;
   setIdSolicitacao: React.Dispatch<React.SetStateAction<any>>;
   //signOut: () => Promise<void>;
@@ -49,7 +50,7 @@ interface IAuthContext {
   //getCurrentBranch: () => Promise<void>;
   //getProductPermissions: () => Promise<void>;
   // userBranches: IBranch[] | null;
-  getUser: (email: string) => Promise<void>;
+  getUser: () => Promise<void>;
   getSolicitacaoId: (saram: string) => Promise<void>;
   // decodedToken: JwtPayload | null;
   // productDashboard: any;
@@ -63,8 +64,9 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   const [emailGet, setEmailGet] = useState<string>({} as string);
   const [idSolicitacao, setIdSolicitacao] = useState(null);
 
-  async function getUser(email: string) {
-    const response = await fetch(url + `/email/${email}`, {
+  async function getUser() {
+    console.log(emailGet);
+    const response = await fetch(url + `/email/${emailGet}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -94,16 +96,13 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     }
   }
 
-  useEffect(() => {
-    getUser(emailGet);
-  }, [setUser]);
-
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
         getUser,
+        setEmailGet,
         idSolicitacao,
         setIdSolicitacao,
         getSolicitacaoId,

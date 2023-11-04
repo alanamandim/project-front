@@ -11,7 +11,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [senha, setsenha] = useState<string>("");
-  const { getUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
@@ -31,7 +31,7 @@ const LoginForm = () => {
   //     if (response.ok) {
   //       // A solicitação foi bem-sucedida (código de status 2xx)
   //       const data = await response.json();
-  //       console.log(url + "email/", data);
+  //       console.log(data);
 
   //       setUser(data);
   //       localStorage.clear();
@@ -91,9 +91,11 @@ const LoginForm = () => {
           });
 
           const data = response.json();
-          console.log(url + "loginusuario", data);
+          console.log("loginusuario", data);
+          setUser(data);
+          window.location.href = "/dashboard";
 
-          getUser(data.email);
+          // getUser(data.email);
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");

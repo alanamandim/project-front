@@ -28,15 +28,14 @@ const InspecaoForm: any = () => {
     useContext(AuthContext);
 
   useEffect(() => {
-    // Obtenha o objeto user do localStorage
     // const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
     if (!idSolicitacao) {
       // Parse o objeto do localStorage para um objeto JavaScript
       getSolicitacaoId(user.saram);
       // Defina o objeto user no estado
+    } else {
+      getInfo();
     }
-
-    getInfo();
   }, []);
 
   const getInfo = async () => {
