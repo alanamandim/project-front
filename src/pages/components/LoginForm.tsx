@@ -67,57 +67,104 @@ const LoginForm = () => {
     }
   }
 
+  // async function submitLogin() {
+  //   const formData = { email, senha };
+  //
+  // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+  //   await fetch(url + "loginUsuario", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(formData),
+  //   })
+  //     .then((response: any) => {
+  //       if (response.status === 200) {
+  //         toast.success(`Login efetuado com sucesso!`, {
+  //           position: "top-right",
+  //           autoClose: 4000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //         });
+
+  //         const data = response.json();
+  //         console.log("loginusuario", data);
+  //         setUser(data);
+  //         window.location.href = "/dashboard";
+
+  //         // getUser(data.email);
+  //       } else if (response.status === 401) {
+  //         // Invalid ID
+  //         toast.error("Ops! Login ou senha incorreto.");
+  //       } else {
+  //         toast.error("Ops! Login ou senha incorreto.");
+  //         console.log(response.status);
+  //         console.log(response);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       // Os erros, se houver.
+  //       console.log(error);
+  //       toast.error(`Ops! Algo inesperado aconteceu`, {
+  //         position: "top-right",
+  //         autoClose: 4000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //       });
+  //     });
+  // }
+
   async function submitLogin() {
+    const url = "http://localhost:8080/loginUsuario"; // Substitua pela URL do seu endpoint
     const formData = { email, senha };
 
-    // Exemplo de como enviar o arquivo para o back-end usando fetch API.
-    fetch(url + "loginUsuario", {
+    const opcoes = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    })
-      .then((response: any) => {
-        if (response.status === 200) {
-          toast.success(`Login efetuado com sucesso!`, {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+    };
 
-          const data = response.json();
-          console.log("loginusuario", data);
-          setUser(data);
-          window.location.href = "/dashboard";
+    try {
+      const resposta = await fetch(url, opcoes);
 
-          // getUser(data.email);
-        } else if (response.status === 401) {
-          // Invalid ID
-          toast.error("Ops! Login ou senha incorreto.");
-        } else {
-          toast.error("Ops! Login ou senha incorreto.");
-          console.log(response.status);
-          console.log(response);
-        }
-      })
-      .catch((error) => {
-        // Os erros, se houver.
-        console.log(error);
-        toast.error(`Ops! Algo inesperado aconteceu`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      if (!resposta.ok) {
+        throw new Error(`Erro na solicitação: ${resposta.status}`);
+      }
+
+      const dados = await resposta.json();
+      console.log("Resposta do servidor:", dados);
+      toast.success(`Login efetuado com sucesso!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+      setUser(dados);
+
+      //window.location.href = "/dashboard";
+    } catch (erro) {
+      console.log(erro);
+      toast.error(`Ops! Algo inesperado aconteceu`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   return (
