@@ -14,7 +14,6 @@ import {
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import ImageUploader from "../../components/ImageUploader";
 import { toast } from "react-toastify";
-import sleep from "../../../utils/Sleep";
 
 const RegisterForm = () => {
   const [senha, setsenha] = useState<string>("");
@@ -70,15 +69,7 @@ const RegisterForm = () => {
 
   function getValuesFromForm() {
     if (senha === checksenha) {
-      // const newUserData: IRegisterUser = {
-      //   email: email,
-      //   name: name,
-      //   saram: saram,
-      //   senha: senha,
-      //  };
-
       const formData = { nome, saram, email, senha };
-      console.log(formData);
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/registraUsuario`, {

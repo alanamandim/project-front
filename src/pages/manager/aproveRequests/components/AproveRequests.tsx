@@ -12,6 +12,8 @@ const url = "http://localhost:8080";
 
 const ListRequests: any = async () => {
   const [checked, setChecked] = useState([1]);
+  const [id, setId] = useState(null);
+  const [status, setStatus] = useState("");
   const [dataGet, setDataGet] = React.useState([{}]);
 
   // FIXME: 'handleToggle' is declared but its value is never read.
@@ -30,15 +32,13 @@ const ListRequests: any = async () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
-    const response = await fetch(url, {
+    const response = await fetch(url + "/listaReservaGestor", {
       method: "GET",
-      body: JSON.stringify(dataGet),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url, data)
       setDataGet(data);
     }
   }
@@ -49,16 +49,17 @@ const ListRequests: any = async () => {
 
   // FIXME: Call this function when the button is pressed to refresh the content
   // FIXME: 'putInfo' is declared but its value is never read.
-  async function putInfo(info1: string, info2: string) {
-    const response = await fetch(url, {
+  async function putInfo() {
+    const sendData = { status, id };
+    const response = await fetch(url + "/modificaStatusReserva", {
       method: "PUT",
-      body: JSON.stringify({ info1, info2 }),
+      body: JSON.stringify(sendData),
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url, data)
+      console.log(url, data);
       setDataGet(data);
     }
   }
@@ -68,13 +69,20 @@ const ListRequests: any = async () => {
       dense
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
     >
-      {[0, 1, 2, 3].map((value) => {
+      {dataGet.map((value: any) => {
         const labelId = `checkbox-list-secondary-label-${value}`;
         return (
           <ListItem
-            key={value}
             secondaryAction={
-              <Button variant="contained" size="large">
+              <Button
+                onClick={() => {
+                  setId(value.idReserva);
+                  setStatus("Aprovada");
+                  putInfo();
+                }}
+                variant="contained"
+                size="large"
+              >
                 APROVAR
               </Button>
             }
@@ -83,11 +91,11 @@ const ListRequests: any = async () => {
             <ListItemButton>
               <ListItemAvatar>
                 <Avatar
-                  alt={`Avatar n°${value + 1}`}
-                  src={`/static/images/avatar/${value + 1}.jpg`}
+                  alt={`Pedido n° ${value + 1}`}
+                  src={`https://img.freepik.com/vetores-premium/icone-de-avatar-masculino-pessoa-desconhecida-ou-anonima-icone-de-perfil-de-avatar-padrao-usuario-de-midia-social-homem-de-negocios-silhueta-de-perfil-de-homem-isolada-no-fundo-branco-ilustracao-vetorial_735449-120.jpg`}
                 />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={`Nome Fulano ${value + 1}`} />
+              <ListItemText id={labelId} primary={`Nome: ${value.motorista}`} />
             </ListItemButton>
           </ListItem>
         );

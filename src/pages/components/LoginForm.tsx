@@ -11,7 +11,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [senha, setsenha] = useState<string>("");
-  const { setUser } = useContext(AuthContext);
+  const { setUser, getUser } = useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
@@ -36,7 +36,9 @@ const LoginForm = () => {
         setUser(data);
         localStorage.clear();
         const userJSON = JSON.stringify(data);
-        window.localStorage.setItem("user", userJSON);
+        getUser(userJSON);
+        // window.localStorage.setItem("user", userJSON);
+
         window.location.href = "/dashboard";
       } else {
         // A solicitação falhou (código de status não 2xx)
