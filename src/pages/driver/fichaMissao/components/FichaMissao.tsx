@@ -15,7 +15,7 @@ const MissaoFicha = () => {
   const url = "http://localhost:8080";
 
   const [arrayData, setArrayData] = useState<any>({});
-  const [kmFinal, setKmFinal] = useState<any>(null);
+  const [kmFinalP, setKmFinal] = useState<any>(null);
   const [obsP, setObs] = useState<string>("");
   const [id, setId] = useState<any>(null);
 
@@ -114,6 +114,7 @@ const MissaoFicha = () => {
   }
 
   async function putFechaFicha() {
+    const kmFinal = parseInt(kmFinalP);
     const obs = `${obsP}. ${arrayData.observacao}`;
     const dataReq = { kmFinal, obs, id };
     console.log(dataReq);
@@ -232,7 +233,7 @@ const MissaoFicha = () => {
             id="kmFinal"
             name="kmFinal"
             fullWidth
-            value={kmFinal}
+            value={kmFinalP}
             onChange={(e) => setKmFinal(e.target.value)}
           />
         </Grid>
