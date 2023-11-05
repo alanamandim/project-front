@@ -118,7 +118,7 @@ const MissaoFicha = () => {
     const obs = `${obsP}. ${arrayData.observacao}`;
     const dataReq = { kmFinal, obs, id };
     console.log(dataReq);
-    const response = await fetch(url + "/fechaFichaMotora/", {
+    const response = await fetch(url + "/fechaFichaMotora", {
       method: "PUT",
       body: JSON.stringify(dataReq),
       headers: { "Content-Type": "application/json" },
