@@ -1,8 +1,68 @@
 import { Button, FormLabel, Grid, TextField } from "@mui/material";
-
-// Rota: /adicionaModelo ((TODOS OS USESTATES TEM QUE ESTAR EM PORTUGUES EXATAMENTE COMO ESTÃO OS NAMES DOS INPUTS))
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const FormCreateModel = () => {
+
+  const [marca, setMarca] = useState<string>('');
+  const [modelo, setModelo] = useState<string>('');
+
+  async function postValuesFromForm() {
+    const url = "http://localhost:8080";
+    const formData = { marca, modelo };
+    console.log(formData);
+
+    const response = await fetch(url + "/adicionaModelo", {
+      method: "POST",
+      // FIXME: Check if the post method is correct
+      body: JSON.stringify(formData),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      toast.success(`Modelo adicionado!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  function getValuesFromForm() {
+    const inputElementMarca = document.getElementById(
+      "marca"
+    ) as HTMLInputElement | null;
+    if (inputElementMarca !== null) {
+      const formMarca = inputElementMarca.value;
+      setMarca(formMarca);
+    }
+
+    const inputElementModelo = document.getElementById(
+      "modelo"
+    ) as HTMLInputElement | null;
+    if (inputElementModelo !== null) {
+      const formModelo = inputElementModelo.value;
+      setModelo(formModelo);
+    }
+
+    if (marca && modelo) {
+      postValuesFromForm();
+    } else {
+      toast.error(`Faltam dados a serem preenchidos!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
   return (
     <form>
       <Grid
@@ -22,7 +82,7 @@ const FormCreateModel = () => {
           <TextField id="modelo" name="modelo" fullWidth />
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large">
+          <Button variant="contained" size="large" onClick={getValuesFromForm}>
             ENVIAR
           </Button>
         </Grid>

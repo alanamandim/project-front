@@ -25,6 +25,10 @@ export interface IViatura {
   status: string;
 }
 
+export interface IModelo {
+  modelo: string;
+}
+
 export interface IRegisterUser {
   email: string;
   name: string;
