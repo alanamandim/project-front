@@ -91,7 +91,9 @@ const RegisterForm = () => {
               progress: undefined,
             });
 
-            window.location.href = "/";
+            toast.success(
+              "Tudo certo, agora nos envie uma foto se for motorista!"
+            );
           } else if (response.status === 401) {
             // Invalid ID
             toast.error("Ops! Login ou senha incorreto.");
