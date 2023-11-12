@@ -16,19 +16,19 @@ const ListRequests: any = async () => {
   const [status, setStatus] = useState("");
   const [dataGet, setDataGet] = React.useState([{}]);
 
-  // FIXME: 'handleToggle' is declared but its value is never read.
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  // // FIXME: 'handleToggle' is declared but its value is never read.
+  // const handleToggle = (value: number) => () => {
+  //   const currentIndex = checked.indexOf(value);
+  //   const newChecked = [...checked];
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+  //   if (currentIndex === -1) {
+  //     newChecked.push(value);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
 
-    setChecked(newChecked);
-  };
+  //   setChecked(newChecked);
+  // };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
@@ -43,9 +43,11 @@ const ListRequests: any = async () => {
     }
   }
 
-  useEffect(() => {
-    getInfo();
-  }, []);
+  getInfo();
+
+  // useEffect(() => {
+  //   getInfo();
+  // }, []);
 
   // FIXME: Call this function when the button is pressed to refresh the content
   // FIXME: 'putInfo' is declared but its value is never read.
