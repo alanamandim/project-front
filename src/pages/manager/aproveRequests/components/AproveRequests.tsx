@@ -13,29 +13,26 @@ const url = "http://localhost:8080";
 const ListRequests: any = async () => {
   const [id, setId] = useState(null);
   const [status, setStatus] = useState("");
-  const [dataGet, setDataGet] = React.useState([{}]);
+  const [dataGet, setDataGet] = useState([{}]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  async function getInfo() {
-    try {
-      const response = await fetch(url + "/listaReservaGestor", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setDataGet(data);
-      }
-    } catch (error) {
-      // Tratar erros, se necessário
-      console.error("Erro ao buscar dados:", error);
-    }
-  }
 
   useEffect(() => {
     getInfo();
   }, []); // Disparar apenas na montagem inicial
+
+  async function getInfo() {
+    const response = await fetch(url + `/listaReservaGestor`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setDataGet(data);
+      console.log(data);
+    }
+  }
 
   async function putInfo() {
     try {
