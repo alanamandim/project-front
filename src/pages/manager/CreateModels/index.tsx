@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 
-const CreateCar = () => {
+const CreateCarModel = () => {
   const { user } = useContext(AuthContext);
 
   return (
@@ -32,4 +32,4 @@ const CreateCar = () => {
   );
 };
 
-export default CreateCar;
+export default CreateCarModel;

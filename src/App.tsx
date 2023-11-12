@@ -19,6 +19,7 @@ import ListUsersPage from "./pages/manager/listUsers";
 import Inspecao from "./pages/driver/fichaInspecao";
 import CreateCar from "./pages/manager/createCards";
 import Missao from "./pages/driver/fichaMissao";
+import CreateCarModel from "./pages/manager/CreateModels";
 
 function App() {
   return (
@@ -50,7 +51,10 @@ function App() {
         <Route path="/manager/list-users" element={<ListUsersPage />} />
         <Route path="/manager/aprove-requests" element={<RequestUsers />} />
         <Route path="/manager/create-cars" element={<CreateCar />} />
-        <Route path="/manager/create-cars-models" element={<CreateCar />} />
+        <Route
+          path="/manager/create-cars-models"
+          element={<CreateCarModel />}
+        />
         <Route path="/sender" element={<Sender />} />
       </Routes>
     </>
