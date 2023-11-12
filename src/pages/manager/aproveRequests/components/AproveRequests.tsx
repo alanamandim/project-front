@@ -62,7 +62,6 @@ const ListRequests: any = async () => {
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
     >
       {dataGet.map((value: any) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
         return (
           <ListItem
             secondaryAction={
@@ -83,11 +82,11 @@ const ListRequests: any = async () => {
             <ListItemButton>
               <ListItemAvatar>
                 <Avatar
-                  alt={`Pedido n° ${value + 1}`}
+                  alt={`Pedido n° ${value.idReserva}`}
                   src={`https://img.freepik.com/vetores-premium/icone-de-avatar-masculino-pessoa-desconhecida-ou-anonima-icone-de-perfil-de-avatar-padrao-usuario-de-midia-social-homem-de-negocios-silhueta-de-perfil-de-homem-isolada-no-fundo-branco-ilustracao-vetorial_735449-120.jpg`}
                 />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={`Nome: ${value.motorista}`} />
+              <ListItemText primary={`Nome: ${value.motorista}`} />
             </ListItemButton>
           </ListItem>
         );
