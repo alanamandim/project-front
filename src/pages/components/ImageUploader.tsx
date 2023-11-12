@@ -20,6 +20,7 @@ const VisuallyHiddenInput = styled("input")({
 
 function ImageUploader(id: any) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [saram, setSaram] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -40,10 +41,16 @@ function ImageUploader(id: any) {
         return;
       }
 
+      const dadoSalvo = localStorage.getItem("saram");
+      if (dadoSalvo) {
+        setSaram(JSON.parse(dadoSalvo));
+      }
+
       const formData = new FormData();
       formData.append("photo", selectedFile);
-      formData.append("id", id);
+      formData.append("id", saram);
       // formData.append('id', '6783452');
+      console.log(formData);
 
       // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/upload`, {
@@ -52,7 +59,6 @@ function ImageUploader(id: any) {
       })
         .then((response) => {
           // A resposta do servidor, se necessário.
-          window.location.href = "/";
           toast.success("Imagem enviada, só aguardar aprovação!");
         })
         .catch((error) => {

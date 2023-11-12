@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
-import { AuthContext } from "../../../context/AuthContext";
 
 import {
   Button,
@@ -81,7 +80,7 @@ const RegisterForm = () => {
       })
         .then((response: any) => {
           if (response.status === 200) {
-            toast.success(`Login efetuado com sucesso!`, {
+            toast.success(`Registro efetuado com sucesso!`, {
               position: "top-right",
               autoClose: 4000,
               hideProgressBar: false,
@@ -90,6 +89,7 @@ const RegisterForm = () => {
               draggable: true,
               progress: undefined,
             });
+            localStorage.setItem("saram", JSON.stringify(saram));
 
             toast.success(
               "Tudo certo, agora nos envie uma foto se for motorista!"

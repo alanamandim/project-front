@@ -21,7 +21,7 @@ const ListUsersPage = () => {
             List all Users
           </Typography>
           <Typography variant="h4" mt={3} alignItems="center">
-            Todos os veículos disponíveis
+            Todos os pedidos dos usuários
           </Typography>
           <ListUsersCard />
         </Grid>
