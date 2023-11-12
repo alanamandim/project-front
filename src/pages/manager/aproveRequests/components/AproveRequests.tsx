@@ -45,7 +45,7 @@ const ListRequests: any = async () => {
 
   useEffect(() => {
     getInfo();
-  }, [getInfo]);
+  }, []);
 
   // FIXME: Call this function when the button is pressed to refresh the content
   // FIXME: 'putInfo' is declared but its value is never read.
