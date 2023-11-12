@@ -29,7 +29,7 @@ const FormCreateModel = () => {
         progress: undefined,
       });
     } else {
-      toast.success(`Ops, algo deu errado!`, {
+      toast.error(`Ops, algo deu errado!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -57,11 +57,9 @@ const FormCreateModel = () => {
       const formModelo = inputElementModelo.value;
       setModelo(formModelo);
     }
-
-    postValuesFromForm();
   }
   return (
-    <form>
+    <form onChange={getValuesFromForm}>
       <Grid
         item
         container
@@ -79,7 +77,7 @@ const FormCreateModel = () => {
           <TextField id="modelo" name="modelo" fullWidth />
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" onClick={getValuesFromForm}>
+          <Button variant="contained" size="large" onClick={postValuesFromForm}>
             ENVIAR
           </Button>
         </Grid>

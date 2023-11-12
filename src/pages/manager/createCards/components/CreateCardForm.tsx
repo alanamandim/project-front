@@ -127,12 +127,10 @@ const CreatedCardForm = () => {
       const formHodometroNumber = parseInt(formHodometro);
       setHodometro(formHodometroNumber);
     }
-
-    postValuesFromForm();
   }
 
   return (
-    <form>
+    <form onChange={getValuesFromForm}>
       <Grid
         item
         container
@@ -175,11 +173,7 @@ const CreatedCardForm = () => {
           </Select>
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => getValuesFromForm}
-          >
+          <Button variant="contained" size="large" onClick={postValuesFromForm}>
             ENVIAR
           </Button>
         </Grid>
