@@ -11,58 +11,48 @@ import { Button } from "@mui/material";
 const url = "http://localhost:8080";
 
 const ListRequests: any = async () => {
-  const [checked, setChecked] = useState([1]);
   const [id, setId] = useState(null);
   const [status, setStatus] = useState("");
   const [dataGet, setDataGet] = React.useState([{}]);
 
-  // // FIXME: 'handleToggle' is declared but its value is never read.
-  // const handleToggle = (value: number) => () => {
-  //   const currentIndex = checked.indexOf(value);
-  //   const newChecked = [...checked];
-
-  //   if (currentIndex === -1) {
-  //     newChecked.push(value);
-  //   } else {
-  //     newChecked.splice(currentIndex, 1);
-  //   }
-
-  //   setChecked(newChecked);
-  // };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
-    const response = await fetch(url + "/listaReservaGestor", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      const response = await fetch(url + "/listaReservaGestor", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setDataGet(data);
+      if (response.ok) {
+        const data = await response.json();
+        setDataGet(data);
+      }
+    } catch (error) {
+      // Tratar erros, se necessário
+      console.error("Erro ao buscar dados:", error);
     }
   }
 
-  getInfo();
+  useEffect(() => {
+    getInfo();
+  }, []); // Disparar apenas na montagem inicial
 
-  // useEffect(() => {
-  //   getInfo();
-  // }, []);
-
-  // FIXME: Call this function when the button is pressed to refresh the content
-  // FIXME: 'putInfo' is declared but its value is never read.
   async function putInfo() {
-    const sendData = { status, id };
-    const response = await fetch(url + "/modificaStatusReserva", {
-      method: "PUT",
-      body: JSON.stringify(sendData),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      const sendData = { status, id };
+      const response = await fetch(url + "/modificaStatusReserva", {
+        method: "PUT",
+        body: JSON.stringify(sendData),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log(url, data);
-      setDataGet(data);
+      if (response.ok) {
+        const data = await response.json();
+        setDataGet(data);
+      }
+    } catch (error) {
+      // Tratar erros, se necessário
+      console.error("Erro ao atualizar dados:", error);
     }
   }
 
