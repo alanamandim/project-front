@@ -12,20 +12,18 @@ import { IModelo } from "../../../../context/AuthContext";
 import { toast } from "react-toastify";
 
 const CreatedCardForm = () => {
-  const [placa, setPlaca] = useState<string>('');
-  const [chassi, setChassi] = useState<string>('');
-  const [tipoCombustivel, setTipoCombustivel] = useState<string>('');
+  const [placa, setPlaca] = useState<string>("");
+  const [chassi, setChassi] = useState<string>("");
+  const [tipoCombustivel, setTipoCombustivel] = useState<string>("");
   const [hodometro, setHodometro] = useState<number>(0);
-  const [modelo, setModelo] = useState<
-    string | Record<string, IModelo>
-  >({});
-  const [modelSelect, setModelSelect] = useState('')
+  const [modelo, setModelo] = useState<string>("");
+  const [modelSelect, setModelSelect] = useState<Record<string, IModelo>>({});
 
   async function getModelsFromSelect() {
     const url = "http://localhost:8080";
 
     // FIXME: Get the real route from select values
-    const response = await fetch(url + "/", {
+    const response = await fetch(url + "/listaModelos", {
       method: "GET",
       // FIXME: Check if the post method is correct
       headers: { "Content-Type": "application/json" },
@@ -33,7 +31,7 @@ const CreatedCardForm = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + "/", data);
+      console.log(data);
 
       toast.success(`Requisição enviada!`, {
         position: "top-right",
@@ -51,7 +49,7 @@ const CreatedCardForm = () => {
 
   useEffect(() => {
     getModelsFromSelect();
-  }, [])
+  }, []);
 
   async function postValuesFromForm() {
     const url = "http://localhost:8080";
@@ -168,22 +166,20 @@ const CreatedCardForm = () => {
             label="modelo"
             onChange={(e) => setModelo(e.target.value)}
           >
-
             {/* FIXME: Change the way the data will appears to user */}
-            {
-              Object.keys(modelSelect).map((key) => (
-                <MenuItem
-                  key={key}
-                  value={modelSelect[key].modelo}
-                >
-                  {modelSelect[key].modelo}
-                </MenuItem>
-              ))
-            }
+            {Object.keys(modelSelect).map((key) => (
+              <MenuItem key={key} value={modelSelect[key].modelo}>
+                {modelSelect[key].modelo}
+              </MenuItem>
+            ))}
           </Select>
         </Grid>
         <Grid item mb={3} alignItems="center">
-          <Button variant="contained" size="large" onClick={() => getValuesFromForm}>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => getValuesFromForm}
+          >
             ENVIAR
           </Button>
         </Grid>
