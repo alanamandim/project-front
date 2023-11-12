@@ -3,9 +3,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const FormCreateModel = () => {
-
-  const [marca, setMarca] = useState<string>('');
-  const [modelo, setModelo] = useState<string>('');
+  const [marca, setMarca] = useState<string>("");
+  const [modelo, setModelo] = useState<string>("");
 
   async function postValuesFromForm() {
     const url = "http://localhost:8080";
@@ -21,6 +20,16 @@ const FormCreateModel = () => {
 
     if (response.ok) {
       toast.success(`Modelo adicionado!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.success(`Ops, algo deu errado!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -49,19 +58,7 @@ const FormCreateModel = () => {
       setModelo(formModelo);
     }
 
-    if (marca && modelo) {
-      postValuesFromForm();
-    } else {
-      toast.error(`Faltam dados a serem preenchidos!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
+    postValuesFromForm();
   }
   return (
     <form>
