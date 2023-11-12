@@ -62,6 +62,8 @@ const CreatedCardForm = () => {
       modelo,
     };
 
+    console.log(data);
+
     const response = await fetch(url + "/adicionaViatura", {
       method: "POST",
       // FIXME: Check if the post method is correct
