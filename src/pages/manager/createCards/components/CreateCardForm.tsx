@@ -81,6 +81,16 @@ const CreatedCardForm = () => {
         draggable: true,
         progress: undefined,
       });
+    } else {
+      toast.success(`Ops, algo deu errado!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
@@ -118,19 +128,7 @@ const CreatedCardForm = () => {
       setHodometro(formHodometroNumber);
     }
 
-    if (placa && chassi && tipoCombustivel && hodometro && modelo) {
-      postValuesFromForm();
-    } else {
-      toast.error(`Faltam dados a serem preenchidos!`, {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
+    postValuesFromForm();
   }
 
   return (
