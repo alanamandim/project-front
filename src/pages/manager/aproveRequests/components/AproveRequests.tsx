@@ -55,7 +55,7 @@ const ListRequests = () => {
 
   return (
     <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      {dataGet.map((value) => (
+      {dataGet.map((value: any) => (
         <ListItem key={value.idReserva} disablePadding>
           <ListItemButton>
             <ListItemAvatar>
