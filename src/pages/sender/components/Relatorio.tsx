@@ -3,19 +3,48 @@ import FormLabel from "@mui/material/FormLabel";
 import { Button, Grid, MenuItem, Select, InputLabel } from "@mui/material";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
-import React from "react";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import Avatar from "@mui/material/Avatar";
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const Relatorio = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<string>("");
   const [selectedVehicle2, setSelectedVehicle2] = useState<string>("");
   const { relatorio, setRelatorio } = useContext(AuthContext);
   const [showContainerReady, setShowContainerReady] = useState(true);
+  const [expanded, setExpanded] = React.useState(false);
 
-  // const handleSubmit = (event: React.FormEvent) => {
-  //   event.preventDefault();
-  //   console.log("Ano selecionado:", selectedVehicle);
-  //   console.log("Mês selecionado:", selectedVehicle2);
-  // };
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  interface ExpandMoreProps extends IconButtonProps {
+    expand: boolean;
+  }
+
+  const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
 
   async function getValuesFromForm() {
     const response = await fetch(
@@ -120,30 +149,91 @@ const Relatorio = () => {
           <h1>Relatório</h1>
           {relatorio.map((item: any) => (
             <React.Fragment key={item.idSolicitacao}>
-              <h3>Relatório: {item.idSolicitacao}</h3>
-              <div>
-                <span>Id da Solicitação: {item.idSolicitacao}</span>
-                <span>
-                  Motivo da Missão:
-                  {item.motivoMissao}
-                </span>
-                <span></span>
-                <span></span>
-                <span></span>
-                {/* Id da Solicitação: {item.idSolicitacao} &#10; Motivo da Missão:{" "}
-                {item.motivoMissao} &#10; Destino: {item.destino} &#10; Viatura:{" "}
-                {item.viatura} &#10; Motorista: {item.motorista} &#10; Aprovador:{" "}
-                {item.aprovador} &#10; Id do Registro: {item.idRegistro} &#10; KM
-                Inicial: {item.kmInicial} &#10; Status da Missão: {item.statusMissao}{" "}
-                &#10; KM Final: {item.kmFinal} &#10; Data/Hora da Saída:{" "}
-                {item.dataHrSaida} &#10; Data/Hora da Chegada: {item.dataHrChegada}{" "}
-                &#10; Retorno do motorista: {item.motoristaRetorno} &#10; Óleo:{" "}
-                {item.oleo} &#10; Pneu: {item.pneu} &#10; Água do Radiador:{" "}
-                {item.aguaRadiador} &#10; Amassado: {item.amassado} &#10; Arranhado:{" "}
-                {item.aranhado} &#10; Tanque: {item.tanque} &#10; Observação:{" "}
-                {item.observacao} &#10; Aprovador de Retorno: {item.aprovadorRetorno}{" "}
-                &#10; */}
-              </div>
+              return (
+              <Card sx={{ maxWidth: 345 }}>
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                      M
+                    </Avatar>
+                  }
+                  title={item.motorista}
+                  subheader={`Status da Missão: ${item.statusMissao}`}
+                />
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image="https://s.concursosnobrasil.com.br/media/cache/f/como-fazer-relatorio-960x540.jpgc/images/cards/paella.jpg"
+                  alt="Imagem de um Relatório"
+                />
+                <CardContent>
+                  <Typography variant="body2" color="text.secondary">
+                    {`Id da Solicitação: ${item.idSolicitacao}`}
+                    {`Id do Registro: ${item.idRegistro}`}
+                    {`Motorista Retornou: ${item.motoristaRetorno}`}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <Typography>{`Mostrar mais ->`}</Typography>
+                  <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                  >
+                    <ExpandMoreIcon />
+                  </ExpandMore>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                  <CardContent>
+                    <Typography
+                      paragraph
+                    >{`Motivo da Missão: ${item.motivoMissao}`}</Typography>
+                    <Typography paragraph>
+                      {`KM Inicial: ${item.kmInicial}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`KM Inicial: ${item.kmFinal}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Data/Hora Saída: ${item.dataHrSaida}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Data/Hora Chegada: ${item.dataHrChegada}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Destino: ${item.destino}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Viatura: ${item.viatura}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Aprovador: ${item.aprovador}`}
+                    </Typography>
+                    <Typography paragraph>{`Óleo: ${item.oleo}`}</Typography>
+                    <Typography paragraph>{`Pneu: ${item.pneu}`}</Typography>
+                    <Typography paragraph>
+                      {`Água Radiador: ${item.atuaRadiador}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Amassado: ${item.amassado}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Aranhado: ${item.aranhado}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Tanque: ${item.tanque}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Observação: ${item.observacao}`}
+                    </Typography>
+                    <Typography paragraph>
+                      {`Retorno aprovado por: ${item.aprovadorRetorno}`}
+                    </Typography>
+                  </CardContent>
+                </Collapse>
+              </Card>
+              );
             </React.Fragment>
           ))}
         </div>
