@@ -163,7 +163,7 @@ const Relatorio = () => {
                 <CardMedia
                   component="img"
                   height="194"
-                  image="https://s.concursosnobrasil.com.br/media/cache/f/como-fazer-relatorio-960x540.jpgc/images/cards/paella.jpg"
+                  image="https://s2.glbimg.com/jsaPuF7nO23vRxQkuJ_V3WgouKA=/e.glbimg.com/og/ed/f/original/2014/06/10/461777879.jpg"
                   alt="Imagem de um Relatório"
                 />
                 <CardContent>
