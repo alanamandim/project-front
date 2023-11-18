@@ -11,14 +11,14 @@ import { AuthContext } from "../../../../context/AuthContext";
 import { toast } from "react-toastify";
 
 interface Reserva {
-  id: number;
   viatura: string;
   statusSolicitacao: string;
+  destino: string;
   motivo: string;
   placa: string;
 }
 interface Solicitacao {
-  id: number;
+  idSolicitacao: number;
   viatura: string;
   status: string;
   motivo: string;
@@ -164,7 +164,7 @@ const ReservasForm = () => {
           {dataSolicitacao.map((item) => (
             <Card
               sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}
-              key={item.id}
+              key={item.destino}
             >
               <CardMedia
                 sx={{ height: 140 }}
@@ -186,8 +186,8 @@ const ReservasForm = () => {
                 </Typography>
                 <Button
                   onClick={() => {
-                    setIdSolicitacao(item.id);
-                    console.log(item.id);
+                    setIdSolicitacao(item.idSolicitacao);
+                    console.log(item.idSolicitacao);
                     cancelarPedidoSolicitacao();
                   }}
                 >
@@ -202,7 +202,7 @@ const ReservasForm = () => {
           {dataReserva.map((item) => (
             <Card
               sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2, height: 400 }}
-              key={item.id}
+              key={item.destino}
             >
               <CardMedia
                 sx={{ height: 140 }}
@@ -223,8 +223,8 @@ const ReservasForm = () => {
                 </Typography>
                 <Button
                   onClick={() => {
-                    setIdReserva(item.id);
-                    console.log(item.id);
+                    setIdReserva(parseInt(item.destino));
+                    console.log(item.destino);
                     cancelarPedidoReserva();
                   }}
                 ></Button>
