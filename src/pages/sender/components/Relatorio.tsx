@@ -85,7 +85,7 @@ const Relatorio = () => {
     <>
       {showContainerReady ? (
         <div>
-          <Grid item mb={3} style={{ flexDirection: 'column' }}>
+          <Grid item mb={3}>
             <form onSubmit={(e) => e.preventDefault()}>
               <Grid item mb={3}>
                 <FormLabel htmlFor="dia">Selecione o Ano</FormLabel>
