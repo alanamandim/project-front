@@ -8,25 +8,21 @@ const Relatorio = () => {
   const [temRelatorio, setTemRelatorio] = useState(false);
   const [ano, setAno] = useState<string>("");
   const [mes, setMes] = useState<string>("");
-  const [selectedVehicle, setSelectedVehicle] = useState("");
-  const [selectedVehicle2, setSelectedVehicle2] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState<string>("");
+  const [selectedVehicle2, setSelectedVehicle2] = useState<string>("");
 
-  function collectDataFromForm() {
-    const inputElementAno = document.getElementById(
-      "ano"
-    ) as HTMLInputElement | null;
-    if (inputElementAno !== null) {
-      const formAno = inputElementAno.value;
-      setAno(formAno);
-    }
-    const inputElementMes = document.getElementById(
-      "mes"
-    ) as HTMLInputElement | null;
-    if (inputElementMes !== null) {
-      const formMes = inputElementMes.value;
-      setMes(formMes);
-    }
-  }
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("Ano selecionado:", selectedVehicle);
+    console.log("Mês selecionado:", selectedVehicle2);
+
+    setAno(selectedVehicle);
+    setMes(selectedVehicle2);
+
+    getValuesFromForm();
+
+    // Adicione lógica para enviar os dados conforme necessário
+  };
 
   async function getValuesFromForm() {
     console.log(ano, mes);
@@ -71,81 +67,58 @@ const Relatorio = () => {
 
   return (
     <>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        onChange={() => collectDataFromForm()}
-      >
-        <Grid
-          item
-          container
-          columnSpacing={2}
-          mt={2}
-          direction="column"
-          justifyContent="center"
-        >
+      <Grid item mb={3}>
+        <form onSubmit={handleSubmit}>
           <Grid item mb={3}>
             <FormLabel htmlFor="dia">Selecione o Ano</FormLabel>
-            <Grid item mb={3}>
-              <InputLabel id="demo-select-small-label">Ano</InputLabel>
-              <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                name="ano"
-                label="ano"
-                value={selectedVehicle}
-                onChange={(e) => setSelectedVehicle(e.target.value)}
-              >
-                {/* FIXME: Check if this getting values is correctly */}
-                <MenuItem onClick={() => setAno("2023")}>2023</MenuItem>
-                <MenuItem onClick={() => setAno("2024")}>2024</MenuItem>
-              </Select>
-            </Grid>
-            {/* <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={ano}
-              label="Ano"
+            <InputLabel id="demo-select-small-label">Ano</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              name="ano"
+              label="ano"
+              value={selectedVehicle}
+              onChange={(e) => setSelectedVehicle(e.target.value as string)}
             >
-              <MenuItem value={"2023"}>2023</MenuItem>
-              <MenuItem value={"2024"}>2024</MenuItem>
-            </Select> */}
+              <MenuItem value="2023">2023</MenuItem>
+              <MenuItem value="2024">2024</MenuItem>
+            </Select>
           </Grid>
+
           <Grid item mb={3}>
-            <FormLabel htmlFor="dia">Selecione o Mês</FormLabel>
+            <InputLabel id="demo-select-small-label">
+              Selecione o Mês
+            </InputLabel>
             <Select
               labelId="demo-select-small-label"
               id="demo-select-small"
               name="mes"
               label="mes"
               value={selectedVehicle2}
-              onChange={(e) => setSelectedVehicle2(e.target.value)}
+              onChange={(e) => setSelectedVehicle2(e.target.value as string)}
             >
-              <MenuItem onClick={() => setMes("01")}>Janeiro</MenuItem>
-              <MenuItem onClick={() => setMes("02")}>Fevereiro</MenuItem>
-              <MenuItem onClick={() => setMes("03")}>Março</MenuItem>
-              <MenuItem onClick={() => setMes("04")}>Abril</MenuItem>
-              <MenuItem onClick={() => setMes("05")}>Maio</MenuItem>
-              <MenuItem onClick={() => setMes("06")}>Junho</MenuItem>
-              <MenuItem onClick={() => setMes("07")}>Julho</MenuItem>
-              <MenuItem onClick={() => setMes("08")}>Agosto</MenuItem>
-              <MenuItem onClick={() => setMes("09")}>Setembro</MenuItem>
-              <MenuItem onClick={() => setMes("10")}>Outubro</MenuItem>
-              <MenuItem onClick={() => setMes("11")}>Novembro</MenuItem>
-              <MenuItem onClick={() => setMes("12")}>Dezembro</MenuItem>
+              <MenuItem value="01">Janeiro</MenuItem>
+              <MenuItem value="02">Fevereiro</MenuItem>
+              <MenuItem value="03">Março</MenuItem>
+              <MenuItem value="04">Abril</MenuItem>
+              <MenuItem value="05">Maio</MenuItem>
+              <MenuItem value="06">Junho</MenuItem>
+              <MenuItem value="07">Julho</MenuItem>
+              <MenuItem value="08">Agosto</MenuItem>
+              <MenuItem value="09">Setembro</MenuItem>
+              <MenuItem value="10">Outubro</MenuItem>
+              <MenuItem value="11">Novembro</MenuItem>
+              <MenuItem value="12">Dezembro</MenuItem>
             </Select>
           </Grid>
-          <Grid item mb={3} alignItems="center">
-            <Button
-              variant="contained"
-              size="large"
-              type="submit"
-              onClick={getValuesFromForm}
-            >
-              Ver Relatório
+
+          <Grid item mb={3}>
+            <Button type="submit" variant="contained">
+              Enviar Formulário
             </Button>
           </Grid>
-        </Grid>
-      </form>
+        </form>
+      </Grid>
       {temRelatorio ? (
         <>
           <h1>
