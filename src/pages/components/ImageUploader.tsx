@@ -18,22 +18,22 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-function ImageUploader(id: any) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [saram, setSaram] = useState("");
+function ImageUploader() {
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [id, setId] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    setSelectedFile(file);
+    setPhoto(file);
   };
 
   const handleUpload = () => {
-    if (selectedFile) {
+    if (photo) {
       // Aqui você pode enviar o arquivo para o back-end usando uma solicitação POST.
 
       const allowedExtensions = [".jpg", ".jpeg"]; // , '.jpeg'
-      const fileExtension = selectedFile.name.slice(
-        ((selectedFile.name.lastIndexOf(".") - 1) >>> 0) + 2
+      const fileExtension = photo.name.slice(
+        ((photo.name.lastIndexOf(".") - 1) >>> 0) + 2
       );
 
       if (!allowedExtensions.includes(`.${fileExtension}`)) {
@@ -41,14 +41,14 @@ function ImageUploader(id: any) {
         return;
       }
 
-      const dadoSalvo = localStorage.getItem("saram");
+      const dadoSalvo = localStorage.getItem("id");
       if (dadoSalvo) {
-        setSaram(JSON.parse(dadoSalvo));
+        setId(JSON.parse(dadoSalvo));
       }
 
       const formData = new FormData();
-      formData.append("photo", selectedFile);
-      formData.append("id", saram);
+      formData.append("photo", photo);
+      formData.append("id", id);
       // formData.append('id', '6783452');
       console.log(formData);
 
@@ -63,7 +63,7 @@ function ImageUploader(id: any) {
         })
         .catch((error) => {
           // Os erros, se houver.
-          console.log("NÃO DEU TUDO CERTO!");
+          toast.error("Imagem não enviada!");
         });
     }
   };
