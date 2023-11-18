@@ -113,12 +113,8 @@ function ListUsersCard() {
               <Typography gutterBottom variant="h5" component="div">
                 {item.nome}
               </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ overflow: "hidden" }}
-              >
-                <CardActions>
+              <Typography variant="body2" color="text.secondary">
+                <CardActions sx={{ overflow: "hidden" }}>
                   <FormControlLabel
                     control={
                       <Checkbox
