@@ -70,11 +70,10 @@ function ImageUploader() {
 
   return (
     <div>
-      <Button
+      {/* <Button
         style={{ margin: "30px" }}
         component="label"
         variant="contained"
-        onClick={handleUpload}
         startIcon={<CloudUploadIcon />}
       >
         Upload file
@@ -84,8 +83,10 @@ function ImageUploader() {
           onChange={handleFileChange}
         />
       </Button>
-      {/* <input type="file" accept="image/*" onChange={handleFileChange} /> */}
-      {/* <Button onClick={handleUpload}>Upload</Button> */}
+      <Button onClick={handleUpload}>Upload</Button>
+      */}
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <Button onClick={handleUpload}>Upload</Button>
     </div>
   );
 }
