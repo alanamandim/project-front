@@ -46,7 +46,6 @@ function ImageUploader() {
         const formData = new FormData();
         formData.append("photo", photo);
         formData.append("id", `${id}`);
-        // formData.append('id', '6783452');
         console.log(formData);
 
         // Exemplo de como enviar o arquivo para o back-end usando fetch API.
@@ -57,6 +56,7 @@ function ImageUploader() {
           .then((response) => {
             // A resposta do servidor, se necessário.
             toast.success("Imagem enviada, só aguardar aprovação!");
+            localStorage.removeItem("saram");
           })
           .catch((error) => {
             // Os erros, se houver.
