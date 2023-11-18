@@ -114,7 +114,7 @@ function ListUsersCard() {
                 {item.nome}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                <CardActions>
+                <CardActions sx={{ overflow: "hidden" }}>
                   <FormControlLabel
                     control={
                       <Checkbox
