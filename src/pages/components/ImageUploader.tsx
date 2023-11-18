@@ -20,7 +20,6 @@ const VisuallyHiddenInput = styled("input")({
 
 function ImageUploader() {
   const [photo, setPhoto] = useState<File | null>(null);
-  const [id, setId] = useState("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -41,30 +40,29 @@ function ImageUploader() {
         return;
       }
 
-      const dadoSalvo = localStorage.getItem("id");
+      const dadoSalvo = localStorage.getItem("saram");
       if (dadoSalvo) {
-        setId(JSON.parse(dadoSalvo));
-      }
+        const id = JSON.parse(dadoSalvo);
+        const formData = new FormData();
+        formData.append("photo", photo);
+        formData.append("id", `${id}`);
+        // formData.append('id', '6783452');
+        console.log(formData);
 
-      const formData = new FormData();
-      formData.append("photo", photo);
-      formData.append("id", id);
-      // formData.append('id', '6783452');
-      console.log(formData);
-
-      // Exemplo de como enviar o arquivo para o back-end usando fetch API.
-      fetch(`http://localhost:8080/upload`, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          // A resposta do servidor, se necessário.
-          toast.success("Imagem enviada, só aguardar aprovação!");
+        // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+        fetch(`http://localhost:8080/upload`, {
+          method: "POST",
+          body: formData,
         })
-        .catch((error) => {
-          // Os erros, se houver.
-          toast.error("Imagem não enviada!");
-        });
+          .then((response) => {
+            // A resposta do servidor, se necessário.
+            toast.success("Imagem enviada, só aguardar aprovação!");
+          })
+          .catch((error) => {
+            // Os erros, se houver.
+            toast.error("Imagem não enviada!");
+          });
+      }
     }
   };
 
