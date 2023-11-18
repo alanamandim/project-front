@@ -31,8 +31,6 @@ const ReservasForm = () => {
   const userContext = useContext(AuthContext);
   const [dataReserva, setDataReserva] = useState<Reserva[]>([]);
   const [dataSolicitacao, setDataSolicitacao] = useState<Solicitacao[]>([]);
-  const [idReserva, setIdReserva] = useState(0);
-  const [idSolicitacao, setIdSolicitacao] = useState(0);
 
   useEffect(() => {
     getInfoSolicitacao();
@@ -74,7 +72,7 @@ const ReservasForm = () => {
     }
   }
 
-  async function cancelarPedidoSolicitacao() {
+  async function cancelarPedidoSolicitacao(idSolicitacao: number) {
     const id = idSolicitacao;
     const aprovador = userContext.user.saram;
     const status = "Cancelada";
@@ -110,7 +108,7 @@ const ReservasForm = () => {
     }
   }
 
-  async function cancelarPedidoReserva() {
+  async function cancelarPedidoReserva(idReserva: number) {
     const id = idReserva;
     const status = "Cancelada";
     const data = { status, id };
@@ -186,9 +184,8 @@ const ReservasForm = () => {
                 </Typography>
                 <Button
                   onClick={() => {
-                    setIdSolicitacao(item.idSolicitacao);
                     console.log(item.idSolicitacao);
-                    cancelarPedidoSolicitacao();
+                    cancelarPedidoSolicitacao(item.idSolicitacao);
                   }}
                 >
                   Cancelar
@@ -201,7 +198,7 @@ const ReservasForm = () => {
         <ul>
           {dataReserva.map((item) => (
             <Card
-              sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2, height: 400 }}
+              sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}
               key={item.destino}
             >
               <CardMedia
@@ -223,11 +220,11 @@ const ReservasForm = () => {
                 </Typography>
                 <Button
                   onClick={() => {
-                    setIdReserva(parseInt(item.destino));
-                    console.log(item.destino);
-                    cancelarPedidoReserva();
+                    cancelarPedidoReserva(parseInt(item.destino));
                   }}
-                ></Button>
+                >
+                  Cancelar
+                </Button>
               </CardContent>
             </Card>
           ))}
