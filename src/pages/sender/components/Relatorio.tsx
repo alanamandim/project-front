@@ -162,7 +162,7 @@ const Relatorio = () => {
                 <CardMedia
                   component="img"
                   height="194"
-                  image="https://s2.glbimg.com/jsaPuF7nO23vRxQkuJ_V3WgouKA=/e.glbimg.com/og/ed/f/original/2014/06/10/461777879.jpg"
+                  image="https://images.pexels.com/photos/6476589/pexels-photo-6476589.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt="Imagem de um Relatório"
                 />
                 <CardContent>

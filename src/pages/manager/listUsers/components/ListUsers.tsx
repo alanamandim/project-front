@@ -96,7 +96,7 @@ function ListUsersCard() {
       chefe,
       aprovador,
     };
-    const response = await fetch(url, {
+    const response = await fetch(url + "/gestorDePerfil", {
       method: "PUT",
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
