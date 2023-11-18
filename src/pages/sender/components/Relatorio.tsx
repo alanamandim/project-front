@@ -19,14 +19,10 @@ const Relatorio = () => {
     setAno(selectedVehicle);
     setMes(selectedVehicle2);
 
-    getValuesFromForm();
-
     // Adicione lógica para enviar os dados conforme necessário
   };
 
   async function getValuesFromForm() {
-    console.log(ano, mes);
-
     const response = await fetch(
       `http://localhost:8080/relatorio/${selectedVehicle}-${selectedVehicle2}`,
       {
@@ -113,7 +109,11 @@ const Relatorio = () => {
           </Grid>
 
           <Grid item mb={3}>
-            <Button type="submit" variant="contained">
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={getValuesFromForm()}
+            >
               Enviar Formulário
             </Button>
           </Grid>
