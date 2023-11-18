@@ -28,7 +28,7 @@ const Relatorio = () => {
     console.log(ano, mes);
 
     const response = await fetch(
-      `http://localhost:8080/relatorio/${ano}-${mes}`,
+      `http://localhost:8080/relatorio/${selectedVehicle}-${selectedVehicle2}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },

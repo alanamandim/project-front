@@ -136,7 +136,7 @@ const MissaoFicha = () => {
       });
       localStorage.removeItem("idSolicitacao");
     } else {
-      toast.error(`Algo deu errado com seu Fechamento!`, {
+      toast.error(`Algo deu errado com seu Fechamento! ${response.status}`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
