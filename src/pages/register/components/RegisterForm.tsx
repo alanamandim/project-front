@@ -147,7 +147,7 @@ const RegisterForm = () => {
               Foto (Envie uma foto se for motorista e se enviou o formulário
               abaixo!)
             </FormLabel>
-            <ImageUploader id={saram} />
+            <ImageUploader />
           </Grid>
           <Grid item mb={3}>
             <FormLabel htmlFor="nome">Nome de Guerra</FormLabel>
