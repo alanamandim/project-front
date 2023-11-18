@@ -108,7 +108,7 @@ function ListUsersCard() {
     }
   }
   return (
-    <ul style={{ flexDirection: 'column' }}>
+    <ul style={{ display: 'flex', flexDirection: 'column' }}>
       {dataGet.map((item: any) => (
         <form onSubmit={(e) => e.preventDefault()}>
           <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
