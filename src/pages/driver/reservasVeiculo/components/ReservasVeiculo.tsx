@@ -31,6 +31,8 @@ const ReservasForm = () => {
   const userContext = useContext(AuthContext);
   const [dataReserva, setDataReserva] = useState<Reserva[]>([]);
   const [dataSolicitacao, setDataSolicitacao] = useState<Solicitacao[]>([]);
+  const [idReserva, setIdReserva] = useState(0);
+  const [idSolicitacao, setIdSolicitacao] = useState(0);
 
   useEffect(() => {
     getInfoSolicitacao();
@@ -72,7 +74,8 @@ const ReservasForm = () => {
     }
   }
 
-  async function cancelarPedidoSolicitacao(id: number) {
+  async function cancelarPedidoSolicitacao() {
+    const id = idSolicitacao;
     const aprovador = userContext.user.saram;
     const status = "Cancelada";
     const data = { aprovador, status, id };
@@ -107,7 +110,8 @@ const ReservasForm = () => {
     }
   }
 
-  async function cancelarPedidoReserva(id: number) {
+  async function cancelarPedidoReserva() {
+    const id = idReserva;
     const status = "Cancelada";
     const data = { status, id };
     console.log(data);
@@ -180,7 +184,12 @@ const ReservasForm = () => {
                                         Placa: ${item.placa}
                                     `}
                 </Typography>
-                <Button onClick={() => cancelarPedidoSolicitacao(item.id)}>
+                <Button
+                  onClick={() => {
+                    setIdSolicitacao(item.id);
+                    cancelarPedidoSolicitacao();
+                  }}
+                >
                   Cancelar
                 </Button>
               </CardContent>
@@ -191,7 +200,7 @@ const ReservasForm = () => {
         <ul>
           {dataReserva.map((item) => (
             <Card
-              sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}
+              sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2, height: 140 }}
               key={item.id}
             >
               <CardMedia
@@ -211,7 +220,12 @@ const ReservasForm = () => {
                                         Placa: ${item.placa}
                                     `}
                 </Typography>
-                <Button onClick={() => cancelarPedidoReserva(item.id)}></Button>
+                <Button
+                  onClick={() => {
+                    setIdReserva(item.id);
+                    cancelarPedidoReserva();
+                  }}
+                ></Button>
               </CardContent>
             </Card>
           ))}
