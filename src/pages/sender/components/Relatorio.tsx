@@ -166,11 +166,12 @@ const Relatorio = () => {
                   alt="Imagem de um Relatório"
                 />
                 <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    {`Id da Solicitação: ${item.idSolicitacao}`}
-                    {`Id do Registro: ${item.idRegistro}`}
-                    {`Motorista Retornou: ${item.motoristaRetorno}`}
-                  </Typography>
+                  <Typography
+                    paragraph
+                  >{`Id da Solicitação: ${item.idSolicitacao}`}</Typography>
+                  <Typography
+                    paragraph
+                  >{`Id do Registro: ${item.idRegistro}`}</Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                   <Typography>{`Mostrar mais ->`}</Typography>
@@ -192,7 +193,7 @@ const Relatorio = () => {
                       {`KM Inicial: ${item.kmInicial}`}
                     </Typography>
                     <Typography paragraph>
-                      {`KM Inicial: ${item.kmFinal}`}
+                      {`KM Final: ${item.kmFinal}`}
                     </Typography>
                     <Typography paragraph>
                       {`Data/Hora Saída: ${item.dataHrSaida}`}
@@ -212,7 +213,7 @@ const Relatorio = () => {
                     <Typography paragraph>{`Óleo: ${item.oleo}`}</Typography>
                     <Typography paragraph>{`Pneu: ${item.pneu}`}</Typography>
                     <Typography paragraph>
-                      {`Água Radiador: ${item.atuaRadiador}`}
+                      {`Água Radiador: ${item.aguaRadiador}`}
                     </Typography>
                     <Typography paragraph>
                       {`Amassado: ${item.amassado}`}
