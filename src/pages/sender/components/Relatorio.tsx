@@ -121,7 +121,7 @@ const Relatorio = () => {
           {relatorio.map((item: any) => (
             <React.Fragment key={item.idSolicitacao}>
               <h3>Relatório: {item.idSolicitacao}</h3>
-              <div name="relatorio" id="relatorio">
+              <div>
                 <span>Id da Solicitação: {item.idSolicitacao}</span>
                 <span>
                   Motivo da Missão:
