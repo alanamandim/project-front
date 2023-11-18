@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import Login from "./pages";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
@@ -56,7 +56,6 @@ function App() {
           element={<CreateCarModel />}
         />
         <Route path="/sender" element={<Sender />} />
-        <Route path="/sender-relatorio" element={<Sender />} />
       </Routes>
     </>
   );

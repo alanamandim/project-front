@@ -120,8 +120,16 @@ const Relatorio = () => {
           {relatorio.map((item: any) => {
             <>
               <h3>Relatório {item.idSolicitacao}</h3>
-              <textarea name="relatorio" id="relatorio">
-                Id da Solicitação: {item.idSolicitacao} &#10; Motivo da Missão:{" "}
+              <div>
+                <span>Id da Solicitação: {item.idSolicitacao}</span>
+                <span>
+                  Motivo da Missão:
+                  {item.motivoMissao}
+                </span>
+                <span></span>
+                <span></span>
+                <span></span>
+                {/* Id da Solicitação: {item.idSolicitacao} &#10; Motivo da Missão:{" "}
                 {item.motivoMissao} &#10; Destino: {item.destino} &#10; Viatura:{" "}
                 {item.viatura} &#10; Motorista: {item.motorista} &#10;
                 Aprovador: {item.aprovador} &#10; Id do Registro:{" "}
@@ -134,8 +142,8 @@ const Relatorio = () => {
                 {item.aguaRadiador} &#10; Amassado: {item.amassado} &#10;
                 Arranhado: {item.aranhado} &#10; Tanque: {item.tanque} &#10;
                 Observação: {item.observacao} &#10; Aprovador de Retorno:{" "}
-                {item.aprovadorRetorno} &#10;
-              </textarea>
+                {item.aprovadorRetorno} &#10; */}
+              </div>
             </>;
           })}
         </div>
