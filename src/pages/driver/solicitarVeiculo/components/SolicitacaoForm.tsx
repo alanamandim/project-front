@@ -29,7 +29,7 @@ const SolicitacaoForm = () => {
   async function sendInfo() {
     const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
     if (storedIdSolicitacao) {
-      toast.error(`Já temos uma solicitação em andamento!`, {
+      toast.error(`Já temos uma solicitação em andamento. Tente novamente!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -38,6 +38,7 @@ const SolicitacaoForm = () => {
         draggable: true,
         progress: undefined,
       });
+      localStorage.removeItem("idSolicitacao");
     } else {
       const formData = { motivo, destino, viatura, motorista };
       console.log(formData);
