@@ -40,6 +40,7 @@ const MissaoFicha = () => {
     } else {
       getSolicitacaoId();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getSolicitacaoId = async () => {
