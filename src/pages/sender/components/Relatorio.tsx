@@ -3,30 +3,12 @@ import FormLabel from "@mui/material/FormLabel";
 import { Button, Grid, MenuItem, Select, InputLabel } from "@mui/material";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
-import styled from 'styled-components'
-
-interface RequestContainerProps {
-  showContainerReady: boolean;
-}
-
-interface RequestReadyProps {
-  showRequestReady: boolean;
-}
-
-const RequestContainer = styled.div<RequestContainerProps>`
-  display: ${props => (props.showContainerReady ? 'block' : 'none')};
-`;
-
-const RequestReady = styled.div<RequestReadyProps>`
-  display: ${props => (props.showRequestReady ? 'block' : 'none')};
-`;
 
 const Relatorio = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<string>("");
   const [selectedVehicle2, setSelectedVehicle2] = useState<string>("");
   const { relatorio, setRelatorio } = useContext(AuthContext);
   const [showContainerReady, setShowContainerReady] = useState(true);
-  const [showRequestReady, setShowRequestReady] = useState(true);
 
   // const handleSubmit = (event: React.FormEvent) => {
   //   event.preventDefault();
@@ -55,7 +37,6 @@ const Relatorio = () => {
       });
       const data = await response.json();
       setShowContainerReady(false);
-      setShowRequestReady(true);
       setRelatorio(data);
 
     } else if (response.status === 401) {
@@ -67,9 +48,10 @@ const Relatorio = () => {
     }
   }
 
-  return (
-    <>
-      <RequestContainer showContainerReady={showContainerReady}>
+  // eslint-disable-next-line no-lone-blocks
+  {
+    showContainerReady ? (
+      <div>
         <Grid item mb={3}>
           <form>
             <Grid item mb={3}>
@@ -89,9 +71,7 @@ const Relatorio = () => {
             </Grid>
 
             <Grid item mb={3}>
-              <InputLabel id="demo-select-small-label">
-                Selecione o Mês
-              </InputLabel>
+              <InputLabel id="demo-select-small-label">Selecione o Mês</InputLabel>
               <Select
                 labelId="demo-select-small-label"
                 id="demo-select-small"
@@ -126,13 +106,11 @@ const Relatorio = () => {
             </Grid>
           </form>
         </Grid>
-      </RequestContainer>
-
-      <RequestReady showRequestReady={showRequestReady}>
+      </div>
+    ) : (
+      <div>
         <h1>Relatório</h1>
-
         {
-          // eslint-disable-next-line array-callback-return
           relatorio.map((item: any) => {
             <>
               <h3>Relatório {item.idSolicitacao}</h3>
@@ -153,9 +131,9 @@ const Relatorio = () => {
               </textarea>
             </>;
           })}
-      </RequestReady>
-    </>
-  );
-};
+      </div>
+    )
+  }
+}
 
-export default Relatorio;
+export default Relatorio
