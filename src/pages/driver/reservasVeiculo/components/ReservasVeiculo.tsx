@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
+import { toast } from "react-toastify";
 
 interface Reserva {
   id: number;
@@ -19,7 +20,7 @@ interface Reserva {
 interface Solicitacao {
   id: number;
   viatura: string;
-  statusSolicitacao: string;
+  status: string;
   motivo: string;
   destino: string;
   placa: string;
@@ -71,8 +72,73 @@ const ReservasForm = () => {
     }
   }
 
-  function cancelarPedido(id: string) {
-    console.log(id);
+  async function cancelarPedidoSolicitacao(id: number) {
+    const aprovador = userContext.user.saram;
+    const status = "Cancelada";
+    const data = { aprovador, status, id };
+    console.log(data);
+    const response = await fetch(url + `/modificaStatusSolicitacao`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      // FIXME: GET THE VALUE TO SEND TO BACKEND AND PUT INSIDE A STRINGIFY
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      toast.success(`Solicitação Cancelada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`Houve um problema no cancelamento!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  async function cancelarPedidoReserva(id: number) {
+    const status = "Cancelada";
+    const data = { status, id };
+    console.log(data);
+    const response = await fetch(url + `/modificaStatusReserva`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      // FIXME: GET THE VALUE TO SEND TO BACKEND AND PUT INSIDE A STRINGIFY
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      toast.success(`Reserva Cancelada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`Houve um problema no cancelamento!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   }
 
   return (
@@ -107,14 +173,14 @@ const ReservasForm = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {`
-                                        Status da Solicitação: ${item.statusSolicitacao}
+                                        Status da Solicitação: ${item.status}
                                         Motivo: ${item.motivo}
                                         Destino: ${item.destino}
                                         Viatura: ${item.viatura}
                                         Placa: ${item.placa}
                                     `}
                 </Typography>
-                <Button onClick={() => cancelarPedido(item.placa)}>
+                <Button onClick={() => cancelarPedidoSolicitacao(item.id)}>
                   Cancelar
                 </Button>
               </CardContent>
@@ -145,6 +211,7 @@ const ReservasForm = () => {
                                         Placa: ${item.placa}
                                     `}
                 </Typography>
+                <Button onClick={() => cancelarPedidoReserva(item.id)}></Button>
               </CardContent>
             </Card>
           ))}
