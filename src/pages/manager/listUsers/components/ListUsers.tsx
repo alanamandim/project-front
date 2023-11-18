@@ -37,7 +37,7 @@ function ListUsersCard() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
-    const response = await fetch(url + `/listaReservaGestor`, {
+    const response = await fetch(url + `/usuariosPendentes`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -51,12 +51,12 @@ function ListUsersCard() {
 
   useEffect(() => {
     getInfo();
-  }, [getInfo]);
+  }, []);
 
   // FIXME: Call this function when the button is pressed to refresh the content
   // FIXME: 'putInfo' is declared but its value is never read.
-  async function putInfo() {
-    const saram = user.saram;
+  async function putInfo(id: string) {
+    const saram = id;
     const formData = {
       saram,
       motorista,
@@ -89,7 +89,7 @@ function ListUsersCard() {
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {user.motorista}
+                {user.nome} e {user.email}
               </Typography>
             </CardContent>
             <CardActions>
@@ -135,7 +135,7 @@ function ListUsersCard() {
               />
             </CardActions>
           </Card>
-          <Button type="submit" onClick={() => putInfo()}>
+          <Button type="submit" onClick={() => putInfo(user.saram)}>
             Salvar
           </Button>
         </form>
