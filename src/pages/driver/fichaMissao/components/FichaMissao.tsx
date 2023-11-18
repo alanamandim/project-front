@@ -116,8 +116,18 @@ const MissaoFicha = () => {
 
   async function putFechaFicha() {
     const kmFinal = parseInt(kmFinalP);
-    const obs = `${obsP}. ${arrayData.observacao}`;
-    const dataReq = { kmFinal, obs, id, oleoCheck, pneuCheck, radiadorCheck, aguaRadiadorCheck, amassadoCheck, arranhadoCheck };
+    const obs = `${arrayData.observacao}. ${obsP}`;
+    const dataReq = {
+      kmFinal,
+      obs,
+      id,
+      oleoCheck,
+      pneuCheck,
+      radiadorCheck,
+      aguaRadiadorCheck,
+      amassadoCheck,
+      arranhadoCheck,
+    };
     console.log(dataReq);
     const response = await fetch(url + "/fechaFichaMotora", {
       method: "PUT",
@@ -201,19 +211,47 @@ const MissaoFicha = () => {
             <TextField disabled fullWidth value={arrayData.tanque} />
           </Grid>
           <FormControlLabel
-            control={<Checkbox checked={pneuCheck} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPneuCheck(e.target.checked)} />}
+            control={
+              <Checkbox
+                checked={pneuCheck}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPneuCheck(e.target.checked)
+                }
+              />
+            }
             label="Pneu"
           />
           <FormControlLabel
-            control={<Checkbox checked={aguaRadiadorCheck} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAguaRadiadorCheck(e.target.checked)} />}
+            control={
+              <Checkbox
+                checked={aguaRadiadorCheck}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAguaRadiadorCheck(e.target.checked)
+                }
+              />
+            }
             label="Água do Radiador"
           />
           <FormControlLabel
-            control={<Checkbox checked={amassadoCheck} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmassadoCheck(e.target.checked)} />}
+            control={
+              <Checkbox
+                checked={amassadoCheck}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setAmassadoCheck(e.target.checked)
+                }
+              />
+            }
             label="Amassado"
           />
           <FormControlLabel
-            control={<Checkbox checked={arranhadoCheck} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArranhadoCheck(e.target.checked)} />}
+            control={
+              <Checkbox
+                checked={arranhadoCheck}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setArranhadoCheck(e.target.checked)
+                }
+              />
+            }
             label="Arranhado"
           />
           <Grid item mb={3}>
