@@ -1,4 +1,11 @@
-import { Card, CardContent, CardMedia, List, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  List,
+  Typography,
+} from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 
@@ -23,42 +30,6 @@ const ReservasForm = () => {
   const userContext = useContext(AuthContext);
   const [dataReserva, setDataReserva] = useState<Reserva[]>([]);
   const [dataSolicitacao, setDataSolicitacao] = useState<Solicitacao[]>([]);
-  // const [loading, setLoading] = useState(true); // Adicionado um estado para controle de carregamento
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const solicitacaoResponse = await fetch(
-  //         url + `/listaSolicitacao/${userContext.user.saram}`
-  //       );
-  //       if (!solicitacaoResponse.ok) {
-  //         throw new Error("Erro ao buscar solicitacao");
-  //       }
-  //       // const solicitacaoData = await solicitacaoResponse.json();
-  //       const solicitacaoData = JSON.parse(solicitacaoResponse);
-  //       const reservaResponse = await fetch(
-  //         url + `/listaReserva/${userContext.user.saram}`
-  //       );
-  //       if (!reservaResponse.ok) {
-  //         throw new Error("Erro ao buscar reserva");
-  //       }
-  //       const reservaData = await reservaResponse.json();
-
-  //       setDataSolicitacao(solicitacaoData);
-  //       setDataReserva(reservaData);
-  //       setLoading(false); // Dados carregados com sucesso, definindo o estado de carregamento como false
-  //     } catch (error) {
-  //       console.error(error);
-  //       setLoading(false); // Ocorreu um erro, definindo o estado de carregamento como false
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, [userContext.user.saram]);
-
-  // if (loading) {
-  //   return <div>Carregando...</div>;
-  // }
 
   useEffect(() => {
     getInfoSolicitacao();
@@ -100,6 +71,10 @@ const ReservasForm = () => {
     }
   }
 
+  function cancelarPedido(id: string) {
+    console.log(id);
+  }
+
   return (
     <>
       <List
@@ -139,6 +114,9 @@ const ReservasForm = () => {
                                         Placa: ${item.placa}
                                     `}
                 </Typography>
+                <Button onClick={() => cancelarPedido(item.placa)}>
+                  Cancelar
+                </Button>
               </CardContent>
             </Card>
           ))}
