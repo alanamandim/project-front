@@ -85,7 +85,7 @@ const Relatorio = () => {
     <>
       {showContainerReady ? (
         <div>
-          <Grid item mb={3} style={{ flexDirection: 'column' }}>
+          <Grid item mb={3} style={{ flexDirection: "column" }}>
             <form onSubmit={(e) => e.preventDefault()}>
               <Grid item mb={3}>
                 <FormLabel htmlFor="dia">Selecione o Ano</FormLabel>
@@ -193,7 +193,7 @@ const Relatorio = () => {
                       {`KM Inicial: ${item.kmInicial}`}
                     </Typography>
                     <Typography paragraph>
-                      {`KM Inicial: ${item.kmFinal}`}
+                      {`KM Final: ${item.kmFinal}`}
                     </Typography>
                     <Typography paragraph>
                       {`Data/Hora Saída: ${item.dataHrSaida}`}
@@ -213,7 +213,7 @@ const Relatorio = () => {
                     <Typography paragraph>{`Óleo: ${item.oleo}`}</Typography>
                     <Typography paragraph>{`Pneu: ${item.pneu}`}</Typography>
                     <Typography paragraph>
-                      {`Água Radiador: ${item.atuaRadiador}`}
+                      {`Água Radiador: ${item.aguaRadiador}`}
                     </Typography>
                     <Typography paragraph>
                       {`Amassado: ${item.amassado}`}
