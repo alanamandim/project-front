@@ -35,7 +35,8 @@ const Relatorio = () => {
         progress: undefined,
       });
       const data = await response.json();
-      setRelatorio(true);
+      setRelatorio(data);
+      window.location.href = "/sender-relatorio";
     } else if (response.status === 401) {
       toast.error("Ops! Algo está incorreto.");
     } else {
