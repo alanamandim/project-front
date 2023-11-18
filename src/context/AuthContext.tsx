@@ -45,6 +45,8 @@ interface IAuthProvider {
 interface IAuthContext {
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
+  relatorio: any;
+  setRelatorio: React.Dispatch<React.SetStateAction<any>>;
   //signOut: () => Promise<void>;
   //signOutResident: () => Promise<void>;
   // currentBranch: ICurrentBranch | null;
@@ -60,12 +62,15 @@ export const AuthContext = createContext({} as IAuthContext);
 
 const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser>({} as IUser);
+  const [relatorio, setRelatorio] = useState([]);
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
+        relatorio,
+        setRelatorio,
       }}
     >
       {children}

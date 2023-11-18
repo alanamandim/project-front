@@ -56,6 +56,7 @@ function App() {
           element={<CreateCarModel />}
         />
         <Route path="/sender" element={<Sender />} />
+        <Route path="/sender-relatorio" element={<Sender />} />
       </Routes>
     </>
   );
