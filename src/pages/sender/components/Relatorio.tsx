@@ -3,7 +3,7 @@ import FormLabel from "@mui/material/FormLabel";
 import { Button, Grid, MenuItem, Select, InputLabel } from "@mui/material";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthContext";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface RequestContainerProps {
   showContainerReady: boolean;
@@ -14,11 +14,11 @@ interface RequestReadyProps {
 }
 
 const RequestContainer = styled.div<RequestContainerProps>`
-  display: ${props => (props.showContainerReady ? 'block' : 'none')};
+  display: ${(props) => (props.showContainerReady ? "block" : "none")};
 `;
 
 const RequestReady = styled.div<RequestReadyProps>`
-  display: ${props => (props.showRequestReady ? 'block' : 'none')};
+  display: ${(props) => (props.showRequestReady ? "block" : "none")};
 `;
 
 const Relatorio = () => {
@@ -43,6 +43,9 @@ const Relatorio = () => {
       }
     );
 
+    console.log(
+      `http://localhost:8080/relatorio/${selectedVehicle}-${selectedVehicle2}`
+    );
     if (response.ok) {
       toast.success(`Registro efetuado com sucesso!`, {
         position: "top-right",
@@ -57,7 +60,6 @@ const Relatorio = () => {
       setShowContainerReady(false);
       setShowRequestReady(true);
       setRelatorio(data);
-
     } else if (response.status === 401) {
       toast.error("Ops! Algo está incorreto.");
     } else {
@@ -139,20 +141,22 @@ const Relatorio = () => {
               <textarea name="relatorio" id="relatorio">
                 Id da Solicitação: {item.idSolicitacao} &#10; Motivo da Missão:{" "}
                 {item.motivoMissao} &#10; Destino: {item.destino} &#10; Viatura:{" "}
-                {item.viatura} &#10; Motorista: {item.motorista} &#10; Aprovador:{" "}
-                {item.aprovador} &#10; Id do Registro: {item.idRegistro} &#10; KM
-                Inicial: {item.kmInicial} &#10; Status da Missão:{" "}
-                {item.statusMissao} &#10; KM Final: {item.kmFinal} &#10; Data/Hora
-                da Saída: {item.dataHrSaida} &#10; Data/Hora da Chegada:{" "}
-                {item.dataHrChegada} &#10; Retorno do motorista:{" "}
-                {item.motoristaRetorno} &#10; Óleo: {item.oleo} &#10; Pneu:{" "}
-                {item.pneu} &#10; Água do Radiador: {item.aguaRadiador} &#10;
-                Amassado: {item.amassado} &#10; Arranhado: {item.aranhado} &#10;
-                Tanque: {item.tanque} &#10; Observação: {item.observacao} &#10;
-                Aprovador de Retorno: {item.aprovadorRetorno} &#10;
+                {item.viatura} &#10; Motorista: {item.motorista} &#10;
+                Aprovador: {item.aprovador} &#10; Id do Registro:{" "}
+                {item.idRegistro} &#10; KM Inicial: {item.kmInicial} &#10;
+                Status da Missão: {item.statusMissao} &#10; KM Final:{" "}
+                {item.kmFinal} &#10; Data/Hora da Saída: {item.dataHrSaida}{" "}
+                &#10; Data/Hora da Chegada: {item.dataHrChegada} &#10; Retorno
+                do motorista: {item.motoristaRetorno} &#10; Óleo: {item.oleo}{" "}
+                &#10; Pneu: {item.pneu} &#10; Água do Radiador:{" "}
+                {item.aguaRadiador} &#10; Amassado: {item.amassado} &#10;
+                Arranhado: {item.aranhado} &#10; Tanque: {item.tanque} &#10;
+                Observação: {item.observacao} &#10; Aprovador de Retorno:{" "}
+                {item.aprovadorRetorno} &#10;
               </textarea>
             </>;
-          })}
+          })
+        }
       </RequestReady>
     </>
   );
