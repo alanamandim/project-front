@@ -108,7 +108,7 @@ function ListUsersCard() {
     }
   }
   return (
-    <ul style={{ display: 'flex', flexDirection: 'column' }}>
+    <ul>
       {dataGet.map((item: any) => (
         <form onSubmit={(e) => e.preventDefault()}>
           <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
@@ -147,7 +147,7 @@ function ListUsersCard() {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
-                <CardActions sx={{ overflow: "hidden" }}>
+                <CardActions sx={{ overflow: "hidden" }} style={{ display: 'flex', flexDirection: 'column' }}>
                   <Typography paragraph>
                     <FormControlLabel
                       control={
