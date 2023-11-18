@@ -37,7 +37,7 @@ function ListUsersCard() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
-    const response = await fetch(url + `/usuariosPendentes`, {
+    const response = await fetch("http://localhost:8080/usuariosPendentes", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
