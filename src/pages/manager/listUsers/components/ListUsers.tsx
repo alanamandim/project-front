@@ -111,7 +111,7 @@ function ListUsersCard() {
     <ul>
       {dataGet.map((item: any) => (
         <form onSubmit={(e) => e.preventDefault()}>
-          <Card sx={{ maxWidth: 345 }}>
+          <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -148,119 +148,65 @@ function ListUsersCard() {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
               <CardContent>
                 <CardActions sx={{ overflow: "hidden" }}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={motorista}
-                        onChange={handleCheckboxMotorista}
-                      />
-                    }
-                    label="Motorista"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={aprovador}
-                        onChange={handleCheckboxAprovador}
-                      />
-                    }
-                    label="Aprovador"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={gestor}
-                        onChange={handleCheckboxGestor}
-                      />
-                    }
-                    label="Gestor"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={chefe}
-                        onChange={handleCheckboxChefe}
-                      />
-                    }
-                    label="Chefe"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={identificador}
-                        onChange={handleCheckboxIdentificador}
-                      />
-                    }
-                    label="Identificador"
-                  />
+                  <Typography paragraph>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={motorista}
+                          onChange={handleCheckboxMotorista}
+                        />
+                      }
+                      label="Motorista"
+                    />
+                  </Typography>
+                  <Typography paragraph>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={aprovador}
+                          onChange={handleCheckboxAprovador}
+                        />
+                      }
+                      label="Aprovador"
+                    />
+                  </Typography>
+                  <Typography paragraph>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={gestor}
+                          onChange={handleCheckboxGestor}
+                        />
+                      }
+                      label="Gestor"
+                    />
+                  </Typography>
+                  <Typography paragraph>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={chefe}
+                          onChange={handleCheckboxChefe}
+                        />
+                      }
+                      label="Chefe"
+                    />
+                  </Typography>
+                  <Typography paragraph>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={identificador}
+                          onChange={handleCheckboxIdentificador}
+                        />
+                      }
+                      label="Identificador"
+                    />
+                  </Typography>
                 </CardActions>
               </CardContent>
             </Collapse>
           </Card>
-          {/* <Card sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2 }}>
-            <CardMedia
-              sx={{ height: 140 }}
-              image="/static/images/cards/contemplative-reptile.jpg"
-              title="carro"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {item.nome}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <CardActions sx={{ overflow: "hidden" }}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={motorista}
-                        onChange={handleCheckboxMotorista}
-                      />
-                    }
-                    label="Motorista"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={aprovador}
-                        onChange={handleCheckboxAprovador}
-                      />
-                    }
-                    label="Aprovador"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={gestor}
-                        onChange={handleCheckboxGestor}
-                      />
-                    }
-                    label="Gestor"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={chefe}
-                        onChange={handleCheckboxChefe}
-                      />
-                    }
-                    label="Chefe"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={identificador}
-                        onChange={handleCheckboxIdentificador}
-                      />
-                    }
-                    label="Identificador"
-                  />
-                </CardActions>
-              </Typography>
-            </CardContent>
-          </Card>
-          <Button type="submit" onClick={() => putInfo(user.saram)}>
-            Salvar
-          </Button> */}
         </form>
       ))}
     </ul>

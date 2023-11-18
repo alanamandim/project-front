@@ -149,8 +149,7 @@ const Relatorio = () => {
           <h1>Relatório</h1>
           {relatorio.map((item: any) => (
             <React.Fragment key={item.idSolicitacao}>
-              return (
-              <Card sx={{ maxWidth: 345 }}>
+              <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
                 <CardHeader
                   avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -233,7 +232,6 @@ const Relatorio = () => {
                   </CardContent>
                 </Collapse>
               </Card>
-              );
             </React.Fragment>
           ))}
         </div>
