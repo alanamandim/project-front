@@ -187,6 +187,7 @@ const ReservasForm = () => {
                 <Button
                   onClick={() => {
                     setIdSolicitacao(item.id);
+                    console.log(item.id);
                     cancelarPedidoSolicitacao();
                   }}
                 >
@@ -200,7 +201,7 @@ const ReservasForm = () => {
         <ul>
           {dataReserva.map((item) => (
             <Card
-              sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2, height: 140 }}
+              sx={{ maxWidth: 330, marginBottom: 5, marginTop: 2, height: 400 }}
               key={item.id}
             >
               <CardMedia
@@ -223,6 +224,7 @@ const ReservasForm = () => {
                 <Button
                   onClick={() => {
                     setIdReserva(item.id);
+                    console.log(item.id);
                     cancelarPedidoReserva();
                   }}
                 ></Button>
