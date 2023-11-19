@@ -153,7 +153,7 @@ function ListUsersCard() {
                       control={
                         <Checkbox
                           checked={motorista}
-                          onChange={handleCheckboxMotorista}
+                          onChange={() => handleCheckboxMotorista}
                         />
                       }
                       label="Motorista"
@@ -164,7 +164,7 @@ function ListUsersCard() {
                       control={
                         <Checkbox
                           checked={aprovador}
-                          onChange={handleCheckboxAprovador}
+                          onChange={() => handleCheckboxAprovador}
                         />
                       }
                       label="Aprovador"
@@ -175,7 +175,7 @@ function ListUsersCard() {
                       control={
                         <Checkbox
                           checked={gestor}
-                          onChange={handleCheckboxGestor}
+                          onChange={() => handleCheckboxGestor}
                         />
                       }
                       label="Gestor"
@@ -186,7 +186,7 @@ function ListUsersCard() {
                       control={
                         <Checkbox
                           checked={chefe}
-                          onChange={handleCheckboxChefe}
+                          onChange={() => handleCheckboxChefe}
                         />
                       }
                       label="Chefe"
@@ -197,7 +197,7 @@ function ListUsersCard() {
                       control={
                         <Checkbox
                           checked={identificador}
-                          onChange={handleCheckboxIdentificador}
+                          onChange={() => handleCheckboxIdentificador}
                         />
                       }
                       label="Identificador"
