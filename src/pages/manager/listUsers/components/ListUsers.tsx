@@ -15,10 +15,7 @@ import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 function ListUsersCard() {
   const url = "http://localhost:8080";
@@ -30,6 +27,7 @@ function ListUsersCard() {
   const [chefe, setChefeSelecionado] = useState(false);
   const [identificador, setIdentificadorSelecionado] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>({});
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -49,6 +47,13 @@ function ListUsersCard() {
   };
   const handleCheckboxIdentificador = (event: any) => {
     setIdentificadorSelecionado(event.target.checked);
+  };
+
+  const handleCheckboxChange = (event: any, key: string) => {
+    setCheckboxStates((prevStates) => ({
+      ...prevStates,
+      [key]: event.target.checked,
+    }));
   };
 
   interface ExpandMoreProps extends IconButtonProps {
@@ -152,8 +157,8 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={motorista}
-                          onChange={() => handleCheckboxMotorista}
+                          checked={checkboxStates[item.saram] || false}
+                          onChange={(event) => handleCheckboxChange(event, item.saram)}
                         />
                       }
                       label="Motorista"
@@ -163,8 +168,8 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={aprovador}
-                          onChange={() => handleCheckboxAprovador}
+                          checked={checkboxStates[item.saram] || false}
+                          onChange={(event) => handleCheckboxChange(event, item.saram)}
                         />
                       }
                       label="Aprovador"
@@ -174,8 +179,8 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={gestor}
-                          onChange={() => handleCheckboxGestor}
+                          checked={checkboxStates[item.saram] || false}
+                          onChange={(event) => handleCheckboxChange(event, item.saram)}
                         />
                       }
                       label="Gestor"
@@ -185,8 +190,8 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={chefe}
-                          onChange={() => handleCheckboxChefe}
+                          checked={checkboxStates[item.saram] || false}
+                          onChange={(event) => handleCheckboxChange(event, item.saram)}
                         />
                       }
                       label="Chefe"
@@ -196,8 +201,8 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={identificador}
-                          onChange={() => handleCheckboxIdentificador}
+                          checked={checkboxStates[item.saram] || false}
+                          onChange={(event) => handleCheckboxChange(event, item.saram)}
                         />
                       }
                       label="Identificador"
