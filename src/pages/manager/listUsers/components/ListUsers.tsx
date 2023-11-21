@@ -23,11 +23,11 @@ function ListUsersCard() {
   const [dataGet, setDataGet] = useState([{}]);
   const [expanded, setExpanded] = React.useState(false);
   const [checkboxValues, setCheckboxValues] = useState({
-    motorista: false,
-    aprovador: false,
-    gestor: false,
-    chefe: false,
-    identificador: false,
+    motorista: true,
+    aprovador: true,
+    gestor: true,
+    chefe: true,
+    identificador: true,
   });
 
   const handleExpandClick = () => {
