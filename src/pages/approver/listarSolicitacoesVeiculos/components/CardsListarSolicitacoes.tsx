@@ -86,18 +86,24 @@ const AllCarsSolicitacoes = () => {
                   image="https://s2-autoesporte.glbimg.com/OkOTAbm8c0hcBorNJK_n5VVN-3g=/0x0:1200x875/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_cf9d035bf26b4646b105bd958f32089d/internal_photos/bs/2021/6/a/sh5QGuQUWsns9zfrqYGQ/fiat-doblo-50.jpg"
                   title="carro"
                 />
-                <CardContent>
+                <CardContent sx={{ overflowY: "scroll" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     {item.viatura}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {`
-                    Destino: ${item.destino}, 
-                    Motivo: ${item.motivo}, 
-                    Motorista: ${item.motorista}, 
-                    Placa: ${item.placa}, 
-                    Status: ${item.status}
-                    `}
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Destino: ${item.destino}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Motivo: ${item.motivo}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Motorista: ${item.motorista}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Placa: ${item.placa}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Status: ${item.status}`}
                   </Typography>
                 </CardContent>
                 <CardActions>

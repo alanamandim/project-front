@@ -91,31 +91,60 @@ const ReturnSheetsList = () => {
                   image="https://s2-autoesporte.glbimg.com/OkOTAbm8c0hcBorNJK_n5VVN-3g=/0x0:1200x875/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_cf9d035bf26b4646b105bd958f32089d/internal_photos/bs/2021/6/a/sh5QGuQUWsns9zfrqYGQ/fiat-doblo-50.jpg"
                   title="carro"
                 />
-                <CardContent>
+                <CardContent sx={{ overflowY: "scroll" }}>
                   <Typography gutterBottom variant="h5" component="div">
                     {item.motorista}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {`
-                    Id Solicitação: ${item.idSolicitacao}, 
-                    Motivo: ${item.motivoMissao}, 
-                    Destino: ${item.destino}, 
-                    Viatura: ${item.viatura}, 
-                    Aprovador: ${item.aprovador}, 
-                    Id do Registro: ${item.idRegistro},
-                    Status da Missão: ${item.statusMissao}, 
-                    Km Inicial: ${item.kmInicial},
-                    Km Final: ${item.kmFinal},
-                    Data/Hora Saída: ${item.dataHrSaida}, 
-                    Data/Hora Chegada: ${item.dataHrChegada},  
-                    Óleo: ${item.oleo}, 
-                    Pneu: ${item.pneu}, 
-                    Água do Radiador: ${item.aguaRadiador}, 
-                    Amassado: ${item.amassado}, 
-                    Arranhado: ${item.aranhado}, 
-                    Tanque: ${item.tanque}, 
-                    Observação: ${item.observacao}
-                    `}
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Id Solicitação: ${item.idSolicitacao}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Motivo: ${item.motivoMissao}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Destino: ${item.destino}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Viatura: ${item.viatura}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Aprovador: ${item.aprovador}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Id do Registro: ${item.idRegistro}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Km Inicial: ${item.kmInicial}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Km Final: ${item.kmFinal}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Data/Hora Saída: ${item.dataHrSaida}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Data/Hora Chegada: ${item.dataHrChegada}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Óleo: ${item.oleo}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Pneu: ${item.pneu}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Água do Radiador: ${item.aguaRadiador}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Amassado: ${item.amassado}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Arranhado: ${item.aranhado}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Tanque: ${item.tanque}`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" paragraph>
+                    {`Observação: ${item.observacao}`}
                   </Typography>
                 </CardContent>
                 <CardActions>

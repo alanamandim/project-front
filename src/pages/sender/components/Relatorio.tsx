@@ -210,19 +210,23 @@ const Relatorio = () => {
                     <Typography paragraph>
                       {`Aprovador: ${item.aprovador}`}
                     </Typography>
-                    <Typography paragraph>{`Óleo: ${item.oleo}`}</Typography>
-                    <Typography paragraph>{`Pneu: ${item.pneu}`}</Typography>
+                    <Typography paragraph>{`Óleo: ${
+                      item.oleo ? "SIM" : "NÃO"
+                    }`}</Typography>
+                    <Typography paragraph>{`Pneu: ${
+                      item.pneu ? "SIM" : "NÃO"
+                    }`}</Typography>
                     <Typography paragraph>
-                      {`Água Radiador: ${item.aguaRadiador}`}
+                      {`Água Radiador: ${item.aguaRadiador ? "SIM" : "NÃO"}`}
                     </Typography>
                     <Typography paragraph>
-                      {`Amassado: ${item.amassado}`}
+                      {`Amassado: ${item.amassado ? "SIM" : "NÃO"}`}
                     </Typography>
                     <Typography paragraph>
-                      {`Aranhado: ${item.aranhado}`}
+                      {`Aranhado: ${item.aranhado ? "SIM" : "NÃO"}`}
                     </Typography>
                     <Typography paragraph>
-                      {`Tanque: ${item.tanque}`}
+                      {`Tanque: ${item.tanque ? "SIM" : "NÃO"}`}
                     </Typography>
                     <Typography paragraph>
                       {`Observação: ${item.observacao}`}

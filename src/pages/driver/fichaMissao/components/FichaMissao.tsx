@@ -210,50 +210,20 @@ const MissaoFicha = () => {
             <FormLabel>Tanque</FormLabel>
             <TextField disabled fullWidth value={arrayData.tanque} />
           </Grid>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={pneuCheck}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPneuCheck(e.target.checked)
-                }
-              />
-            }
-            label="Pneu"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={aguaRadiadorCheck}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setAguaRadiadorCheck(e.target.checked)
-                }
-              />
-            }
-            label="Água do Radiador"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={amassadoCheck}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setAmassadoCheck(e.target.checked)
-                }
-              />
-            }
-            label="Amassado"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={arranhadoCheck}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setArranhadoCheck(e.target.checked)
-                }
-              />
-            }
-            label="Arranhado"
-          />
+          <Grid item mb={3}>
+            <FormLabel>Pneu: {pneuCheck ? "SIM" : "NÃO"}</FormLabel>
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>
+              Água do Radiador: {aguaRadiadorCheck ? "SIM" : "NÃO"}
+            </FormLabel>
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Amassado: {amassadoCheck ? "SIM" : "NÃO"}</FormLabel>
+          </Grid>
+          <Grid item mb={3}>
+            <FormLabel>Arranhado: {arranhadoCheck ? "SIM" : "NÃO"}</FormLabel>
+          </Grid>
           <Grid item mb={3}>
             <FormLabel>Observação</FormLabel>
             <TextField disabled fullWidth value={arrayData.observacao} />
