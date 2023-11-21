@@ -21,39 +21,25 @@ function ListUsersCard() {
   const url = "http://localhost:8080";
   const { user } = useContext(AuthContext);
   const [dataGet, setDataGet] = useState([{}]);
-  const [motorista, setMotoristaSelecionado] = useState(false);
-  const [aprovador, setAprovadorSelecionado] = useState(false);
-  const [gestor, setGestorSelecionado] = useState(false);
-  const [chefe, setChefeSelecionado] = useState(false);
-  const [identificador, setIdentificadorSelecionado] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
-  const [checkboxStates, setCheckboxStates] = useState<{ [key: string]: boolean }>({});
+  const [checkboxValues, setCheckboxValues] = useState({
+    motorista: false,
+    aprovador: false,
+    gestor: false,
+    chefe: false,
+    identificador: false,
+  });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleCheckboxMotorista = (event: any) => {
-    setMotoristaSelecionado(event.target.checked);
-  };
-  const handleCheckboxAprovador = (event: any) => {
-    setAprovadorSelecionado(event.target.checked);
-  };
-  const handleCheckboxGestor = (event: any) => {
-    setGestorSelecionado(event.target.checked);
-  };
-  const handleCheckboxChefe = (event: any) => {
-    setChefeSelecionado(event.target.checked);
-  };
-  const handleCheckboxIdentificador = (event: any) => {
-    setIdentificadorSelecionado(event.target.checked);
-  };
-
-  const handleCheckboxChange = (event: any, key: string) => {
-    setCheckboxStates((prevStates) => ({
-      ...prevStates,
-      [key]: event.target.checked,
-    }));
+  const handleCheckboxChange = (event: any) => {
+    const { name, checked } = event.target;
+    setCheckboxValues({
+      ...checkboxValues,
+      [name]: checked,
+    });
   };
 
   interface ExpandMoreProps extends IconButtonProps {
@@ -95,11 +81,7 @@ function ListUsersCard() {
     const saram = id;
     const formData = {
       saram,
-      motorista,
-      identificador,
-      gestor,
-      chefe,
-      aprovador,
+      checkboxValues,
     };
     const response = await fetch(url + "/gestorDePerfil", {
       method: "PUT",
@@ -157,8 +139,9 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={checkboxStates[item.saram] || false}
-                          onChange={(event) => handleCheckboxChange(event, item.saram)}
+                          name="motorista"
+                          checked={checkboxValues.motorista}
+                          onChange={handleCheckboxChange}
                         />
                       }
                       label="Motorista"
@@ -168,8 +151,9 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={checkboxStates[item.saram] || false}
-                          onChange={(event) => handleCheckboxChange(event, item.saram)}
+                          name="aprovador"
+                          checked={checkboxValues.aprovador}
+                          onChange={handleCheckboxChange}
                         />
                       }
                       label="Aprovador"
@@ -179,8 +163,9 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={checkboxStates[item.saram] || false}
-                          onChange={(event) => handleCheckboxChange(event, item.saram)}
+                          name="gestor"
+                          checked={checkboxValues.gestor}
+                          onChange={handleCheckboxChange}
                         />
                       }
                       label="Gestor"
@@ -190,8 +175,9 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={checkboxStates[item.saram] || false}
-                          onChange={(event) => handleCheckboxChange(event, item.saram)}
+                          name="chefe"
+                          checked={checkboxValues.chefe}
+                          onChange={handleCheckboxChange}
                         />
                       }
                       label="Chefe"
@@ -201,8 +187,9 @@ function ListUsersCard() {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={checkboxStates[item.saram] || false}
-                          onChange={(event) => handleCheckboxChange(event, item.saram)}
+                          name="identificador"
+                          checked={checkboxValues.identificador}
+                          onChange={handleCheckboxChange}
                         />
                       }
                       label="Identificador"
