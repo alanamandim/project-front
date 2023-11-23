@@ -34,6 +34,7 @@ function ListUsersCard() {
   const { user } = useContext(AuthContext);
   const [dataGet, setDataGet] = useState([{}]);
   const [expanded, setExpanded] = useState(false);
+  const [saram, setSaram] = React.useState("");
   const [userSelected, setUserSelected] = useState<any>({});
   const [open, setOpen] = React.useState(false);
   const handleOpen = (item: any) => {
@@ -96,8 +97,7 @@ function ListUsersCard() {
 
   // FIXME: Call this function when the button is pressed to refresh the content
   // FIXME: 'putInfo' is declared but its value is never read.
-  async function putInfo(id: string) {
-    const saram = id;
+  async function putInfo() {
     const formData = {
       saram,
       motorista: checkboxValues.motorista,
@@ -157,7 +157,12 @@ function ListUsersCard() {
                 sx={{ overflow: "hidden" }}
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <Button onClick={() => handleOpen(item)}>
+                <Button
+                  onClick={() => {
+                    setSaram(item.saram);
+                    handleOpen(item);
+                  }}
+                >
                   Abrir Formulário
                 </Button>
               </CardActions>
@@ -238,7 +243,7 @@ function ListUsersCard() {
                 />
               </Typography>
             </Typography>
-            <Button type="submit" onClick={() => putInfo(user.saram)}>
+            <Button type="submit" onClick={() => putInfo()}>
               Salvar
             </Button>
           </form>
