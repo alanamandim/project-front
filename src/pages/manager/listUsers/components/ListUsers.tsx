@@ -100,7 +100,11 @@ function ListUsersCard() {
     const saram = id;
     const formData = {
       saram,
-      checkboxValues,
+      motorista: checkboxValues.motorista,
+      aprovador: checkboxValues.aprovador,
+      gestor: checkboxValues.gestor,
+      chefe: checkboxValues.chefe,
+      idetificador: checkboxValues.identificador,
     };
     console.log(formData);
     const response = await fetch(url + "/gestorDePerfil", {
