@@ -20,6 +20,7 @@ import Inspecao from "./pages/driver/fichaInspecao";
 import CreateCar from "./pages/manager/createCards";
 import Missao from "./pages/driver/fichaMissao";
 import CreateCarModel from "./pages/manager/CreateModels";
+import VisualizacaoUser from "./pages/manager/listUsers/VisualizacaoUser";
 
 function App() {
   return (
@@ -49,6 +50,10 @@ function App() {
         <Route path="/approver/fichas-retorno" element={<ReturnSheets />} />
         <Route path="/manager" element={<Manager />} />
         <Route path="/manager/list-users" element={<ListUsersPage />} />
+        <Route
+          path="/manager/list-users/ficha"
+          element={<VisualizacaoUser />}
+        />
         <Route path="/manager/aprove-requests" element={<RequestUsers />} />
         <Route path="/manager/create-cars" element={<CreateCar />} />
         <Route

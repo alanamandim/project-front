@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Box, Checkbox, FormControlLabel, Modal } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
 import * as React from "react";
@@ -16,18 +15,6 @@ import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 function ListUsersCard() {
   const url = "http://localhost:8080";
@@ -41,25 +28,9 @@ function ListUsersCard() {
     setUserSelected(item);
     setOpen(true);
   };
-  const handleClose = () => setOpen(false);
-  const [checkboxValues, setCheckboxValues] = useState({
-    motorista: true,
-    aprovador: true,
-    gestor: true,
-    chefe: true,
-    identificador: true,
-  });
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
-  };
-
-  const handleCheckboxChange = (event: any) => {
-    const { name, checked } = event.target;
-    setCheckboxValues({
-      ...checkboxValues,
-      [name]: checked,
-    });
   };
 
   interface ExpandMoreProps extends IconButtonProps {
@@ -97,26 +68,6 @@ function ListUsersCard() {
 
   // FIXME: Call this function when the button is pressed to refresh the content
   // FIXME: 'putInfo' is declared but its value is never read.
-  async function putInfo() {
-    const formData = {
-      saram,
-      motorista: checkboxValues.motorista,
-      aprovador: checkboxValues.aprovador,
-      gestor: checkboxValues.gestor,
-      chefe: checkboxValues.chefe,
-      idetificador: checkboxValues.identificador,
-    };
-    console.log(formData);
-    const response = await fetch(url + "/gestorDePerfil", {
-      method: "PUT",
-      body: JSON.stringify(formData),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      setDataGet(data);
-    }
-  }
   return (
     <ul>
       {dataGet.map((item: any) => (
@@ -159,8 +110,8 @@ function ListUsersCard() {
               >
                 <Button
                   onClick={() => {
-                    setSaram(item.saram);
-                    handleOpen(item);
+                    localStorage.setItem("user", item);
+                    window.location.href = "/manager/list-users/ficha";
                   }}
                 >
                   Abrir Formulário
@@ -170,85 +121,6 @@ function ListUsersCard() {
           </Collapse>
         </Card>
       ))}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              {userSelected.nome}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <Typography paragraph>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="motorista"
-                      checked={checkboxValues.motorista}
-                      onChange={handleCheckboxChange}
-                    />
-                  }
-                  label="Motorista"
-                />
-              </Typography>
-              <Typography paragraph>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="aprovador"
-                      checked={checkboxValues.aprovador}
-                      onChange={handleCheckboxChange}
-                    />
-                  }
-                  label="Aprovador"
-                />
-              </Typography>
-              <Typography paragraph>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="gestor"
-                      checked={checkboxValues.gestor}
-                      onChange={handleCheckboxChange}
-                    />
-                  }
-                  label="Gestor"
-                />
-              </Typography>
-              <Typography paragraph>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="chefe"
-                      checked={checkboxValues.chefe}
-                      onChange={handleCheckboxChange}
-                    />
-                  }
-                  label="Chefe"
-                />
-              </Typography>
-              <Typography paragraph>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="identificador"
-                      checked={checkboxValues.identificador}
-                      onChange={handleCheckboxChange}
-                    />
-                  }
-                  label="Identificador"
-                />
-              </Typography>
-            </Typography>
-            <Button type="submit" onClick={() => putInfo()}>
-              Salvar
-            </Button>
-          </form>
-        </Box>
-      </Modal>
     </ul>
   );
 }
