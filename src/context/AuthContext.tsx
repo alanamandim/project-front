@@ -64,21 +64,6 @@ const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [relatorio, setRelatorio] = useState([]);
 
-  useEffect(() => {
-    // Verificar se o usuário existe antes de salvar
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    }
-  }, [user]);
-
-  // Efeito para carregar o estado do usuário do localStorage ao montar o componente
-  useEffect(() => {
-    const userFromLocalStorage = localStorage.getItem("user");
-    if (userFromLocalStorage) {
-      setUser(JSON.parse(userFromLocalStorage));
-    }
-  }, []);
-
   return (
     <AuthContext.Provider
       value={{
