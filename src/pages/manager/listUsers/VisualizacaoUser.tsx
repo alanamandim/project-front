@@ -1,4 +1,10 @@
-import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Typography,
+} from "@mui/material";
 import * as React from "react";
 
 const VisualizacaoUser = () => {
@@ -41,13 +47,27 @@ const VisualizacaoUser = () => {
   }
 
   const user: any = localStorage.getItem("user");
-  setSaram(user.saram);
+
+  const estiloDoContainer: any = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "2rem",
+    /* Outros estilos se necessário */
+  };
 
   return (
     <>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form
+        onSubmit={(e) => {
+          setSaram(user.saram);
+          e.preventDefault();
+        }}
+        style={estiloDoContainer}
+      >
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          {user.nome}
+          {user.nome /*"Artrid Artilheiro de Milão Souza Cabrito"} */}
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           <Typography paragraph>

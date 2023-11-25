@@ -5,9 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useContext } from "react";
-import { AuthContext } from "../../../../context/AuthContext";
-import * as React from "react";
 import { styled } from "@mui/material/styles";
 import CardHeader from "@mui/material/CardHeader";
 import Collapse from "@mui/material/Collapse";
@@ -18,16 +15,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function ListUsersCard() {
   const url = "http://localhost:8080";
-  const { user } = useContext(AuthContext);
   const [dataGet, setDataGet] = useState([{}]);
   const [expanded, setExpanded] = useState(false);
-  const [saram, setSaram] = React.useState("");
-  const [userSelected, setUserSelected] = useState<any>({});
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (item: any) => {
-    setUserSelected(item);
-    setOpen(true);
-  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
