@@ -21,13 +21,13 @@ const VisualizacaoUser = () => {
     setUser(userOBJ);
   }
 
-  const handleCheckboxChange = (event: any) => {
-    const { name, checked } = event.target;
-    setCheckboxValues({
-      ...checkboxValues,
-      [name]: checked,
-    });
-  };
+  // const handleCheckboxChange = (event: any) => {
+  //   const { name, checked } = event.target;
+  //   setCheckboxValues({
+  //     ...checkboxValues,
+  //     [name]: checked,
+  //   });
+  // };
 
   async function putInfo() {
     const formData = {
