@@ -90,7 +90,7 @@ const Driver = () => {
                   navigate("/driver/ficha-missao");
                 }}
               >
-                Visualizar Ficha da Viatura
+                Gerenciar Ficha de Viatura
               </Button>
             </Grid>
           </Grid>

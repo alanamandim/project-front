@@ -33,7 +33,7 @@ const Manager = () => {
                   navigate("/manager/list-users");
                 }}
               >
-                Tags de usuário
+                Gerenciar Usuário
               </Button>
             </Grid>
             <Grid item mb={3}>
@@ -46,7 +46,7 @@ const Manager = () => {
                   navigate("/manager/aprove-requests");
                 }}
               >
-                Solicitações de Reserva
+                Gerenciar Solicitações de Reserva
               </Button>
             </Grid>
             <Grid item mb={3}>

@@ -46,7 +46,7 @@ const Approver = () => {
                   navigate("/approver/solicitar-veiculos");
                 }}
               >
-                Ver Solicitações
+                Gerenciar Solicitações
               </Button>
             </Grid>
             <Grid item mb={3}>
@@ -59,7 +59,7 @@ const Approver = () => {
                   navigate("/approver/fichas-retorno");
                 }}
               >
-                Fichas de Retorno
+                Fechar Fichas
               </Button>
             </Grid>
           </Grid>
