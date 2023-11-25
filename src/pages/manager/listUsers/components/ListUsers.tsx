@@ -99,7 +99,7 @@ function ListUsersCard() {
               >
                 <Button
                   onClick={() => {
-                    localStorage.setItem("user", JSON.stringify(item));
+                    localStorage.setItem("userPUT", JSON.stringify(item));
                     setExpanded(false);
                     window.location.href = "/manager/list-users/ficha";
                   }}
