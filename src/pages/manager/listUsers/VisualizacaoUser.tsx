@@ -1,15 +1,11 @@
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import * as React from "react";
 
 const VisualizacaoUser = () => {
   const url = "http://localhost:8080";
+  const userLocal: any = localStorage.getItem("user");
   const [saram, setSaram] = React.useState("");
+  const [user, setUser] = React.useState<any>({});
   const [checkboxValues, setCheckboxValues] = React.useState({
     motorista: true,
     aprovador: true,
@@ -17,6 +13,14 @@ const VisualizacaoUser = () => {
     chefe: true,
     identificador: true,
   });
+
+  if (userLocal) {
+    const userOBJ = JSON.parse(userLocal);
+    console.log(userOBJ);
+    setSaram(userOBJ.saram);
+    setUser(userOBJ);
+  }
+
   const handleCheckboxChange = (event: any) => {
     const { name, checked } = event.target;
     setCheckboxValues({
@@ -46,8 +50,6 @@ const VisualizacaoUser = () => {
     }
   }
 
-  const user: any = localStorage.getItem("user");
-
   const estiloDoContainer: any = {
     display: "flex",
     flexDirection: "column",
@@ -61,7 +63,6 @@ const VisualizacaoUser = () => {
     <>
       <form
         onSubmit={(e) => {
-          setSaram(user.saram);
           e.preventDefault();
         }}
         style={estiloDoContainer}
