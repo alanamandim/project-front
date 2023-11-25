@@ -226,7 +226,7 @@ const Relatorio = () => {
                       {`Aranhado: ${item.aranhado ? "SIM" : "NÃO"}`}
                     </Typography>
                     <Typography paragraph>
-                      {`Tanque: ${item.tanque ? "SIM" : "NÃO"}`}
+                      {`Tanque: ${item.tanque}`}
                     </Typography>
                     <Typography paragraph>
                       {`Observação: ${item.observacao}`}

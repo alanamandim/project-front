@@ -211,18 +211,22 @@ const MissaoFicha = () => {
             <TextField disabled fullWidth value={arrayData.tanque} />
           </Grid>
           <Grid item mb={3}>
-            <FormLabel>Pneu: {pneuCheck ? "SIM" : "NÃO"}</FormLabel>
+            <FormLabel>Pneu: {arrayData.pneu ? "SIM" : "NÃO"}</FormLabel>
           </Grid>
           <Grid item mb={3}>
             <FormLabel>
-              Água do Radiador: {aguaRadiadorCheck ? "SIM" : "NÃO"}
+              Água do Radiador: {arrayData.aguaRadiador ? "SIM" : "NÃO"}
             </FormLabel>
           </Grid>
           <Grid item mb={3}>
-            <FormLabel>Amassado: {amassadoCheck ? "SIM" : "NÃO"}</FormLabel>
+            <FormLabel>
+              Amassado: {arrayData.amassado ? "SIM" : "NÃO"}
+            </FormLabel>
           </Grid>
           <Grid item mb={3}>
-            <FormLabel>Arranhado: {arranhadoCheck ? "SIM" : "NÃO"}</FormLabel>
+            <FormLabel>
+              Arranhado: {arrayData.aranhado ? "SIM" : "NÃO"}
+            </FormLabel>
           </Grid>
           <Grid item mb={3}>
             <FormLabel>Observação</FormLabel>
