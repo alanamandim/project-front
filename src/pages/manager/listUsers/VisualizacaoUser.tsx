@@ -1,9 +1,10 @@
 import { Button, Checkbox, FormControlLabel, Typography } from "@mui/material";
 import * as React from "react";
+import { toast } from "react-toastify";
 
 const VisualizacaoUser = () => {
   const url = "http://localhost:8080";
-  const userLocal: any = localStorage.getItem("user");
+  const userLocal: any = localStorage.getItem("userPUT");
   const [saram, setSaram] = React.useState("");
   const [user, setUser] = React.useState<any>({});
   const [checkboxValues, setCheckboxValues] = React.useState({
@@ -14,19 +15,21 @@ const VisualizacaoUser = () => {
     identificador: true,
   });
 
-  if (userLocal) {
-    const userOBJ = JSON.parse(userLocal);
-    console.log(userOBJ);
-    setSaram(userOBJ.saram);
-    setUser(userOBJ);
-  }
+  React.useEffect(() => {
+    if (userLocal) {
+      const userOBJ = JSON.parse(userLocal);
+      console.log(userOBJ);
+      setSaram(userOBJ.saram);
+      setUser(userOBJ);
+    }
+  }, []);
 
   const handleCheckboxChange = (event: any) => {
-    // const { name, checked } = event.target;
-    // setCheckboxValues({
-    //   ...checkboxValues,
-    //   [name]: checked,
-    // });
+    const { name, checked } = event.target;
+    setCheckboxValues({
+      ...checkboxValues,
+      [name]: checked,
+    });
   };
 
   async function putInfo() {
@@ -45,8 +48,10 @@ const VisualizacaoUser = () => {
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
-      const data = await response.json();
-      console.log(data);
+      localStorage.removeItem("userPUT");
+      toast.success("Usuário Atualizado com sucesso!");
+    } else {
+      toast.error("Ops! Algo deu errado!");
     }
   }
 
