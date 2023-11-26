@@ -15,10 +15,7 @@ import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const Relatorio = () => {
   const [selectedVehicle, setSelectedVehicle] = useState<string>("");
@@ -54,10 +51,6 @@ const Relatorio = () => {
         headers: { "Content-Type": "application/json" },
       }
     );
-
-    console.log(
-      `http://localhost:8080/relatorio/${selectedVehicle}-${selectedVehicle2}`
-    );
     if (response.ok) {
       toast.success(`Registro efetuado com sucesso!`, {
         position: "top-right",
@@ -75,12 +68,9 @@ const Relatorio = () => {
       toast.error("Ops! Algo está incorreto.");
     } else {
       toast.error("Ops! Algo está incorreto.");
-      console.log(response.status);
-      console.log(response);
     }
   }
 
-  // eslint-disable-next-line no-lone-blocks
   return (
     <>
       {showContainerReady ? (

@@ -6,6 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 
 const url = "http://localhost:8080";
 
@@ -28,10 +29,10 @@ const ListRequests = () => {
       if (response.ok) {
         const data = await response.json();
         setDataGet(data);
-        console.log(data);
+        toast.success("Lista criada com sucesso!");
       }
     } catch (error) {
-      console.error("Erro ao obter dados:", error);
+      toast.error("Lista não criada, entre novamente mais tarde!");
     }
   }
 
@@ -47,14 +48,18 @@ const ListRequests = () => {
       if (response.ok) {
         const data = await response.json();
         setDataGet(data);
+        toast.success("Usuário alterado com sucesso!");
       }
     } catch (error) {
-      console.error("Erro ao atualizar dados:", error);
+      toast.error("Ops! Algo deu errado.");
     }
   }
 
   return (
-    <List dense sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+    <List
+      dense
+      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+    >
       {dataGet.map((value: any) => (
         <ListItem key={value.idReserva} disablePadding>
           <ListItemButton>

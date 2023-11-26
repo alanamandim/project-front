@@ -13,9 +13,7 @@ import { toast } from "react-toastify";
 import { AuthContext, IViatura } from "../../../../context/AuthContext";
 
 const SolicitacaoForm = () => {
-  // FIXME: Fix the route
   const url = "http://localhost:8080";
-
   const [motivo, setReason] = useState("");
   const [destino, setDestiny] = useState("");
   const [viatura, setVehicle] = useState("");
@@ -41,17 +39,13 @@ const SolicitacaoForm = () => {
       localStorage.removeItem("idSolicitacao");
     } else {
       const formData = { motivo, destino, viatura, motorista };
-      console.log(formData);
       const response = await fetch(url + "/adicionaSolicitacao", {
         method: "POST",
-        // FIXME: Check if the post method is correct
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },
       })
-        .then((response) => response.text()) // Converte o corpo da resposta para texto
+        .then((response) => response.text())
         .then((data) => {
-          // Exibe a mensagem no console
-          console.log(data);
           const userJSON = JSON.stringify(data);
           window.localStorage.setItem("idSolicitacao", userJSON);
           toast.success(`Requisição enviada! Id: ${data}`, {
@@ -80,7 +74,6 @@ const SolicitacaoForm = () => {
 
   useEffect(() => {
     getVehicles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getVehicles() {
@@ -88,15 +81,12 @@ const SolicitacaoForm = () => {
       url + "/listaViaturasDisponiveis/" + userContext.user.saram,
       {
         method: "GET",
-        // FIXME: Check if the post method is correct
         headers: { "Content-Type": "application/json" },
       }
     );
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + "/listaViaturasDisponiveis", data);
-
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -165,7 +155,6 @@ const SolicitacaoForm = () => {
             value={viatura}
             onChange={(e) => setVehicle(e.target.value)}
           >
-            {/* FIXME: Check if this getting values is correctly */}
             {availableVehicles &&
               Object.keys(availableVehicles).map((key) => (
                 <MenuItem

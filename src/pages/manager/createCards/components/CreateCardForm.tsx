@@ -31,8 +31,6 @@ const CreatedCardForm = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
-
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -42,8 +40,17 @@ const CreatedCardForm = () => {
         draggable: true,
         progress: undefined,
       });
-
       setModelSelect(data);
+    } else {
+      toast.error(`Houve um problema, tente novamente mais tarde.`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
@@ -53,7 +60,6 @@ const CreatedCardForm = () => {
 
   async function postValuesFromForm() {
     const url = "http://localhost:8080";
-
     const data = {
       placa,
       chassi,
@@ -61,16 +67,12 @@ const CreatedCardForm = () => {
       hodometro,
       modelo,
     };
-
-    console.log(data);
-
     const response = await fetch(url + "/adicionaViatura", {
       method: "POST",
       // FIXME: Check if the post method is correct
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
     if (response.ok) {
       toast.success(`Viatura adicionada!`, {
         position: "top-right",
@@ -82,7 +84,7 @@ const CreatedCardForm = () => {
         progress: undefined,
       });
     } else {
-      toast.success(`Ops, algo deu errado!`, {
+      toast.error(`Ops, algo deu errado!`, {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: false,

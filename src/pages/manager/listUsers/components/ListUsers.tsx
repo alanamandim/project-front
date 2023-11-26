@@ -12,16 +12,15 @@ import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { toast } from "react-toastify";
 
 function ListUsersCard() {
-  const url = "http://localhost:8080";
   const [dataGet, setDataGet] = useState([{}]);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
   }
@@ -37,7 +36,6 @@ function ListUsersCard() {
     }),
   }));
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function getInfo() {
     const response = await fetch("http://localhost:8080/usuariosPendentes", {
       method: "GET",
@@ -46,8 +44,10 @@ function ListUsersCard() {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url, data);
+      toast.success("Lista criada com sucesso!");
       setDataGet(data);
+    } else {
+      toast.error("Lista não criada, entre novamente mais tarde!");
     }
   }
 
@@ -55,8 +55,6 @@ function ListUsersCard() {
     getInfo();
   }, []);
 
-  // FIXME: Call this function when the button is pressed to refresh the content
-  // FIXME: 'putInfo' is declared but its value is never read.
   return (
     <ul>
       {dataGet.map((item: any) => (

@@ -18,7 +18,6 @@ const VisualizacaoUser = () => {
   React.useEffect(() => {
     if (userLocal) {
       const userOBJ = JSON.parse(userLocal);
-      console.log(userOBJ);
       setSaram(userOBJ.saram);
       setUser(userOBJ);
     }
@@ -41,7 +40,6 @@ const VisualizacaoUser = () => {
       chefe: checkboxValues.chefe,
       idetificador: checkboxValues.identificador,
     };
-    console.log(formData);
     const response = await fetch(url + "/gestorDePerfil", {
       method: "PUT",
       body: JSON.stringify(formData),
@@ -61,7 +59,6 @@ const VisualizacaoUser = () => {
     alignItems: "center",
     justifyContent: "center",
     padding: "2rem",
-    /* Outros estilos se necessário */
   };
 
   return (
@@ -73,7 +70,7 @@ const VisualizacaoUser = () => {
         style={estiloDoContainer}
       >
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          {user.nome /*"Artrid Artilheiro de Milão Souza Cabrito"} */}
+          {user.nome}
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           <Typography paragraph>

@@ -27,65 +27,56 @@ const InspecaoForm: any = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    // Obtenha o objeto user do localStorage
     const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
     if (storedIdSolicitacao) {
-      // Parse o objeto do localStorage para um objeto JavaScript
       const parsedUser = JSON.parse(storedIdSolicitacao);
-
-      // Defina o objeto user no estado
       setIdSolicitacao(parsedUser);
     } else {
       getSolicitacaoId();
     }
-
     getInfo();
   }, []);
 
   const getSolicitacaoId = async () => {
     const response = await fetch(
-      // FIXME: Change the URL to get tanque selects
       url + `/listaSolicitacaoInspecao/${user.saram}`,
       {
         method: "GET",
-        // FIXME: Check if the post method is correct
         headers: { "Content-Type": "application/json" },
       }
     );
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
-
-      // FIXME: Change the state than will receive the value
       setIdSolicitacao(data.idSolicitacao);
+      toast.success(`Lista montada!`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
-      toast.success("Olá, faça a sua primeira solicitação!");
+      toast.error("Algo deu errado!");
     }
   };
 
   const getInfo = async () => {
-    const response = await fetch(
-      // FIXME: Change the URL to get tanque selects
-      url + "/listaTanque",
-      {
-        method: "GET",
-        // FIXME: Check if the post method is correct
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const response = await fetch(url + "/listaTanque", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + "/listaTanque", data);
 
-      // FIXME: Change the state than will receive the value
       setTanqueValues(data);
     }
   };
 
   const sendInfo = async () => {
-    // FIXME: Check if this method is correctly
     const data = {
       oleo,
       pneu,
@@ -96,8 +87,6 @@ const InspecaoForm: any = () => {
       obs,
       idSolicitacao,
     };
-
-    console.log(data);
 
     try {
       const response = await fetch(url + "/adicionaInspecao", {
@@ -195,7 +184,6 @@ const InspecaoForm: any = () => {
           value={tanque}
           onChange={(e) => setTanque(e.target.value)}
         >
-          {/* FIXME: Check if this getting values is correctly */}
           {tanqueValues &&
             Object.keys(tanqueValues).map((key, index) => (
               <MenuItem

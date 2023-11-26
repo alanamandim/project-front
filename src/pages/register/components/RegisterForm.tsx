@@ -69,8 +69,6 @@ const RegisterForm = () => {
   function getValuesFromForm() {
     if (senha === checksenha) {
       const formData = { nome, saram, email, senha };
-
-      // Exemplo de como enviar o arquivo para o back-end usando fetch API.
       fetch(`http://localhost:8080/registraUsuario`, {
         method: "POST",
         headers: {
@@ -90,21 +88,16 @@ const RegisterForm = () => {
               progress: undefined,
             });
             localStorage.setItem("saram", JSON.stringify(saram));
-
             toast.success(
               "Tudo certo, agora nos envie uma foto se for motorista!"
             );
           } else if (response.status === 401) {
-            // Invalid ID
             toast.error("Ops! Login ou senha incorreto.");
           } else {
             toast.error("Ops! Login ou senha incorreto.");
-            console.log(response.status);
-            console.log(response);
           }
         })
         .catch((error) => {
-          // Os erros, se houver.
           toast.error(`Ops! Algo está incorreto!`, {
             position: "top-right",
             autoClose: 4000,

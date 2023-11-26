@@ -1,24 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import FormLabel from "@mui/material/FormLabel";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../../context/AuthContext";
 
 const MissaoFicha = () => {
-  // FIXME: Fix the route
   const url = "http://localhost:8080";
-
   const [arrayData, setArrayData] = useState<any>({});
   const [kmFinalP, setKmFinal] = useState<any>(null);
   const [obsP, setObs] = useState<string>("");
   const [id, setId] = useState<any>(null);
-
   const [oleoCheck, setOleoCheck] = useState<boolean>(false);
   const [pneuCheck, setPneuCheck] = useState<boolean>(false);
   const [radiadorCheck, setRadiadorCheck] = useState<boolean>(false);
@@ -29,36 +20,26 @@ const MissaoFicha = () => {
   const userContext = useContext(AuthContext);
 
   useEffect(() => {
-    // Obtenha o objeto user do localStorage
     const storedIdSolicitacao = localStorage.getItem("idSolicitacao");
     if (storedIdSolicitacao) {
-      // Parse o objeto do localStorage para um objeto JavaScript
       const parsedUser = JSON.parse(storedIdSolicitacao);
-
-      // Defina o objeto user no estado
       setId(parsedUser);
     } else {
       getSolicitacaoId();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getSolicitacaoId = async () => {
     const response = await fetch(
-      // FIXME: Change the URL to get tanque selects
       url + `/listaSolicitacaoInspecao/${userContext.user.saram}`,
       {
         method: "GET",
-        // FIXME: Check if the post method is correct
         headers: { "Content-Type": "application/json" },
       }
     );
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
-
-      // FIXME: Change the state than will receive the value
       setId(data.idSolicitacao);
     } else {
       toast.success("Olá, faça a sua primeira solicitação!");
@@ -75,7 +56,6 @@ const MissaoFicha = () => {
     setAmassadoCheck(arrayData.amassado);
     setArranhadoCheck(arrayData.arranhado);
     setArrayData({ ...arrayData });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getVehicles() {
@@ -89,9 +69,7 @@ const MissaoFicha = () => {
 
     if (response.ok) {
       const dataArray = await response.json();
-      console.log(dataArray, "adasddsadsadsadsadsad");
       setArrayData(dataArray);
-
       toast.success(`Ficha Formada com Sucesso!`, {
         position: "top-right",
         autoClose: 4000,
@@ -128,7 +106,6 @@ const MissaoFicha = () => {
       amassadoCheck,
       arranhadoCheck,
     };
-    console.log(dataReq);
     const response = await fetch(url + "/fechaFichaMotora", {
       method: "PUT",
       body: JSON.stringify(dataReq),

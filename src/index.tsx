@@ -12,9 +12,15 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode> {/* Para funcionar o reactTS */}
-    <BrowserRouter> {/* Funcionar as rotas /login... */}
-      <AuthProvider> {/* Para funcionar as Rotas da API */}
+  <React.StrictMode>
+    {" "}
+    {/* Para funcionar o reactTS */}
+    <BrowserRouter>
+      {" "}
+      {/* Funcionar as rotas /login... */}
+      <AuthProvider>
+        {" "}
+        {/* Para funcionar as Rotas da API */}
         <App /> {/* Toda a aplicação */}
         <ToastContainer
           position="top-right"
@@ -26,13 +32,11 @@ root.render(
           pauseOnFocusLoss
           draggable
           pauseOnHover
-        /> {/* Toasts de avisos */}
+        />{" "}
+        {/* Toasts de avisos */}
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -34,7 +34,6 @@ const ReservasForm = () => {
 
   useEffect(() => {
     getInfoSolicitacao();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getInfoSolicitacao() {
@@ -77,7 +76,6 @@ const ReservasForm = () => {
     const aprovador = userContext.user.saram;
     const status = "Cancelada";
     const data = { aprovador, status, id };
-    console.log(data);
     const response = await fetch(url + `/modificaStatusSolicitacao`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -112,7 +110,6 @@ const ReservasForm = () => {
     const id = idReserva;
     const status = "Cancelada";
     const data = { status, id };
-    console.log(data);
     const response = await fetch(url + `/modificaStatusReserva`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -175,16 +172,15 @@ const ReservasForm = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {`
-                                        Status da Solicitação: ${item.status}
-                                        Motivo: ${item.motivo}
-                                        Destino: ${item.destino}
-                                        Viatura: ${item.viatura}
+                                        Status da Solicitação: ${item.status} | 
+                                        Motivo: ${item.motivo} | 
+                                        Destino: ${item.destino} | 
+                                        Viatura: ${item.viatura} | 
                                         Placa: ${item.placa}
                                     `}
                 </Typography>
                 <Button
                   onClick={() => {
-                    console.log(item.idSolicitacao);
                     cancelarPedidoSolicitacao(item.idSolicitacao);
                   }}
                 >
@@ -212,10 +208,10 @@ const ReservasForm = () => {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {`
-                                        Status da Solicitação: ${item.statusSolicitacao}
-                                        Motivo: ${item.motivo}
-                                        Viatura: ${item.viatura}
-                                        Placa: ${item.placa}
+                                        Status da Solicitação: ${item.statusSolicitacao} | 
+                                        Motivo: ${item.motivo} | 
+                                        Viatura: ${item.viatura} | 
+                                        Placa: ${item.placa} | 
                                     `}
                 </Typography>
                 <Button

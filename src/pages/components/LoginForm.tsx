@@ -29,10 +29,7 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        // A solicitação foi bem-sucedida (código de status 2xx)
         const data = await response.json();
-        console.log(url + "email/", data);
-
         setUser(data);
         localStorage.clear();
         const userJSON = JSON.stringify(data);
@@ -87,23 +84,15 @@ const LoginForm = () => {
             draggable: true,
             progress: undefined,
           });
-
-          const data = response.json();
-          console.log(url + "loginusuario", data);
-
           getEmail();
         } else if (response.status === 401) {
           // Invalid ID
           toast.error("Ops! Login ou senha incorreto.");
         } else {
           toast.error("Ops! Login ou senha incorreto.");
-          console.log(response.status);
-          console.log(response);
         }
       })
       .catch((error) => {
-        // Os erros, se houver.
-        console.log(error);
         toast.error(`Ops! Algo inesperado aconteceu`, {
           position: "top-right",
           autoClose: 4000,

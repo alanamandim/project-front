@@ -1,5 +1,4 @@
 import FormLabel from "@mui/material/FormLabel";
-
 import {
   Button,
   Grid,
@@ -13,9 +12,7 @@ import { toast } from "react-toastify";
 import { AuthContext, IViatura } from "../../../../context/AuthContext";
 
 const ReservaForm = () => {
-  // FIXME: Fix the route
   const url = "http://localhost:8080";
-
   const [motivo, setReason] = useState("");
   const [dataHrInicio, setDtHrIni] = useState("");
   const [dataHrFim, setDtHrFim] = useState("");
@@ -29,18 +26,13 @@ const ReservaForm = () => {
 
   async function sendInfo() {
     const formData = { motivo, dataHrInicio, dataHrFim, motorista, viatura };
-    console.log(formData);
-
-    //FIXME: 'response' is declared but its value is never read.
     const response = await fetch(url + "/adicionaReserva", {
       method: "POST",
-      // FIXME: Check if the post method is correct
       body: JSON.stringify(formData),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.text()) // Converte o corpo da resposta para texto
+      .then((response) => response.text())
       .then((data) => {
-        console.log(data); // Exibe a mensagem no console
         const userJSON = JSON.stringify(data);
         window.localStorage.setItem("idReserva", userJSON);
         toast.success(`Requisição enviada! Id: ${data}`, {
@@ -68,21 +60,16 @@ const ReservaForm = () => {
 
   useEffect(() => {
     getAvailableVehicles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getAvailableVehicles() {
-    //AJUSTAR O SELECT, TEM QUE APARECER O MODELO DA VIATURA E A PLACA DELA, O VALOR ENVIADO DEVE SER A PLACA!
     const response = await fetch(url + "/listaSituacaoViaturas", {
       method: "GET",
-      // FIXME: Check if the post method is correct
       headers: { "Content-Type": "application/json" },
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(url + "/listaSituacaoViaturas", data);
-
       toast.success(`Requisição enviada!`, {
         position: "top-right",
         autoClose: 4000,
@@ -92,8 +79,17 @@ const ReservaForm = () => {
         draggable: true,
         progress: undefined,
       });
-
       setAvailableVehicles(data);
+    } else {
+      toast.error(`Ops! Algo deu errado.`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
@@ -130,8 +126,6 @@ const ReservaForm = () => {
       setDtHrFim(formFim);
     }
   }
-
-  console.log(availableVehicles);
 
   return (
     <>
@@ -176,7 +170,6 @@ const ReservaForm = () => {
               value={selectedVehicle}
               onChange={(e) => setSelectedVehicle(e.target.value)}
             >
-              {/* FIXME: Check if this getting values is correctly */}
               {availableVehicles &&
                 Object.keys(availableVehicles).map((key) => (
                   <MenuItem
@@ -191,7 +184,6 @@ const ReservaForm = () => {
             </Select>
           </Grid>
           <Grid item mb={3}>
-            {/* tem que tirar e substituir pelo saram depois! */}
             <FormLabel htmlFor="motorista">Motorista</FormLabel>
             <TextField
               disabled

@@ -9,19 +9,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Obtenha o objeto user do localStorage
     const storedUser = localStorage.getItem("user");
 
     if (storedUser) {
-      // Parse o objeto do localStorage para um objeto JavaScript
       const parsedUser = JSON.parse(storedUser);
-
-      // Defina o objeto user no estado
       setUser(parsedUser);
     }
   }, [setUser, user]);
-
-  console.log(user);
 
   return (
     <>

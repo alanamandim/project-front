@@ -9,7 +9,6 @@ const FormCreateModel = () => {
   async function postValuesFromForm() {
     const url = "http://localhost:8080";
     const formData = { marca, modelo };
-    console.log(formData);
 
     const response = await fetch(url + "/adicionaModelo", {
       method: "POST",
@@ -58,6 +57,7 @@ const FormCreateModel = () => {
       setModelo(formModelo);
     }
   }
+
   return (
     <form onChange={getValuesFromForm}>
       <Grid

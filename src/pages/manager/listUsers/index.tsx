@@ -1,11 +1,19 @@
 import { AuthContext } from "../../../context/AuthContext";
 import { Grid, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ListUsersCard from "./components/ListUsers";
 import { toast } from "react-toastify";
 
 const ListUsersPage = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!user) {
+      const userLS: any = localStorage.getItem("user");
+      const userOBJ = JSON.parse(userLS);
+      setUser(userOBJ);
+    }
+  }, []);
 
   return (
     <>

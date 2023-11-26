@@ -12,18 +12,12 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../../../context/AuthContext";
 
 const AllCarsSolicitacoes = () => {
-  // FIXME: Check if this method is correctly
   const url = "http://localhost:8080";
-
   const [dataGet, setDataGet] = useState([]);
-  // const [aprovador, setAprovador] = useState("");
-  // const [status, setStatus] = useState("");
-  // const [id, setId] = useState(null);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
     getInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getInfo() {
@@ -35,13 +29,12 @@ const AllCarsSolicitacoes = () => {
     if (response.ok) {
       const data = await response.json();
       setDataGet(data);
-      console.log(data);
     }
   }
 
   async function putInfo(aprovador: string, status: string, id: number) {
     const data = { aprovador, status, id };
-    console.log(data);
+
     const response = await fetch(url + `/modificaStatusSolicitacao`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -76,7 +69,6 @@ const AllCarsSolicitacoes = () => {
         }}
         subheader={<li />}
       >
-        {/* FIXME: Put the interface of item and NEVER USE ANY */}
         {dataGet?.map((item: any) => (
           <li key={`section-${item.id}`}>
             <ul>
