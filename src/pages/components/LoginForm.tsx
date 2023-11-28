@@ -1,48 +1,49 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 import Grid from "@mui/material/Grid";
 import { Button, FormLabel, TextField, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string>("");
-  const [senha, setsenha] = useState<string>("");
-  const { setUser } = useContext(AuthContext);
+  // const [email, setEmail] = useState<string>("");
+  // const [senha, setsenha] = useState<string>("");
+  const { setEmail, setSenha, submitLogin, email, senha } =
+    useContext(AuthContext);
 
   const goToRegister = () => {
     navigate("/register");
   };
 
-  const url = "http://localhost:8080/";
+  ///const url = "http://localhost:8080/";
 
-  async function getEmail() {
-    try {
-      const response = await fetch(url + "email/" + email, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  // async function getEmail() {
+  //   try {
+  //     const response = await fetch(url + "email/" + email, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data);
-        localStorage.clear();
-        const userJSON = JSON.stringify(data);
-        window.localStorage.setItem("user", userJSON);
-        window.location.href = "/dashboard";
-      } else {
-        // A solicitação falhou (código de status não 2xx)
-        console.error("Falha no login:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Erro ao fazer a solicitação:", error);
-    }
-  }
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setUser(data);
+  //       localStorage.clear();
+  //       const userJSON = JSON.stringify(data);
+  //       window.localStorage.setItem("user", userJSON);
+  //       window.location.href = "/dashboard";
+  //     } else {
+  //       // A solicitação falhou (código de status não 2xx)
+  //       console.error("Falha no login:", response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error("Erro ao fazer a solicitação:", error);
+  //   }
+  // }
 
   function handleLogin() {
     const inputElementEmail = document.getElementById(
@@ -58,52 +59,52 @@ const LoginForm = () => {
     ) as HTMLInputElement | null;
     if (inputElementsenha !== null) {
       const formsenha = inputElementsenha.value;
-      setsenha(formsenha);
+      setSenha(formsenha);
     }
   }
 
-  async function submitLogin() {
-    const formData = { email, senha };
+  // async function submitLogin() {
+  //   const formData = { email, senha };
 
-    // Exemplo de como enviar o arquivo para o back-end usando fetch API.
-    fetch(url + "loginUsuario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response: any) => {
-        if (response.status === 200) {
-          toast.success(`Login efetuado com sucesso!`, {
-            position: "top-right",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          getEmail();
-        } else if (response.status === 401) {
-          // Invalid ID
-          toast.error("Ops! Login ou senha incorreto.");
-        } else {
-          toast.error("Ops! Login ou senha incorreto.");
-        }
-      })
-      .catch((error) => {
-        toast.error(`Ops! Algo inesperado aconteceu`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-  }
+  //   // Exemplo de como enviar o arquivo para o back-end usando fetch API.
+  //   fetch(url + "loginUsuario", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(formData),
+  //   })
+  //     .then((response: any) => {
+  //       if (response.status === 200) {
+  //         toast.success(`Login efetuado com sucesso!`, {
+  //           position: "top-right",
+  //           autoClose: 4000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //         });
+  //         getEmail();
+  //       } else if (response.status === 401) {
+  //         // Invalid ID
+  //         toast.error("Ops! Login ou senha incorreto.");
+  //       } else {
+  //         toast.error("Ops! Login ou senha incorreto.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       toast.error(`Ops! Algo inesperado aconteceu`, {
+  //         position: "top-right",
+  //         autoClose: 4000,
+  //         hideProgressBar: false,
+  //         closeOnClick: true,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //       });
+  //     });
+  // }
 
   return (
     <form onChange={handleLogin}>
